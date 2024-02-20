@@ -13,6 +13,8 @@ plugins {
   alias(libs.plugins.buildconfig)
 }
 
+description = "Pkl codegen plugin for Gradle"
+
 dependencies {
   // Declare a `compileOnly` dependency on `project(":pkl-tools")`
   // to ensure correct code navigation in IntelliJ.
