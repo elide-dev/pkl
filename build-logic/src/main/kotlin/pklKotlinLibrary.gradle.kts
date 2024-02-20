@@ -43,7 +43,7 @@ spotless {
   kotlin {
     ktfmt(libs.versions.ktfmt.get()).googleStyle()
     targetExclude("**/generated/**", "**/build/**")
-    licenseHeaderFile(rootProject.file("buildSrc/src/main/resources/license-header.star-block.txt"))
+    licenseHeaderFile(rootProject.file("build-logic/src/main/resources/license-header.star-block.txt"))
   }
 }
 
