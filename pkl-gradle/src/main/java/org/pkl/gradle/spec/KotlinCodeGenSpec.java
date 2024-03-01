@@ -16,8 +16,18 @@
 package org.pkl.gradle.spec;
 
 import org.gradle.api.provider.Property;
+import org.pkl.commons.PklExperimental;
 
 /** Configuration options for Kotlin code generators. Documented in user manual. */
 public interface KotlinCodeGenSpec extends CodeGenSpec {
+  Property<String> getIndent();
+
+  Property<String> getKotlinPackage();
+
   Property<Boolean> getGenerateKdoc();
+
+  Property<Boolean> getImplementSerializable();
+
+  @PklExperimental
+  Property<Boolean> getImplementKSerializable();
 }

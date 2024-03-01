@@ -1,16 +1,30 @@
 plugins {
-  pklAllProjects
-  pklJavaLibrary
-  pklKotlinLibrary
+  id("pklAllProjects")
+  id("pklJvmLibrary")
+  id("pklPureKotlin")
 }
 
+description = "Pkl packaging server"
+
 dependencies {
-  implementation(project(":pkl-core"))
+  implementation(projects.pklCore)
   implementation(libs.msgpack)
   implementation(libs.truffleApi)
   implementation(libs.antlrRuntime)
 
-  testImplementation(project(":pkl-commons-test"))
+  testImplementation(projects.pklCommonsTest)
+}
+
+testing.suites {
+  @Suppress("UnstableApiUsage") val unitTests by creating(JvmTestSuite::class) {
+    useJUnitJupiter(libs.versions.junit)
+    useKotlinTest(libs.versions.kotlin)
+  }
+}
+
+val unitTests by tasks.getting(Test::class) {
+  testClassesDirs = files(tasks.test.get().testClassesDirs)
+  classpath = tasks.test.get().classpath
 }
 
 tasks.test {
@@ -19,11 +33,6 @@ tasks.test {
   dependsOn(unitTests)
 
   useJUnitPlatform {
-    includeEngines("SnippetTestEngine")
+    includeEngines("BinaryEvaluatorSnippetTestEngine")
   }
-}
-
-val unitTests by tasks.registering(Test::class) {
-  testClassesDirs = files(tasks.test.get().testClassesDirs)
-  classpath = tasks.test.get().classpath
 }

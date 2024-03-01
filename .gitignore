@@ -1,5 +1,6 @@
 # macOS
 .DS_STORE
+.codebase/
 
 # Gradle
 .gradle/
@@ -8,6 +9,7 @@ generated/
 
 # IntelliJ
 .idea/
+!.idea/icon.svg
 !.idea/codestyles/
 !.idea/inspectionProfiles/
 !.idea/runConfigurations/
@@ -17,3 +19,6 @@ generated/
 # :pkl-core:makeIntelliJAntlrPluginHappy
 gen/
 PklLexer.tokens
+
+gradle-user-home
+profile-out

@@ -1,8 +1,11 @@
 plugins {
-  pklAllProjects
-  pklKotlinLibrary
-  pklPublishLibrary
+  id("pklAllProjects")
+  id("pklJvmLibrary")
+  id("pklPureKotlin")
+  id("pklPublishLibrary")
 }
+
+description = "Pkl runtime library for Kotlin"
 
 val pklConfigJava: Configuration by configurations.creating
 
@@ -16,11 +19,11 @@ val pklCodegenKotlin: Configuration by configurations.creating
 configurations.api.get().extendsFrom(pklConfigJava)
 
 dependencies {
-  pklConfigJava(project(":pkl-config-java"))
+  pklConfigJava(projects.pklConfigJava)
 
   pklConfigJavaAll(project(":pkl-config-java", "fatJar"))
 
-  pklCodegenKotlin(project(":pkl-codegen-kotlin"))
+  pklCodegenKotlin(projects.pklCodegenKotlin)
 
   implementation(libs.kotlinReflect)
   
@@ -32,7 +35,7 @@ val generateTestConfigClasses by tasks.registering(JavaExec::class) {
   inputs.dir("src/test/resources/codegenPkl")
 
   classpath = pklCodegenKotlin
-  mainClass.set("org.pkl.codegen.kotlin.Main")
+  mainClass = "org.pkl.codegen.kotlin.Main"
   args("--output-dir", "build/testConfigClasses")
   args(fileTree("src/test/resources/codegenPkl"))
 }
@@ -64,8 +67,8 @@ publishing {
   publications {
     named<MavenPublication>("library") {
       pom {
-        url.set("https://github.com/apple/pkl/tree/main/pkl-config-kotlin")
-        description.set("Kotlin extensions for pkl-config-java, a Java config library based on the Pkl config language.")
+        url = "https://github.com/apple/pkl/tree/main/pkl-config-kotlin"
+        description = "Kotlin extensions for pkl-config-java, a Java config library based on the Pkl config language."
 
         // change dependency pkl-config-java to pkl-config-java-all
         withXml {

@@ -1,20 +1,21 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-  pklAllProjects
-  pklKotlinLibrary
-  pklPublishLibrary
-  pklHtmlValidator
+  id("pklAllProjects")
+  id("pklJvmLibrary")
+  id("pklPureKotlin")
+  id("pklPublishLibrary")
+  id("pklHtmlValidator")
   @Suppress("DSL_SCOPE_VIOLATION") // https://youtrack.jetbrains.com/issue/KTIJ-19369
-  alias(libs.plugins.kotlinxSerialization)
+  id(libs.plugins.kotlinxSerialization.get().pluginId)
 }
+
+description = "Pkl documentation generator"
 
 val graalVmBaseDir = buildInfo.graalVm.baseDir
 
 dependencies {
-  implementation(project(":pkl-core"))
-  implementation(project(":pkl-commons-cli"))
-  implementation(project(":pkl-commons"))
+  implementation(projects.pklCore)
+  implementation(projects.pklCommonsCli)
+  implementation(projects.pklCommons)
   implementation(libs.commonMark)
   implementation(libs.commonMarkTables)
   implementation(libs.kotlinxHtml)
@@ -24,7 +25,7 @@ dependencies {
     exclude(group = "org.jetbrains.kotlin")
   }
 
-  testImplementation(project(":pkl-commons-test"))
+  testImplementation(projects.pklCommonsTest)
   testImplementation(libs.jimfs)
 
   // Graal.JS
@@ -36,8 +37,8 @@ publishing {
   publications {
     named<MavenPublication>("library") {
       pom {
-        url.set("https://github.com/apple/pkl/tree/main/pkl-doc")
-        description.set("Documentation generator for Pkl modules.")
+        url = "https://github.com/apple/pkl/tree/main/pkl-doc"
+        description = "Documentation generator for Pkl modules."
       }
     }
   }

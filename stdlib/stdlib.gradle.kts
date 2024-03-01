@@ -1,18 +1,20 @@
 plugins {
-  pklAllProjects
+  id("pklAllProjects")
   base
   `maven-publish`
   id("com.diffplug.spotless")
-  pklPublishLibrary
+  id("pklPublishLibrary")
   signing
 }
+
+description = "Pkl language standard library"
 
 // create and publish a self-contained stdlib archive
 // purpose is to provide non-jvm tools/projects with a versioned stdlib
 val stdlibZip by tasks.registering(Zip::class) {
-  destinationDirectory.set(file("$buildDir/libs"))
-  archiveBaseName.set("pkl-stdlib")
-  archiveVersion.set(project.version as String)
+  destinationDirectory = layout.buildDirectory.dir("libs")
+  archiveBaseName = "pkl-stdlib"
+  archiveVersion = project.version as String
   into("org/pkl/stdlib") {
     from(projectDir)
     include("*.pkl")
@@ -28,8 +30,8 @@ publishing {
       artifactId = "pkl-stdlib"
       artifact(stdlibZip.flatMap { it.archiveFile })
       pom {
-        description.set("Standard library for the Pkl programming language")
-        url.set("https://github.com/apple/pkl/tree/main/stdlib")
+        description = "Standard library for the Pkl programming language"
+        url = "https://github.com/apple/pkl/tree/main/stdlib"
       }
     }
   }
@@ -42,6 +44,6 @@ signing {
 spotless {
   format("pkl") {
     target("*.pkl")
-    licenseHeaderFile(rootProject.file("buildSrc/src/main/resources/license-header.line-comment.txt"), "/// ")
+    licenseHeaderFile(rootProject.file("build-logic/src/main/resources/license-header.line-comment.txt"), "/// ")
   }
 }

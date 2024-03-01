@@ -20,12 +20,16 @@ import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import java.io.StringWriter
 import java.net.URI
 import java.util.*
+import kotlinx.serialization.Serializable
 import org.pkl.core.*
 import org.pkl.core.util.CodeGeneratorUtils
 
 data class KotlinCodegenOptions(
   /** The characters to use for indenting generated Kotlin code. */
   val indent: String = "  ",
+
+  /** Kotlin package to use for generated code; if none is provided, the root package is used. */
+  val kotlinPackage: String = "",
 
   /** Whether to generate KDoc based on doc comments for Pkl modules, classes, and properties. */
   val generateKdoc: Boolean = false,
@@ -34,7 +38,10 @@ data class KotlinCodegenOptions(
   val generateSpringBootConfig: Boolean = false,
 
   /** Whether to make generated classes implement [java.io.Serializable] */
-  val implementSerializable: Boolean = false
+  val implementSerializable: Boolean = false,
+
+  /** Whether to annotate data classes with [kotlinx.serialization.Serializable] */
+  val implementKSerializable: Boolean = false,
 )
 
 class KotlinCodeGeneratorException(message: String) : RuntimeException(message)
@@ -111,6 +118,9 @@ class KotlinCodeGenerator(
       append("lin/${relativeOutputPathFor(moduleSchema.moduleName)}")
     }
 
+  val kotlinPackage: String?
+    get() = options.kotlinPackage.ifEmpty { null }
+
   val kotlinFile: String
     get() {
       if (moduleSchema.moduleUri.scheme == "pkl") {
@@ -123,6 +133,7 @@ class KotlinCodeGenerator(
 
       val hasProperties = pModuleClass.properties.any { !it.value.isHidden }
       val isGenerateClass = hasProperties || pModuleClass.isOpen || pModuleClass.isAbstract
+      val packagePrefix = kotlinPackage?.let { "$it." } ?: ""
       val moduleType =
         if (isGenerateClass) {
           generateTypeSpec(pModuleClass, moduleSchema)
@@ -131,7 +142,14 @@ class KotlinCodeGenerator(
         }
 
       for (pClass in moduleSchema.classes.values) {
-        moduleType.addType(generateTypeSpec(pClass, moduleSchema).ensureSerializable().build())
+        moduleType.addType(
+          generateTypeSpec(pClass, moduleSchema)
+            .apply {
+              ensureSerializable()
+              ensureKSerializable()
+            }
+            .build()
+        )
       }
 
       // generate append method for module classes w/o parent class; reuse in subclasses and nested
@@ -172,7 +190,9 @@ class KotlinCodeGenerator(
       val packageName = if (index == -1) "" else moduleName.substring(0, index)
       val moduleTypeName = moduleName.substring(index + 1).replaceFirstChar { it.titlecaseChar() }
 
-      val fileSpec = FileSpec.builder(packageName, moduleTypeName).indent(options.indent)
+      val packagePath =
+        if (packagePrefix.isNotBlank()) "$packagePrefix.$packageName" else packageName
+      val fileSpec = FileSpec.builder(packagePath, moduleTypeName).indent(options.indent)
 
       for (typeAlias in moduleSchema.typeAliases.values) {
         if (typeAlias.aliasedType is PType.Alias) {
@@ -513,6 +533,19 @@ class KotlinCodeGenerator(
     else generateRegularClass()
   }
 
+  private fun TypeSpec.Builder.ensureKSerializable(): TypeSpec.Builder {
+    if (!options.implementKSerializable) {
+      return this
+    }
+
+    val serializableK = ClassName("kotlinx.serialization", "Serializable")
+    val spec = AnnotationSpec.builder(serializableK).build()
+    if (!this.annotationSpecs.contains(spec)) {
+      addAnnotation(spec)
+    }
+    return this
+  }
+
   private fun TypeSpec.Builder.ensureSerializable(): TypeSpec.Builder {
     if (!options.implementSerializable) {
       return this
@@ -572,8 +605,13 @@ class KotlinCodeGenerator(
           )
         }
 
+    val qualifiedBuilder =
+      when (val pkg = kotlinPackage?.ifBlank { null }) {
+        null -> TypeSpec.enumBuilder(typeAlias.simpleName)
+        else -> TypeSpec.enumBuilder(ClassName(pkg, typeAlias.simpleName))
+      }
     val builder =
-      TypeSpec.enumBuilder(typeAlias.simpleName)
+      qualifiedBuilder
         .primaryConstructor(
           FunSpec.constructorBuilder().addParameter("value", String::class).build()
         )
@@ -638,10 +676,14 @@ class KotlinCodeGenerator(
     val index = moduleName.lastIndexOf(".")
     val packageName = if (index == -1) "" else moduleName.substring(0, index)
     val moduleTypeName = moduleName.substring(index + 1).replaceFirstChar { it.titlecaseChar() }
+    val packagePrefix = kotlinPackage?.let { "$it." } ?: ""
+    val renderedPackage =
+      if (packagePrefix.isNotBlank()) "$packagePrefix.$packageName" else packageName
+
     return if (isModuleClass) {
-      ClassName(packageName, moduleTypeName)
+      ClassName(renderedPackage, moduleTypeName)
     } else {
-      ClassName(packageName, moduleTypeName, simpleName)
+      ClassName(renderedPackage, moduleTypeName, simpleName)
     }
   }
 

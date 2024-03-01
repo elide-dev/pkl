@@ -1,0 +1,7 @@
+name: "CodeQL"
+
+languages:
+  - java-kotlin
+
+queries:
+  - uses: security-and-quality

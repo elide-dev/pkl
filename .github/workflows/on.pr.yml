@@ -1,0 +1,195 @@
+name: "PR"
+
+# Labels to control this PR flow:
+#
+# - ci:api-check-bypass - Bypass API check failures.
+# - ci:fmt-ignore - Ignore formatting failures.
+
+"on":
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "pr-${{ github.event.pull_request.number }}"
+  cancel-in-progress: true
+
+jobs:
+  ##
+  ## Job: Pre-flight Checks
+  ##
+  preflight-checks:
+    name: "Pre-flight Checks"
+    runs-on: ${{ vars.RUNNER_DEFAULT || 'ubuntu-latest' }}
+    permissions:
+      contents: "read"
+      checks: "read"
+      packages: "read"
+    steps:
+      - name: "Setup: Harden Runner"
+        uses: step-security/harden-runner@63c24ba6bd7ba022e95695ff85de572c04a18142 # v2.7.0
+        with:
+          egress-policy: audit
+      - name: "Setup: Checkout"
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          submodules: true
+          persist-credentials: false
+      - name: "Setup: Java 21"
+        uses: actions/setup-java@387ac29b308b003ca37ba93a6cab5eb57c8f5f93 # v4.0.0
+        with:
+          distribution: 'adopt'
+          java-version: '21'
+      - name: "Setup: GraalVM (Java 21)"
+        uses: graalvm/setup-graalvm@d72e3dbf5f44eb0b78c4f8ec61a262d8bf9b94af # v1.1.7
+        with:
+          distribution: "graalvm"
+          java-version: "21"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          set-java-home: 'false'
+      - name: "Check: Build Compile"
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+        continue-on-error: ${{ contains(github.event.pull_request.labels.*.name, 'ci:api-check-bypass') }}
+        env:
+          CI: true
+          GITHUB_ACTOR: ${{ env.GITHUB_ACTOR }}
+          BUILDLESS_APIKEY: ${{ secrets.BUILDLESS_APIKEY }}
+        with:
+          cache-read-only: false
+          build-scan-publish: true
+          build-scan-terms-of-service-url: "https://gradle.com/terms-of-service"
+          build-scan-terms-of-service-agree: "yes"
+          cache-encryption-key: ${{ secrets.GRADLE_CONFIGURATION_KEY }}
+          arguments: |
+            projects
+            tasks
+            --scan
+
+  ##
+  ## Job: Build
+  ##
+  build:
+    name: "Build"
+    uses: ./.github/workflows/job.build.yml
+    needs: [preflight-checks]
+    secrets:
+      GRADLE_CONFIGURATION_KEY: ${{ secrets.GRADLE_CONFIGURATION_KEY }}
+      BUILDLESS_APIKEY: ${{ secrets.BUILDLESS_APIKEY }}
+
+  ##
+  ## Job: Native Build
+  ##
+  native-build:
+    name: "Build"
+    uses: ./.github/workflows/job.native-build.yml
+    needs: [preflight-checks, build]
+    secrets:
+      GRADLE_CONFIGURATION_KEY: ${{ secrets.GRADLE_CONFIGURATION_KEY }}
+      BUILDLESS_APIKEY: ${{ secrets.BUILDLESS_APIKEY }}
+    permissions:
+      contents: "read"
+
+  ##
+  ## Job: Tests
+  ##
+  pr-tests:
+    name: "Tests"
+    uses: ./.github/workflows/job.tests.yml
+    needs: [preflight-checks, build]
+    secrets:
+      GRADLE_CONFIGURATION_KEY: ${{ secrets.GRADLE_CONFIGURATION_KEY }}
+      BUILDLESS_APIKEY: ${{ secrets.BUILDLESS_APIKEY }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  ##
+  ## Job: Submit Dependency Graph
+  ##
+  dependency-graph:
+    name: "Checks"
+    uses: ./.github/workflows/job.dependency-graph.yml
+    needs: [preflight-checks]
+    secrets:
+      GRADLE_CONFIGURATION_KEY: ${{ secrets.GRADLE_CONFIGURATION_KEY }}
+      BUILDLESS_APIKEY: ${{ secrets.BUILDLESS_APIKEY }}
+    permissions:
+      ## Needed for build graph publishing
+      contents: "write"
+
+  ##
+  ## Job: API Check
+  ##
+  check-api:
+    name: "Checks"
+    uses: ./.github/workflows/checks.apicheck.yml
+    needs: [preflight-checks]
+    secrets:
+      GRADLE_CONFIGURATION_KEY: ${{ secrets.GRADLE_CONFIGURATION_KEY }}
+      BUILDLESS_APIKEY: ${{ secrets.BUILDLESS_APIKEY }}
+    permissions:
+      contents: "read"
+
+  ##
+  ## Job: Checks for Formatting/Style
+  ##
+  check-format:
+    name: "Checks"
+    uses: ./.github/workflows/checks.formatting.yml
+    needs: [preflight-checks]
+    permissions:
+      contents: "read"
+    secrets:
+      GRADLE_CONFIGURATION_KEY: ${{ secrets.GRADLE_CONFIGURATION_KEY }}
+      BUILDLESS_APIKEY: ${{ secrets.BUILDLESS_APIKEY }}
+    with:
+      ignore_failures: ${{ contains(github.event.pull_request.labels.*.name, 'ci:fmt-ignore') }}
+
+  ##
+  ## Job: Check for Wrapper
+  ##
+  check-wrapper:
+    name: "Checks"
+    uses: ./.github/workflows/checks.gradle-wrapper.yml
+    needs: [preflight-checks]
+    permissions:
+      contents: "read"
+
+  ##
+  ## Job: Checks for Vulnerabilities/Licensing
+  ##
+  check-dependencies:
+    name: "Checks"
+    uses: ./.github/workflows/checks.dependency-review.yml
+    needs: [preflight-checks, dependency-graph]
+    permissions:
+      contents: "read"
+
+  ##
+  ## Job: Checks with CodeQL
+  ##
+  check-codeql:
+    name: "Checks"
+    uses: ./.github/workflows/checks.codeql.yml
+    needs: [preflight-checks, dependency-graph]
+    secrets:
+      GRADLE_CONFIGURATION_KEY: ${{ secrets.GRADLE_CONFIGURATION_KEY }}
+      BUILDLESS_APIKEY: ${{ secrets.BUILDLESS_APIKEY }}
+    permissions:
+      actions: "read"
+      contents: "read"
+      security-events: "write"
+
+  ##
+  ## Job: Checks with Detekt
+  ##
+  check-detekt:
+    name: "Checks"
+    uses: ./.github/workflows/checks.detekt.yml
+    needs: [preflight-checks]
+    secrets:
+      GRADLE_CONFIGURATION_KEY: ${{ secrets.GRADLE_CONFIGURATION_KEY }}
+      BUILDLESS_APIKEY: ${{ secrets.BUILDLESS_APIKEY }}
+    permissions:
+      contents: "read"
+      security-events: "write"
