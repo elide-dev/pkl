@@ -58,7 +58,7 @@ configurations.all {
 
 // These are toolchain-level settings; for artifact targets, see convention plugins.
 private val defaultJvmToolchainTarget = "21"
-private val defaultKotlinTarget = "1.9"
+private val defaultKotlinTarget = "2.0"
 
 // Toolchain Kotlin target.
 private val kotlinVersion =
@@ -85,4 +85,8 @@ kotlin {
       languageVersion = it
     }
   }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
+  jvmTargetValidationMode.set(org.jetbrains.kotlin.gradle.dsl.jvm.JvmTargetValidationMode.IGNORE)
 }

@@ -9,6 +9,8 @@ pluginManagement {
   }
 }
 
+val jpmsRepoVersion = "1.0.7"
+
 rootProject.name = "pkl"
 
 include("bench")
@@ -55,7 +57,24 @@ dependencyResolutionManagement {
   repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
   rulesMode = RulesMode.FAIL_ON_PROJECT_RULES
 
-  repositories { mavenCentral() }
+  repositories {
+    maven {
+      name = "jpms-attic"
+      url = uri("https://jpms.pkg.st/repository")
+      content {
+        includeGroup("com.google.errorprone")
+        includeGroup("com.google.guava")
+        includeGroup("com.google.protobuf")
+        includeGroup("dev.javamodules")
+        includeGroup("io.leangen.geantyref")
+        includeGroup("org.checkerframework")
+        includeGroup("org.reactivestreams")
+      }
+    }
+    mavenCentral()
+  }
+
+  versionCatalogs { create("attic") { from("dev.javamodules:jpms-catalog:$jpmsRepoVersion") } }
 }
 
 val javaVersion = JavaVersion.current()

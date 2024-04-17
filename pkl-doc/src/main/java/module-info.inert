@@ -11,4 +11,7 @@ module pkl.doc {
   requires pkl.core;
   requires pkl.commons;
   requires pkl.commons.cli;
+
+  requires org.commonmark;
+  requires org.commonmark.ext.gfm.tables;
 }

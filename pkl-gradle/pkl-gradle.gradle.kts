@@ -13,6 +13,11 @@ plugins {
 
 description = "Pkl codegen plugin for Gradle"
 
+java {
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
+}
+
 dependencies {
   // Declare a `compileOnly` dependency on `projects.pklTools`
   // to ensure correct code navigation in IntelliJ.
@@ -70,6 +75,13 @@ gradlePluginTests {
   minGradleVersion = GradleVersion.version("7.2")
   maxGradleVersion = GradleVersion.version("8.99")
   skippedGradleVersions = listOf()
+}
+
+tasks {
+  test {
+    systemProperty("testGradleVersion", "8.7")
+    systemProperty("testGradleDistributionUrl", "https://services.gradle.org/distributions/gradle-8.7-bin.zip")
+  }
 }
 
 signing {

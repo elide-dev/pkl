@@ -25,6 +25,7 @@ import java.net.URI;
 import java.util.*;
 import java.util.regex.Pattern;
 import org.graalvm.collections.EconomicMap;
+import org.pkl.core.YamlSchema;
 import org.pkl.core.ast.VmModifier;
 import org.pkl.core.ast.member.ObjectMember;
 import org.pkl.core.runtime.*;
@@ -134,11 +135,12 @@ public final class ParserNodes {
   private static Load createLoad(VmTyped self, String text, String uri, PklConverter converter) {
     var mode = (String) VmUtils.readMember(self, Identifier.MODE);
     var resolver = YamlUtils.getParserResolver(mode);
+    var yamlSchema = YamlSchema.of(resolver);
     var useMapping = (boolean) VmUtils.readMember(self, Identifier.USE_MAPPING);
     var settings =
         LoadSettings.builder()
             .setMaxAliasesForCollections(getMaxCollectionAliases(self))
-            .setScalarResolver(resolver)
+            .setSchema(yamlSchema)
             .setLabel(uri)
             .build();
     var source =

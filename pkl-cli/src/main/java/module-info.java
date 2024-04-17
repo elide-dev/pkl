@@ -5,6 +5,8 @@ open module pkl.cli {
   requires java.base;
   requires kotlin.stdlib;
 
+  requires jdk.unsupported;
+
   requires org.jline.reader;
 
   requires org.graalvm.nativeimage;
@@ -14,4 +16,7 @@ open module pkl.cli {
 
   requires pkl.core;
   requires pkl.commons;
+  requires pkl.commons.cli;
+  requires com.github.ajalt.clikt;
+  exports org.pkl.cli;
 }

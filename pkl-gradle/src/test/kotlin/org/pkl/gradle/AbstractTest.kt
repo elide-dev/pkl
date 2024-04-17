@@ -23,7 +23,6 @@ abstract class AbstractTest {
     taskName: String,
     expectFailure: Boolean = false
   ): BuildResult {
-
     val runner = GradleRunner.create()
       .withProjectDir(testProjectDir.toFile())
       .withArguments("--stacktrace", "--no-build-cache", taskName)

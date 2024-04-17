@@ -1,0 +1,1119 @@
+Initialized native services in: /Users/sam/.gradle/native
+Initialized jansi services in: /Users/sam/.gradle/native
+Received JVM installation metadata from '/Library/Java/JavaVirtualMachines/gvm.jdk22/Contents/Home': {JAVA_HOME=/Library/Java/JavaVirtualMachines/gvm.jdk22/Contents/Home, JAVA_VERSION=22, JAVA_VENDOR=Oracle Corporation, RUNTIME_NAME=Java(TM) SE Runtime Environment, RUNTIME_VERSION=22+36-jvmci-b02, VM_NAME=Java HotSpot(TM) 64-Bit Server VM, VM_VERSION=22+36-jvmci-b02, VM_VENDOR=Oracle Corporation, OS_ARCH=aarch64}
+The client will now receive all logging from the daemon (pid: 42972). The daemon log file: /Users/sam/.gradle/daemon/8.7/daemon-42972.out.log
+Starting 8th build in daemon [uptime: 8 mins 46.927 secs, performance: 100%, GC rate: 0.01/s, heap usage: 0% of 16 GiB]
+Using 12 worker leases.
+Now considering [/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/build-logic] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Now considering [/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/build-logic, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl] as hierarchies to watch
+Transforming gradle-enterprise-gradle-plugin-3.16.2.jar (com.gradle:gradle-enterprise-gradle-plugin:3.16.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming foojay-resolver-0.8.0.jar (org.gradle.toolchains:foojay-resolver:0.8.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming common-custom-user-data-gradle-plugin-1.12.1.jar (com.gradle:common-custom-user-data-gradle-plugin:1.12.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming gson-2.10.1.jar (com.google.code.gson:gson:2.10.1) with ExternalDependencyInstrumentingArtifactTransform
+Loaded lock state for configuration 'incomingCatalogForLibs0'
+Loaded lock state for configuration 'incomingCatalogForLibs0'
+
+> Configure project :build-logic
+Evaluating project ':build-logic' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/build-logic/build.gradle.kts'.
+Transforming gradle-kotlin-dsl-plugins-4.3.0.jar (org.gradle.kotlin:gradle-kotlin-dsl-plugins:4.3.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-stdlib-1.9.22.jar (org.jetbrains.kotlin:kotlin-stdlib:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming annotations-13.0.jar (org.jetbrains:annotations:13.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-sam-with-receiver-1.9.22-gradle82.jar (org.jetbrains.kotlin:kotlin-sam-with-receiver:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-assignment-1.9.22-gradle82.jar (org.jetbrains.kotlin:kotlin-assignment:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-model-1.9.22.jar (org.jetbrains.kotlin:kotlin-gradle-plugin-model:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-api-1.9.22.jar (org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-api-1.9.22-gradle82.jar (org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-1.9.22-gradle82.jar (org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-idea-proto-1.9.22.jar (org.jetbrains.kotlin:kotlin-gradle-plugin-idea-proto:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-idea-1.9.22.jar (org.jetbrains.kotlin:kotlin-gradle-plugin-idea:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-klib-commonizer-api-1.9.22.jar (org.jetbrains.kotlin:kotlin-klib-commonizer-api:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-native-utils-1.9.22.jar (org.jetbrains.kotlin:kotlin-native-utils:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-util-klib-1.9.22.jar (org.jetbrains.kotlin:kotlin-util-klib:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-build-tools-api-1.9.22.jar (org.jetbrains.kotlin:kotlin-build-tools-api:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-android-extensions-1.9.22.jar (org.jetbrains.kotlin:kotlin-android-extensions:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-compiler-runner-1.9.22.jar (org.jetbrains.kotlin:kotlin-compiler-runner:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-compiler-embeddable-1.9.22.jar (org.jetbrains.kotlin:kotlin-compiler-embeddable:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-scripting-compiler-embeddable-1.9.22.jar (org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-scripting-compiler-impl-embeddable-1.9.22.jar (org.jetbrains.kotlin:kotlin-scripting-compiler-impl-embeddable:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-annotations-1.9.22.jar (org.jetbrains.kotlin:kotlin-gradle-plugin-annotations:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-project-model-1.9.22.jar (org.jetbrains.kotlin:kotlin-project-model:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-tooling-core-1.9.22.jar (org.jetbrains.kotlin:kotlin-tooling-core:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-util-io-1.9.22.jar (org.jetbrains.kotlin:kotlin-util-io:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-daemon-embeddable-1.9.22.jar (org.jetbrains.kotlin:kotlin-daemon-embeddable:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming trove4j-1.0.20200330.jar (org.jetbrains.intellij.deps:trove4j:1.0.20200330) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-daemon-client-1.9.22.jar (org.jetbrains.kotlin:kotlin-daemon-client:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlinx-coroutines-core-jvm-1.5.0.jar (org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-scripting-jvm-1.9.22.jar (org.jetbrains.kotlin:kotlin-scripting-jvm:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-scripting-common-1.9.22.jar (org.jetbrains.kotlin:kotlin-scripting-common:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+file or directory '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/build-logic/src/main/java', not found
+Transforming gradle-enterprise-gradle-plugin-3.16.2.jar (com.gradle:gradle-enterprise-gradle-plugin:3.16.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming foojay-resolver-0.8.0.jar (org.gradle.toolchains:foojay-resolver:0.8.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming common-custom-user-data-gradle-plugin-1.12.1.jar (com.gradle:common-custom-user-data-gradle-plugin:1.12.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming gson-2.10.1.jar (com.google.code.gson:gson:2.10.1) with ExternalDependencyInstrumentingArtifactTransform
+Settings evaluated using settings file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/settings.gradle.kts'.
+Loaded lock state for configuration 'incomingCatalogForLibs0'
+Loaded lock state for configuration 'incomingCatalogForLibs0'
+Type-safe project accessors is an incubating feature.
+Projects loaded. Root project using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/build.gradle.kts'.
+Included projects: [root project 'pkl', project ':bench', project ':docs', project ':pkl-cli', project ':pkl-codegen-java', project ':pkl-codegen-kotlin', project ':pkl-commons', project ':pkl-commons-cli', project ':pkl-commons-test', project ':pkl-config-java', project ':pkl-config-kotlin', project ':pkl-core', project ':pkl-doc', project ':pkl-executor', project ':pkl-gradle', project ':pkl-server', project ':pkl-tools', project ':stdlib']
+Starting process 'command '/usr/libexec/java_home''. Working directory: /Users/sam/.gradle/daemon/8.7 Command: /usr/libexec/java_home -V
+Successfully started process 'command '/usr/libexec/java_home''
+Resolve mutations for :build-logic:checkKotlinGradlePluginConfigurationErrors (Thread[#1152,Execution worker,5,main]) started.
+:build-logic:checkKotlinGradlePluginConfigurationErrors (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :build-logic:checkKotlinGradlePluginConfigurationErrors
+Caching disabled for task ':build-logic:checkKotlinGradlePluginConfigurationErrors' because:
+  Build cache is disabled
+Task ':build-logic:checkKotlinGradlePluginConfigurationErrors' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+Resolve mutations for :build-logic:generateExternalPluginSpecBuilders (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:build-logic:generateExternalPluginSpecBuilders (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :build-logic:generateExternalPluginSpecBuilders UP-TO-DATE
+Caching disabled for task ':build-logic:generateExternalPluginSpecBuilders' because:
+  Build cache is disabled
+Skipping task ':build-logic:generateExternalPluginSpecBuilders' as it is up-to-date.
+Resolve mutations for :build-logic:extractPrecompiledScriptPluginPlugins (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:build-logic:extractPrecompiledScriptPluginPlugins (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :build-logic:extractPrecompiledScriptPluginPlugins UP-TO-DATE
+Caching disabled for task ':build-logic:extractPrecompiledScriptPluginPlugins' because:
+  Build cache is disabled
+Skipping task ':build-logic:extractPrecompiledScriptPluginPlugins' as it is up-to-date.
+Resolve mutations for :build-logic:compilePluginsBlocks (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:build-logic:compilePluginsBlocks (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :build-logic:compilePluginsBlocks UP-TO-DATE
+Caching disabled for task ':build-logic:compilePluginsBlocks' because:
+  Build cache is disabled
+Skipping task ':build-logic:compilePluginsBlocks' as it is up-to-date.
+Resolve mutations for :build-logic:generatePrecompiledScriptPluginAccessors (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:build-logic:generatePrecompiledScriptPluginAccessors (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :build-logic:generatePrecompiledScriptPluginAccessors UP-TO-DATE
+Caching disabled for task ':build-logic:generatePrecompiledScriptPluginAccessors' because:
+  Build cache is disabled
+Skipping task ':build-logic:generatePrecompiledScriptPluginAccessors' as it is up-to-date.
+Resolve mutations for :build-logic:generateScriptPluginAdapters (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:build-logic:generateScriptPluginAdapters (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :build-logic:generateScriptPluginAdapters UP-TO-DATE
+Caching disabled for task ':build-logic:generateScriptPluginAdapters' because:
+  Build cache is disabled
+Skipping task ':build-logic:generateScriptPluginAdapters' as it is up-to-date.
+Resolve mutations for :build-logic:compileKotlin (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:build-logic:compileKotlin (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :build-logic:compileKotlin UP-TO-DATE
+Transforming gradle-api-8.7.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-ant-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-astbuilder-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-console-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-datetime-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-dateutil-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-groovydoc-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-json-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-nio-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-sql-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-templates-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-test-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming groovy-xml-3.0.17.jar with ClasspathEntrySnapshotTransform
+Transforming javaparser-core-3.17.0.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-reflect-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming gradle-installation-beacon-8.7.jar with ClasspathEntrySnapshotTransform
+Transforming gradle-kotlin-dsl-extensions-8.7.jar with ClasspathEntrySnapshotTransform
+Transforming gradle-kotlin-dsl-8.7.jar with ClasspathEntrySnapshotTransform
+Transforming gradle-kotlin-dsl-shared-runtime-8.7.jar with ClasspathEntrySnapshotTransform
+Transforming gradle-kotlin-dsl-tooling-models-8.7.jar with ClasspathEntrySnapshotTransform
+Transforming classes with ClasspathEntrySnapshotTransform
+Transforming kotlin-reflect-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-power-assert-plugin-0.13.0.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-jdk8-1.8.20.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-jdk7-1.8.20.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming gradle-download-task-4.1.2.jar with ClasspathEntrySnapshotTransform
+Transforming spotless-plugin-gradle-6.25.0.jar with ClasspathEntrySnapshotTransform
+Transforming gradle-test-logger-plugin-4.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming detekt-gradle-plugin-1.23.5.jar with ClasspathEntrySnapshotTransform
+Transforming kover-gradle-plugin-0.7.6.jar with ClasspathEntrySnapshotTransform
+Transforming shadow-8.1.1.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-serialization-1.9.22-gradle82.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-gradle-plugin-model-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-gradle-plugin-api-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-gradle-plugin-api-1.9.22-gradle82.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-gradle-plugin-1.9.22-gradle82.jar with ClasspathEntrySnapshotTransform
+Transforming annotations-13.0.jar with ClasspathEntrySnapshotTransform
+Transforming spotless-lib-extra-2.45.0.jar with ClasspathEntrySnapshotTransform
+Transforming spotless-lib-2.45.0.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-gradle-plugin-annotations-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-native-utils-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-tooling-core-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-project-model-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-util-klib-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-util-io-1.9.22.jar with ClasspathEntrySnapshotTransform
+Custom actions are attached to task ':build-logic:compileKotlin'.
+Caching disabled for task ':build-logic:compileKotlin' because:
+  Build cache is disabled
+Skipping task ':build-logic:compileKotlin' as it is up-to-date.
+Resolve mutations for :build-logic:compileJava (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:build-logic:compileJava (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :build-logic:compileJava NO-SOURCE
+Skipping task ':build-logic:compileJava' as it has no source files and no previous output files.
+Resolve mutations for :build-logic:pluginDescriptors (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:build-logic:pluginDescriptors (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :build-logic:pluginDescriptors UP-TO-DATE
+Caching disabled for task ':build-logic:pluginDescriptors' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':build-logic:pluginDescriptors' as it is up-to-date.
+Resolve mutations for :build-logic:processResources (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:build-logic:processResources (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :build-logic:processResources UP-TO-DATE
+Caching disabled for task ':build-logic:processResources' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':build-logic:processResources' as it is up-to-date.
+Resolve mutations for :build-logic:classes (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:build-logic:classes (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :build-logic:classes UP-TO-DATE
+Skipping task ':build-logic:classes' as it has no actions.
+Resolve mutations for :build-logic:jar (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:build-logic:jar (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :build-logic:jar UP-TO-DATE
+Caching disabled for task ':build-logic:jar' because:
+  Build cache is disabled
+  'Has custom actions' satisfied
+Skipping task ':build-logic:jar' as it is up-to-date.
+
+> Transform build-logic.jar (project :build-logic) with ProjectDependencyInstrumentingArtifactTransform
+Transforming build-logic.jar (project :build-logic) with ProjectDependencyInstrumentingArtifactTransform
+
+> Configure project :
+Evaluating root project 'pkl' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/build.gradle.kts'.
+Transforming classes with ExternalDependencyInstrumentingArtifactTransform
+Transforming shadow-8.1.1.jar (com.github.johnrengelman:shadow:8.1.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming log4j-core-2.20.0.jar (org.apache.logging.log4j:log4j-core:2.20.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming gradle-versions-plugin-0.51.0.jar (com.github.ben-manes:gradle-versions-plugin:0.51.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming moshi-kotlin-1.12.0.jar (com.squareup.moshi:moshi-kotlin:1.12.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-reflect-1.9.22.jar (org.jetbrains.kotlin:kotlin-reflect:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming binary-compatibility-validator-0.14.0.jar (org.jetbrains.kotlinx:binary-compatibility-validator:0.14.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlinx-metadata-jvm-0.6.2.jar (org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.6.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming moshi-1.12.0.jar (com.squareup.moshi:moshi:1.12.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-power-assert-plugin-0.13.0.jar (com.bnorm.power:kotlin-power-assert-plugin:0.13.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming spotless-plugin-gradle-6.25.0.jar (com.diffplug.spotless:spotless-plugin-gradle:6.25.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming spotless-lib-extra-2.45.0.jar (com.diffplug.spotless:spotless-lib-extra:2.45.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming solstice-1.7.5.jar (dev.equo.ide:solstice:1.7.5) with ExternalDependencyInstrumentingArtifactTransform
+Transforming okhttp-4.12.0.jar (com.squareup.okhttp3:okhttp:4.12.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming okio-jvm-3.6.0.jar (com.squareup.okio:okio-jvm:3.6.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-stdlib-jdk8-1.9.10.jar (org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-stdlib-jdk7-1.9.10.jar (org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-stdlib-1.9.22.jar (org.jetbrains.kotlin:kotlin-stdlib:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming annotations-13.0.jar (org.jetbrains:annotations:13.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming gradle-download-task-4.1.2.jar (de.undercouch:gradle-download-task:4.1.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming gradle-test-logger-plugin-4.0.0.jar (com.adarshr:gradle-test-logger-plugin:4.0.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming detekt-gradle-plugin-1.23.5.jar (io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.5) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kover-gradle-plugin-0.7.6.jar (org.jetbrains.kotlinx:kover-gradle-plugin:0.7.6) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-serialization-1.9.22-gradle82.jar (org.jetbrains.kotlin:kotlin-serialization:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-model-1.9.22.jar (org.jetbrains.kotlin:kotlin-gradle-plugin-model:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-api-1.9.22.jar (org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-api-1.9.22-gradle82.jar (org.jetbrains.kotlin:kotlin-gradle-plugin-api:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-1.9.22-gradle82.jar (org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming gradle-idea-ext-1.1.7.jar (gradle.plugin.org.jetbrains.gradle.plugin.idea-ext:gradle-idea-ext:1.1.7) with ExternalDependencyInstrumentingArtifactTransform
+Transforming doctor-plugin-0.9.1.jar (com.osacky.doctor:doctor-plugin:0.9.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jmh-gradle-plugin-0.7.2.jar (me.champeau.jmh:jmh-gradle-plugin:0.7.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming publish-plugin-1.3.0.jar (io.github.gradle-nexus:publish-plugin:1.3.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming dependency-check-gradle-9.0.9.jar (org.owasp:dependency-check-gradle:9.0.9) with ExternalDependencyInstrumentingArtifactTransform
+Transforming spdx-gradle-plugin-0.6.0.jar (org.spdx:spdx-gradle-plugin:0.6.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming durian-io-1.2.0.jar (com.diffplug.durian:durian-io:1.2.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming durian-collect-1.2.0.jar (com.diffplug.durian:durian-collect:1.2.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming durian-core-1.2.0.jar (com.diffplug.durian:durian-core:1.2.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming org.eclipse.jgit-6.7.0.202309050840-r.jar (org.eclipse.jgit:org.eclipse.jgit:6.7.0.202309050840-r) with ExternalDependencyInstrumentingArtifactTransform
+Transforming spotless-lib-2.45.0.jar (com.diffplug.spotless:spotless-lib:2.45.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jansi-2.4.0.jar (org.fusesource.jansi:jansi:2.4.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jdom2-2.0.6.1.jar (org.jdom:jdom2:2.0.6.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming asm-commons-9.4.jar (org.ow2.asm:asm-commons:9.4) with ExternalDependencyInstrumentingArtifactTransform
+Transforming asm-tree-9.6.jar (org.ow2.asm:asm-tree:9.6) with ExternalDependencyInstrumentingArtifactTransform
+Transforming asm-9.6.jar (org.ow2.asm:asm:9.6) with ExternalDependencyInstrumentingArtifactTransform
+Transforming dependency-check-core-9.0.9.jar (org.owasp:dependency-check-core:9.0.9) with ExternalDependencyInstrumentingArtifactTransform
+Transforming dependency-check-utils-9.0.9.jar (org.owasp:dependency-check-utils:9.0.9) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-io-2.15.0.jar (commons-io:commons-io:2.15.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming ant-1.10.13.jar (org.apache.ant:ant:1.10.13) with ExternalDependencyInstrumentingArtifactTransform
+Transforming maven-model-builder-3.9.6.jar (org.apache.maven:maven-model-builder:3.9.6) with ExternalDependencyInstrumentingArtifactTransform
+Transforming maven-model-3.9.6.jar (org.apache.maven:maven-model:3.9.6) with ExternalDependencyInstrumentingArtifactTransform
+Transforming maven-artifact-3.9.6.jar (org.apache.maven:maven-artifact:3.9.6) with ExternalDependencyInstrumentingArtifactTransform
+Transforming plexus-utils-3.5.1.jar (org.codehaus.plexus:plexus-utils:3.5.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jdependency-2.8.0.jar (org.vafer:jdependency:2.8.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-idea-proto-1.9.22.jar (org.jetbrains.kotlin:kotlin-gradle-plugin-idea-proto:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-idea-1.9.22.jar (org.jetbrains.kotlin:kotlin-gradle-plugin-idea:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-klib-commonizer-api-1.9.22.jar (org.jetbrains.kotlin:kotlin-klib-commonizer-api:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-native-utils-1.9.22.jar (org.jetbrains.kotlin:kotlin-native-utils:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-util-klib-1.9.22.jar (org.jetbrains.kotlin:kotlin-util-klib:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-build-tools-api-1.9.22.jar (org.jetbrains.kotlin:kotlin-build-tools-api:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-compiler-runner-1.9.22.jar (org.jetbrains.kotlin:kotlin-compiler-runner:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-compiler-embeddable-1.9.22.jar (org.jetbrains.kotlin:kotlin-compiler-embeddable:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-scripting-compiler-embeddable-1.9.22.jar (org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-scripting-compiler-impl-embeddable-1.9.22.jar (org.jetbrains.kotlin:kotlin-scripting-compiler-impl-embeddable:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming slack-webhook-1.4.0.jar (net.gpedro.integrations.slack:slack-webhook:1.4.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming spdx-jackson-store-1.1.9.1.jar (org.spdx:spdx-jackson-store:1.1.9.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming java-spdx-library-1.1.10.jar (org.spdx:java-spdx-library:1.1.10) with ExternalDependencyInstrumentingArtifactTransform
+Transforming ossindex-service-client-1.8.2.jar (org.sonatype.ossindex:ossindex-service-client:1.8.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming toml4j-0.7.2.jar (com.moandjiezana.toml:toml4j:0.7.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming gson-2.9.0.jar (com.google.code.gson:gson:2.9.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming packager-rpm-0.19.0.jar (org.eclipse.packager:packager-rpm:0.19.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming guava-33.0.0-jre.jar (com.google.guava:guava:33.0.0-jre) with ExternalDependencyInstrumentingArtifactTransform
+Transforming tagger-lib-0.2.jar (com.osacky.tagger:tagger-lib:0.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming rxjava-3.1.8.jar (io.reactivex.rxjava3:rxjava:3.1.8) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jmh-core-1.37.jar (org.openjdk.jmh:jmh-core:1.37) with ExternalDependencyInstrumentingArtifactTransform
+Transforming open-vulnerability-clients-5.1.1.jar (io.github.jeremylong:open-vulnerability-clients:5.1.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming java-diff-utils-4.12.jar (io.github.java-diff-utils:java-diff-utils:4.12) with ExternalDependencyInstrumentingArtifactTransform
+Transforming JavaEWAH-1.2.3.jar (com.googlecode.javaewah:JavaEWAH:1.2.3) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jcs3-slf4j-1.0.5.jar (io.github.jeremylong:jcs3-slf4j:1.0.5) with ExternalDependencyInstrumentingArtifactTransform
+Transforming cpe-parser-2.0.3.jar (us.springett:cpe-parser:2.0.3) with ExternalDependencyInstrumentingArtifactTransform
+Transforming velocity-engine-core-2.3.jar (org.apache.velocity:velocity-engine-core:2.3) with ExternalDependencyInstrumentingArtifactTransform
+Transforming httpclient5-5.2.1.jar (org.apache.httpcomponents.client5:httpclient5:5.2.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming ossindex-service-api-1.8.2.jar (org.sonatype.ossindex:ossindex-service-api:1.8.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jcl-over-slf4j-1.7.28.jar (org.slf4j:jcl-over-slf4j:1.7.28) with ExternalDependencyInstrumentingArtifactTransform
+Transforming slf4j-api-2.0.7.jar (org.slf4j:slf4j-api:2.0.7) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-codec-1.16.0.jar (commons-codec:commons-codec:1.16.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming concurrent-trees-2.6.1.jar (com.googlecode.concurrent-trees:concurrent-trees:2.6.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming ant-launcher-1.10.13.jar (org.apache.ant:ant-launcher:1.10.13) with ExternalDependencyInstrumentingArtifactTransform
+Transforming log4j-api-2.20.0.jar (org.apache.logging.log4j:log4j-api:2.20.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-gradle-plugin-annotations-1.9.22.jar (org.jetbrains.kotlin:kotlin-gradle-plugin-annotations:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-project-model-1.9.22.jar (org.jetbrains.kotlin:kotlin-project-model:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-tooling-core-1.9.22.jar (org.jetbrains.kotlin:kotlin-tooling-core:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-util-io-1.9.22.jar (org.jetbrains.kotlin:kotlin-util-io:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-daemon-embeddable-1.9.22.jar (org.jetbrains.kotlin:kotlin-daemon-embeddable:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming trove4j-1.0.20200330.jar (org.jetbrains.intellij.deps:trove4j:1.0.20200330) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-daemon-client-1.9.22.jar (org.jetbrains.kotlin:kotlin-daemon-client:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlinx-coroutines-core-jvm-1.5.0.jar (org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-scripting-jvm-1.9.22.jar (org.jetbrains.kotlin:kotlin-scripting-jvm:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-scripting-common-1.9.22.jar (org.jetbrains.kotlin:kotlin-scripting-common:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming reactive-streams-1.0.4.jar (org.reactivestreams:reactive-streams:1.0.4) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jopt-simple-5.0.4.jar (net.sf.jopt-simple:jopt-simple:5.0.4) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-math3-3.6.1.jar (org.apache.commons:commons-math3:3.6.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jdiagnostics-1.0.7.jar (org.anarres.jdiagnostics:jdiagnostics:1.0.7) with ExternalDependencyInstrumentingArtifactTransform
+Transforming pecoff4j-0.0.2.1.jar (org.whitesource:pecoff4j:0.0.2.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-jcs3-core-3.2.jar (org.apache.commons:commons-jcs3-core:3.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming packageurl-java-1.4.1.jar (com.github.package-url:packageurl-java:1.4.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming semver4j-5.2.2.jar (org.semver4j:semver4j:5.2.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-collections4-4.4.jar (org.apache.commons:commons-collections4:4.4) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-compress-1.25.0.jar (org.apache.commons:commons-compress:1.25.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-text-1.11.0.jar (org.apache.commons:commons-text:1.11.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-lang3-3.14.0.jar (org.apache.commons:commons-lang3:3.14.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-dbcp2-2.11.0.jar (org.apache.commons:commons-dbcp2:2.11.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming lucene-analyzers-common-8.11.2.jar (org.apache.lucene:lucene-analyzers-common:8.11.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming lucene-queryparser-8.11.2.jar (org.apache.lucene:lucene-queryparser:8.11.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming lucene-core-8.11.2.jar (org.apache.lucene:lucene-core:8.11.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming h2-2.1.214.jar (com.h2database:h2:2.1.214) with ExternalDependencyInstrumentingArtifactTransform
+Transforming javax.json-1.1.4.jar (org.glassfish:javax.json:1.1.4) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jsoup-1.16.2.jar (org.jsoup:jsoup:1.16.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jackson-module-afterburner-2.16.0.jar (com.fasterxml.jackson.module:jackson-module-afterburner:2.16.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jackson-module-blackbird-2.16.0.jar (com.fasterxml.jackson.module:jackson-module-blackbird:2.16.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jackson-dataformat-yaml-2.16.0.jar (com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jackson-dataformat-xml-2.16.0.jar (com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.16.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jackson-core-2.16.0.jar (com.fasterxml.jackson.core:jackson-core:2.16.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jackson-annotations-2.16.0.jar (com.fasterxml.jackson.core:jackson-annotations:2.16.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jackson-datatype-jsr310-2.16.0.jar (com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.16.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jackson-databind-2.16.0.jar (com.fasterxml.jackson.core:jackson-databind:2.16.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming retirejs-core-3.0.4.jar (com.h3xstream.retirejs:retirejs-core:3.0.4) with ExternalDependencyInstrumentingArtifactTransform
+Transforming aho-corasick-double-array-trie-1.2.3.jar (com.hankcs:aho-corasick-double-array-trie:1.2.3) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-validator-1.7.jar (commons-validator:commons-validator:1.7) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-beanutils-1.9.4.jar (commons-beanutils:commons-beanutils:1.9.4) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jmustache-1.15.jar (com.samskivert:jmustache:1.15) with ExternalDependencyInstrumentingArtifactTransform
+Transforming failureaccess-1.0.2.jar (com.google.guava:failureaccess:1.0.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar (com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jsr305-3.0.2.jar (com.google.code.findbugs:jsr305:3.0.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming checker-qual-3.41.0.jar (org.checkerframework:checker-qual:3.41.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming error_prone_annotations-2.23.0.jar (com.google.errorprone:error_prone_annotations:2.23.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming json-20231013.jar (org.json:json:20231013) with ExternalDependencyInstrumentingArtifactTransform
+Transforming plexus-interpolation-1.26.jar (org.codehaus.plexus:plexus-interpolation:1.26) with ExternalDependencyInstrumentingArtifactTransform
+Transforming javax.inject-1.jar (javax.inject:javax.inject:1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming maven-builder-support-3.9.6.jar (org.apache.maven:maven-builder-support:3.9.6) with ExternalDependencyInstrumentingArtifactTransform
+Transforming org.eclipse.sisu.inject-0.9.0.M2.jar (org.eclipse.sisu:org.eclipse.sisu.inject:0.9.0.M2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming xz-1.9.jar (org.tukaani:xz:1.9) with ExternalDependencyInstrumentingArtifactTransform
+Transforming durian-swt.os-4.2.2.jar (com.diffplug.durian:durian-swt.os:4.2.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming org.eclipse.osgi-3.18.300.jar (org.eclipse.platform:org.eclipse.osgi:3.18.300) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-pool2-2.12.0.jar (org.apache.commons:commons-pool2:2.12.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-logging-1.2.jar (commons-logging:commons-logging:1.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jakarta.transaction-api-1.3.3.jar (jakarta.transaction:jakarta.transaction-api:1.3.3) with ExternalDependencyInstrumentingArtifactTransform
+Transforming lucene-queries-8.11.2.jar (org.apache.lucene:lucene-queries:8.11.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming lucene-sandbox-8.11.2.jar (org.apache.lucene:lucene-sandbox:8.11.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming snakeyaml-2.2.jar (org.yaml:snakeyaml:2.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming android-json-0.0.20131108.vaadin1.jar (com.vaadin.external.google:android-json:0.0.20131108.vaadin1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming minlog-1.3.1.jar (com.esotericsoftware:minlog:1.3.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming compiler-0.9.6.jar (com.github.spullara.mustache.java:compiler:0.9.6) with ExternalDependencyInstrumentingArtifactTransform
+Transforming joda-time-2.10.4.jar (joda-time:joda-time:2.10.4) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jaxb-api-2.3.1.jar (javax.xml.bind:jaxb-api:2.3.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-digester-2.1.jar (commons-digester:commons-digester:2.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming commons-collections-3.2.2.jar (commons-collections:commons-collections:3.2.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming packager-core-0.19.0.jar (org.eclipse.packager:packager-core:0.19.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming httpcore5-h2-5.2.jar (org.apache.httpcomponents.core5:httpcore5-h2:5.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming httpcore5-5.2.jar (org.apache.httpcomponents.core5:httpcore5:5.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming woodstox-core-6.5.1.jar (com.fasterxml.woodstox:woodstox-core:6.5.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming stax2-api-4.2.1.jar (org.codehaus.woodstox:stax2-api:4.2.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming javax.ws.rs-api-2.0.1.jar (javax.ws.rs:javax.ws.rs-api:2.0.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming package-url-java-1.1.1.jar (org.sonatype.goodies:package-url-java:1.1.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming javax.activation-api-1.2.0.jar (javax.activation:javax.activation-api:1.2.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming bcpg-jdk18on-1.71.jar (org.bouncycastle:bcpg-jdk18on:1.71) with ExternalDependencyInstrumentingArtifactTransform
+Transforming bcprov-jdk18on-1.71.jar (org.bouncycastle:bcprov-jdk18on:1.71) with ExternalDependencyInstrumentingArtifactTransform
+
+================================================
+Gradle version : 8.7
+Java version   : 22
+isParallel     : true
+maxWorkerCount : 12
+Architecture   : aarch64
+
+Project Version        : 0.27.0-labs-SNAPSHOT
+Pkl Version            : 0.27.0-labs-dev+f7938ee
+Pkl Non-Unique Version : 0.27.0-labs-dev
+Git Commit ID          : f7938ee
+================================================
+
+
+> Configure project :bench
+Evaluating project ':bench' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/bench/bench.gradle.kts'.
+Build report service is registered. Unique build id: 69fa9bb0-f508-46cd-bb27-356444994c5a
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: jmhKotlinScriptDef
+
+> Configure project :docs
+Evaluating project ':docs' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/docs/docs.gradle.kts'.
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :pkl-cli
+Evaluating project ':pkl-cli' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/pkl-cli.gradle.kts'.
+Transforming checksum-1.4.0.jar (gradle.plugin.org.gradle.crypto:checksum:1.4.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming guava-31.0.1-jre.jar (com.google.guava:guava:31.0.1-jre) with ExternalDependencyInstrumentingArtifactTransform
+Transforming failureaccess-1.0.1.jar (com.google.guava:failureaccess:1.0.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar (com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava) with ExternalDependencyInstrumentingArtifactTransform
+Transforming jsr305-3.0.2.jar (com.google.code.findbugs:jsr305:3.0.2) with ExternalDependencyInstrumentingArtifactTransform
+Transforming checker-qual-3.12.0.jar (org.checkerframework:checker-qual:3.12.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming error_prone_annotations-2.7.1.jar (com.google.errorprone:error_prone_annotations:2.7.1) with ExternalDependencyInstrumentingArtifactTransform
+Transforming j2objc-annotations-1.3.jar (com.google.j2objc:j2objc-annotations:1.3) with ExternalDependencyInstrumentingArtifactTransform
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :pkl-codegen-java
+Evaluating project ':pkl-codegen-java' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-codegen-java/pkl-codegen-java.gradle.kts'.
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :pkl-codegen-kotlin
+Evaluating project ':pkl-codegen-kotlin' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-codegen-kotlin/pkl-codegen-kotlin.gradle.kts'.
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :pkl-commons
+Evaluating project ':pkl-commons' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-commons/pkl-commons.gradle.kts'.
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :pkl-commons-cli
+Evaluating project ':pkl-commons-cli' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-commons-cli/pkl-commons-cli.gradle.kts'.
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :pkl-commons-test
+Evaluating project ':pkl-commons-test' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-commons-test/pkl-commons-test.gradle.kts'.
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :pkl-config-java
+Evaluating project ':pkl-config-java' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-config-java/pkl-config-java.gradle.kts'.
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :pkl-config-kotlin
+Evaluating project ':pkl-config-kotlin' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-config-kotlin/pkl-config-kotlin.gradle.kts'.
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :pkl-core
+Evaluating project ':pkl-core' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-core/pkl-core.gradle.kts'.
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: generatorKotlinScriptDef
+
+> Configure project :pkl-doc
+Evaluating project ':pkl-doc' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-doc/pkl-doc.gradle.kts'.
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :pkl-executor
+Evaluating project ':pkl-executor' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-executor/pkl-executor.gradle.kts'.
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :pkl-gradle
+Evaluating project ':pkl-gradle' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-gradle/pkl-gradle.gradle.kts'.
+Transforming plugin-5.3.5.jar (com.github.gmazzo.buildconfig:plugin:5.3.5) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlinpoet-jvm-1.15.3.jar (com.squareup:kotlinpoet-jvm:1.15.3) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-reflect-1.9.22.jar (org.jetbrains.kotlin:kotlin-reflect:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming kotlin-stdlib-1.9.22.jar (org.jetbrains.kotlin:kotlin-stdlib:1.9.22) with ExternalDependencyInstrumentingArtifactTransform
+Transforming annotations-13.0.jar (org.jetbrains:annotations:13.0) with ExternalDependencyInstrumentingArtifactTransform
+Transforming javapoet-1.13.0.jar (com.squareup:javapoet:1.13.0) with ExternalDependencyInstrumentingArtifactTransform
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+
+> Configure project :pkl-server
+Evaluating project ':pkl-server' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-server/pkl-server.gradle.kts'.
+Using Kotlin Gradle Plugin gradle82 variant
+kotlin scripting plugin: created the scripting discovery configuration: kotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: testKotlinScriptDef
+kotlin scripting plugin: created the scripting discovery configuration: unitTestsKotlinScriptDef
+
+> Configure project :pkl-tools
+Evaluating project ':pkl-tools' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-tools/pkl-tools.gradle.kts'.
+
+> Configure project :stdlib
+Evaluating project ':stdlib' using build file '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/stdlib/stdlib.gradle.kts'.
+All projects evaluated.
+Task path 'pkl-cli:nativeHostExecutable' matched project ':pkl-cli'
+Task name matched 'nativeHostExecutable'
+Selected primary task 'nativeHostExecutable' from project :pkl-cli
+Starting process 'command '/usr/libexec/java_home''. Working directory: /Users/sam/.gradle/daemon/8.7 Command: /usr/libexec/java_home -V
+Successfully started process 'command '/usr/libexec/java_home''
+Tasks to be executed: [task ':pkl-cli:checkKotlinGradlePluginConfigurationErrors', task ':pkl-commons:checkKotlinGradlePluginConfigurationErrors', task ':pkl-commons:compileKotlin', task ':pkl-commons:compileJava', task ':pkl-commons:processResources', task ':pkl-commons:classes', task ':pkl-commons:jar', task ':pkl-commons-cli:checkKotlinGradlePluginConfigurationErrors', task ':pkl-core:checkKotlinGradlePluginConfigurationErrors', task ':pkl-core:compileGeneratorKotlin', task ':pkl-core:generateGeneratorGrammarSource', task ':pkl-core:compileGeneratorJava', task ':pkl-executor:checkKotlinGradlePluginConfigurationErrors', task ':pkl-executor:compileKotlin', task ':pkl-executor:workAroundKotlinGradlePluginBug', task ':pkl-executor:compileJava', task ':pkl-executor:processResources', task ':pkl-executor:classes', task ':pkl-executor:jar', task ':pkl-core:compileKotlin', task ':pkl-core:generateGrammarSource', task ':pkl-core:processGeneratorResources', task ':pkl-core:generatorClasses', task ':pkl-core:workAroundKotlinGradlePluginBug', task ':pkl-core:compileJava', task ':pkl-core:processResources', task ':pkl-core:classes', task ':pkl-core:jar', task ':pkl-commons-cli:compileKotlin', task ':pkl-commons-cli:compileJava', task ':pkl-commons-cli:processResources', task ':pkl-commons-cli:classes', task ':pkl-commons-cli:jar', task ':pkl-server:checkKotlinGradlePluginConfigurationErrors', task ':pkl-server:compileKotlin', task ':pkl-server:compileJava', task ':pkl-server:processResources', task ':pkl-server:classes', task ':pkl-server:jar', task ':pkl-cli:compileKotlin', task ':pkl-cli:copyKotlinClasses', task ':downloadGraalVm', task ':verifyGraalVm', task ':installGraalVm', task ':pkl-cli:compileJava', task ':pkl-cli:processResources', task ':pkl-cli:classes', task ':pkl-cli:inflateProfiles', task ':pkl-cli:releasePrep', task ':pkl-cli:macExecutableAarch64', task ':pkl-cli:macosAarch64DistZip', task ':pkl-cli:macosAarch64DistTar', task ':pkl-cli:nativeHostExecutable']
+Tasks that were excluded: []
+Resolve mutations for :pkl-cli:checkKotlinGradlePluginConfigurationErrors (Thread[#1151,included builds,5,main]) started.
+Resolve mutations for :pkl-commons:checkKotlinGradlePluginConfigurationErrors (Thread[#1154,Execution worker Thread 3,5,main]) started.
+Resolve mutations for :pkl-commons-cli:checkKotlinGradlePluginConfigurationErrors (Thread[#1159,Execution worker Thread 8,5,main]) started.
+Resolve mutations for :pkl-executor:checkKotlinGradlePluginConfigurationErrors (Thread[#1161,Execution worker Thread 10,5,main]) started.
+Resolve mutations for :pkl-core:checkKotlinGradlePluginConfigurationErrors (Thread[#1163,Execution worker Thread 11,5,main]) started.
+Resolve mutations for :downloadGraalVm (Thread[#1160,Execution worker Thread 9,5,main]) started.
+Resolve mutations for :pkl-server:checkKotlinGradlePluginConfigurationErrors (Thread[#1157,Execution worker Thread 6,5,main]) started.
+:pkl-commons-cli:checkKotlinGradlePluginConfigurationErrors (Thread[#1159,Execution worker Thread 8,5,main]) started.
+:pkl-server:checkKotlinGradlePluginConfigurationErrors (Thread[#1157,Execution worker Thread 6,5,main]) started.
+:pkl-core:checkKotlinGradlePluginConfigurationErrors (Thread[#1163,Execution worker Thread 11,5,main]) started.
+:pkl-executor:checkKotlinGradlePluginConfigurationErrors (Thread[#1161,Execution worker Thread 10,5,main]) started.
+:pkl-commons:checkKotlinGradlePluginConfigurationErrors (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:pkl-cli:checkKotlinGradlePluginConfigurationErrors (Thread[#1151,included builds,5,main]) started.
+:downloadGraalVm (Thread[#1160,Execution worker Thread 9,5,main]) started.
+
+> Task :downloadGraalVm SKIPPED
+Skipping task ':downloadGraalVm' as task onlyIf 'Task satisfies onlyIf spec' is false.
+Resolve mutations for :verifyGraalVm (Thread[#1160,Execution worker Thread 9,5,main]) started.
+:verifyGraalVm (Thread[#1160,Execution worker Thread 9,5,main]) started.
+
+> Task :verifyGraalVm SKIPPED
+Skipping task ':verifyGraalVm' as task onlyIf 'Task satisfies onlyIf spec' is false.
+Resolve mutations for :installGraalVm (Thread[#1160,Execution worker Thread 9,5,main]) started.
+:installGraalVm (Thread[#1160,Execution worker Thread 9,5,main]) started.
+
+> Task :installGraalVm SKIPPED
+Skipping task ':installGraalVm' as task onlyIf 'Task satisfies onlyIf spec' is false.
+
+> Task :pkl-commons:checkKotlinGradlePluginConfigurationErrors
+Caching disabled for task ':pkl-commons:checkKotlinGradlePluginConfigurationErrors' because:
+  Build cache is disabled
+Task ':pkl-commons:checkKotlinGradlePluginConfigurationErrors' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+Resolve mutations for :pkl-commons:compileKotlin (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :pkl-cli:checkKotlinGradlePluginConfigurationErrors
+Caching disabled for task ':pkl-cli:checkKotlinGradlePluginConfigurationErrors' because:
+  Build cache is disabled
+Task ':pkl-cli:checkKotlinGradlePluginConfigurationErrors' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+Resolve mutations for :pkl-cli:processResources (Thread[#1151,included builds,5,main]) started.
+
+> Task :pkl-core:checkKotlinGradlePluginConfigurationErrors
+Caching disabled for task ':pkl-core:checkKotlinGradlePluginConfigurationErrors' because:
+  Build cache is disabled
+Task ':pkl-core:checkKotlinGradlePluginConfigurationErrors' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+Resolve mutations for :pkl-core:compileGeneratorKotlin (Thread[#1163,Execution worker Thread 11,5,main]) started.
+
+> Task :pkl-server:checkKotlinGradlePluginConfigurationErrors
+Caching disabled for task ':pkl-server:checkKotlinGradlePluginConfigurationErrors' because:
+  Build cache is disabled
+Task ':pkl-server:checkKotlinGradlePluginConfigurationErrors' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+:pkl-commons:compileKotlin (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :pkl-executor:checkKotlinGradlePluginConfigurationErrors
+Caching disabled for task ':pkl-executor:checkKotlinGradlePluginConfigurationErrors' because:
+  Build cache is disabled
+Task ':pkl-executor:checkKotlinGradlePluginConfigurationErrors' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+:pkl-cli:processResources (Thread[#1151,included builds,5,main]) started.
+Resolve mutations for :pkl-executor:compileKotlin (Thread[#1161,Execution worker Thread 10,5,main]) started.
+Resolve mutations for :pkl-server:processResources (Thread[#1157,Execution worker Thread 6,5,main]) started.
+
+> Task :pkl-commons-cli:checkKotlinGradlePluginConfigurationErrors
+Caching disabled for task ':pkl-commons-cli:checkKotlinGradlePluginConfigurationErrors' because:
+  Build cache is disabled
+Task ':pkl-commons-cli:checkKotlinGradlePluginConfigurationErrors' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+:pkl-core:compileGeneratorKotlin (Thread[#1163,Execution worker Thread 11,5,main]) started.
+:pkl-executor:compileKotlin (Thread[#1161,Execution worker Thread 10,5,main]) started.
+Resolve mutations for :pkl-commons-cli:processResources (Thread[#1159,Execution worker Thread 8,5,main]) started.
+:pkl-server:processResources (Thread[#1157,Execution worker Thread 6,5,main]) started.
+
+> Task :pkl-cli:processResources NO-SOURCE
+Skipping task ':pkl-cli:processResources' as it has no source files and no previous output files.
+
+> Task :pkl-executor:compileKotlin SKIPPED
+Skipping task ':pkl-executor:compileKotlin' as task onlyIf 'Task is enabled' is false.
+:pkl-commons-cli:processResources (Thread[#1156,Execution worker Thread 5,5,main]) started.
+Resolve mutations for :pkl-cli:inflateProfiles (Thread[#1151,included builds,5,main]) started.
+
+> Task :pkl-server:processResources NO-SOURCE
+Skipping task ':pkl-server:processResources' as it has no source files and no previous output files.
+work action resolve main (project :pkl-executor) (Thread[#1161,Execution worker Thread 10,5,main]) started.
+Resolve mutations for :pkl-executor:workAroundKotlinGradlePluginBug (Thread[#1161,Execution worker Thread 10,5,main]) started.
+:pkl-cli:inflateProfiles (Thread[#1151,included builds,5,main]) started.
+:pkl-executor:workAroundKotlinGradlePluginBug (Thread[#1161,Execution worker Thread 10,5,main]) started.
+
+> Task :pkl-commons-cli:processResources UP-TO-DATE
+Caching disabled for task ':pkl-commons-cli:processResources' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':pkl-commons-cli:processResources' as it is up-to-date.
+
+> Task :pkl-executor:workAroundKotlinGradlePluginBug
+Caching disabled for task ':pkl-executor:workAroundKotlinGradlePluginBug' because:
+  Build cache is disabled
+Task ':pkl-executor:workAroundKotlinGradlePluginBug' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+Resolve mutations for :pkl-executor:compileJava (Thread[#1161,Execution worker Thread 10,5,main]) started.
+:pkl-executor:compileJava (Thread[#1161,Execution worker Thread 10,5,main]) started.
+
+> Task :pkl-executor:compileJava UP-TO-DATE
+Selection of org.slf4j:slf4j-api:1.8.0-beta4 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-beta4 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-beta2 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-beta2 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-beta1 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-beta1 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-beta0 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-beta0 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-alpha2 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-alpha2 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-alpha1 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-alpha1 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-alpha0 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-alpha0 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Caching disabled for task ':pkl-executor:compileJava' because:
+  Build cache is disabled
+Skipping task ':pkl-executor:compileJava' as it is up-to-date.
+No compile result for :pkl-executor:compileJava
+No compile result for :pkl-executor:compileJava
+No compile result for :pkl-executor:compileJava
+No compile result for :pkl-executor:compileJava
+work action resolve main (project :pkl-executor) (Thread[#1161,Execution worker Thread 10,5,main]) started.
+work action resolve main (project :pkl-executor) (Thread[#1161,Execution worker Thread 10,5,main]) started.
+Resolve mutations for :pkl-executor:processResources (Thread[#1161,Execution worker Thread 10,5,main]) started.
+:pkl-executor:processResources (Thread[#1161,Execution worker Thread 10,5,main]) started.
+
+> Task :pkl-core:compileGeneratorKotlin UP-TO-DATE
+Transforming javapoet-1.13.0.jar with ClasspathEntrySnapshotTransform
+Transforming truffle-api-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming polyglot-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming annotations-13.0.jar with ClasspathEntrySnapshotTransform
+Transforming collections-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming nativeimage-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming word-24.0.0.jar with ClasspathEntrySnapshotTransform
+Caching disabled for task ':pkl-core:compileGeneratorKotlin' because:
+  Build cache is disabled
+Skipping task ':pkl-core:compileGeneratorKotlin' as it is up-to-date.
+Resolve mutations for :pkl-core:generateGeneratorGrammarSource (Thread[#1163,Execution worker Thread 11,5,main]) started.
+:pkl-core:generateGeneratorGrammarSource (Thread[#1163,Execution worker Thread 11,5,main]) started.
+
+> Task :pkl-core:generateGeneratorGrammarSource SKIPPED
+Skipping task ':pkl-core:generateGeneratorGrammarSource' as task onlyIf 'Task is enabled' is false.
+
+> Task :pkl-executor:processResources NO-SOURCE
+Skipping task ':pkl-executor:processResources' as it has no source files and no previous output files.
+Resolve mutations for :pkl-core:compileGeneratorJava (Thread[#1161,Execution worker Thread 10,5,main]) started.
+Resolve mutations for :pkl-executor:classes (Thread[#1155,Execution worker Thread 4,5,main]) started.
+:pkl-executor:classes (Thread[#1155,Execution worker Thread 4,5,main]) started.
+
+> Task :pkl-executor:classes UP-TO-DATE
+Skipping task ':pkl-executor:classes' as it has no actions.
+:pkl-core:compileGeneratorJava (Thread[#1161,Execution worker Thread 10,5,main]) started.
+Resolve mutations for :pkl-executor:jar (Thread[#1155,Execution worker Thread 4,5,main]) started.
+:pkl-executor:jar (Thread[#1155,Execution worker Thread 4,5,main]) started.
+
+> Task :pkl-core:compileGeneratorJava NO-SOURCE
+Skipping task ':pkl-core:compileGeneratorJava' as it has no source files and no previous output files.
+Resolve mutations for :pkl-core:generateGrammarSource (Thread[#1161,Execution worker Thread 10,5,main]) started.
+:pkl-core:generateGrammarSource (Thread[#1161,Execution worker Thread 10,5,main]) started.
+
+> Task :pkl-executor:jar UP-TO-DATE
+Caching disabled for task ':pkl-executor:jar' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':pkl-executor:jar' as it is up-to-date.
+work action resolve pkl-executor-0.27.0-labs-SNAPSHOT.jar (project :pkl-executor) (Thread[#1155,Execution worker Thread 4,5,main]) started.
+
+> Task :pkl-commons:compileKotlin UP-TO-DATE
+Transforming kotlin-stdlib-jdk8-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-jdk7-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming annotations-13.0.jar with ClasspathEntrySnapshotTransform
+Caching disabled for task ':pkl-commons:compileKotlin' because:
+  Build cache is disabled
+Skipping task ':pkl-commons:compileKotlin' as it is up-to-date.
+Resolve mutations for :pkl-commons:compileJava (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:pkl-commons:compileJava (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :pkl-commons:compileJava UP-TO-DATE
+Custom actions are attached to task ':pkl-commons:compileJava'.
+Caching disabled for task ':pkl-commons:compileJava' because:
+  Build cache is disabled
+Skipping task ':pkl-commons:compileJava' as it is up-to-date.
+No compile result for :pkl-commons:compileJava
+No compile result for :pkl-commons:compileJava
+No compile result for :pkl-commons:compileJava
+No compile result for :pkl-commons:compileJava
+Resolve mutations for :pkl-commons:processResources (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:pkl-commons:processResources (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :pkl-commons:processResources NO-SOURCE
+Skipping task ':pkl-commons:processResources' as it has no source files and no previous output files.
+Resolve mutations for :pkl-commons:classes (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:pkl-commons:classes (Thread[#1160,Execution worker Thread 9,5,main]) started.
+
+> Task :pkl-commons:classes UP-TO-DATE
+Skipping task ':pkl-commons:classes' as it has no actions.
+Resolve mutations for :pkl-commons:jar (Thread[#1160,Execution worker Thread 9,5,main]) started.
+:pkl-commons:jar (Thread[#1160,Execution worker Thread 9,5,main]) started.
+
+> Task :pkl-commons:jar UP-TO-DATE
+Caching disabled for task ':pkl-commons:jar' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':pkl-commons:jar' as it is up-to-date.
+work action resolve pkl-commons-0.27.0-labs-SNAPSHOT.jar (project :pkl-commons) (Thread[#1160,Execution worker Thread 9,5,main]) started.
+
+> Task :pkl-core:generateGrammarSource UP-TO-DATE
+Caching disabled for task ':pkl-core:generateGrammarSource' because:
+  Build cache is disabled
+Skipping task ':pkl-core:generateGrammarSource' as it is up-to-date.
+Resolve mutations for :pkl-core:compileKotlin (Thread[#1161,Execution worker Thread 10,5,main]) started.
+:pkl-core:compileKotlin (Thread[#1161,Execution worker Thread 10,5,main]) started.
+
+> Task :pkl-core:compileKotlin SKIPPED
+Skipping task ':pkl-core:compileKotlin' as task onlyIf 'Task is enabled' is false.
+work action resolve main (project :pkl-core) (Thread[#1161,Execution worker Thread 10,5,main]) started.
+Resolve mutations for :pkl-core:processGeneratorResources (Thread[#1161,Execution worker Thread 10,5,main]) started.
+:pkl-core:processGeneratorResources (Thread[#1161,Execution worker Thread 10,5,main]) started.
+
+> Task :pkl-core:processGeneratorResources UP-TO-DATE
+Caching disabled for task ':pkl-core:processGeneratorResources' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':pkl-core:processGeneratorResources' as it is up-to-date.
+Resolve mutations for :pkl-core:generatorClasses (Thread[#1161,Execution worker Thread 10,5,main]) started.
+:pkl-core:generatorClasses (Thread[#1161,Execution worker Thread 10,5,main]) started.
+
+> Task :pkl-core:generatorClasses UP-TO-DATE
+Skipping task ':pkl-core:generatorClasses' as it has no actions.
+Resolve mutations for :pkl-core:workAroundKotlinGradlePluginBug (Thread[#1161,Execution worker Thread 10,5,main]) started.
+:pkl-core:workAroundKotlinGradlePluginBug (Thread[#1161,Execution worker Thread 10,5,main]) started.
+
+> Task :pkl-core:workAroundKotlinGradlePluginBug
+Caching disabled for task ':pkl-core:workAroundKotlinGradlePluginBug' because:
+  Build cache is disabled
+Task ':pkl-core:workAroundKotlinGradlePluginBug' is not up-to-date because:
+  Task has not declared any outputs despite executing actions.
+Resolve mutations for :pkl-core:compileJava (Thread[#1161,Execution worker Thread 10,5,main]) started.
+:pkl-core:compileJava (Thread[#1161,Execution worker Thread 10,5,main]) started.
+
+> Task :pkl-core:compileJava UP-TO-DATE
+Caching disabled for task ':pkl-core:compileJava' because:
+  Build cache is disabled
+Skipping task ':pkl-core:compileJava' as it is up-to-date.
+No compile result for :pkl-core:compileJava
+No compile result for :pkl-core:compileJava
+No compile result for :pkl-core:compileJava
+No compile result for :pkl-core:compileJava
+work action resolve main (project :pkl-core) (Thread[#1161,Execution worker Thread 10,5,main]) started.
+work action resolve main (project :pkl-core) (Thread[#1161,Execution worker Thread 10,5,main]) started.
+Resolve mutations for :pkl-core:processResources (Thread[#1161,Execution worker Thread 10,5,main]) started.
+Resolve mutations for :pkl-server:compileKotlin (Thread[#1155,Execution worker Thread 4,5,main]) started.
+:pkl-core:processResources (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:pkl-server:compileKotlin (Thread[#1155,Execution worker Thread 4,5,main]) started.
+
+> Task :pkl-core:processResources UP-TO-DATE
+Caching disabled for task ':pkl-core:processResources' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':pkl-core:processResources' as it is up-to-date.
+Resolve mutations for :pkl-core:classes (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:pkl-core:classes (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :pkl-core:classes UP-TO-DATE
+Skipping task ':pkl-core:classes' as it has no actions.
+Resolve mutations for :pkl-core:jar (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:pkl-core:jar (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :pkl-core:jar UP-TO-DATE
+Caching disabled for task ':pkl-core:jar' because:
+  Build cache is disabled
+Skipping task ':pkl-core:jar' as it is up-to-date.
+work action resolve pkl-core-0.27.0-labs-SNAPSHOT.jar (project :pkl-core) (Thread[#1154,Execution worker Thread 3,5,main]) started.
+Resolve mutations for :pkl-commons-cli:compileKotlin (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:pkl-commons-cli:compileKotlin (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :pkl-server:compileKotlin UP-TO-DATE
+Transforming kotlin-stdlib-jdk8-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-jdk7-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming main with ClasspathEntrySnapshotTransform
+Transforming main with ClasspathEntrySnapshotTransform
+Transforming msgpack-core-0.9.8.jar with ClasspathEntrySnapshotTransform
+Transforming truffle-api-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming antlr4-runtime-4.9.0.jar with ClasspathEntrySnapshotTransform
+Transforming annotations-13.0.jar with ClasspathEntrySnapshotTransform
+Transforming main with ClasspathEntrySnapshotTransform
+Transforming main with ClasspathEntrySnapshotTransform
+Transforming polyglot-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming collections-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming nativeimage-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming word-24.0.0.jar with ClasspathEntrySnapshotTransform
+Caching disabled for task ':pkl-server:compileKotlin' because:
+  Build cache is disabled
+Skipping task ':pkl-server:compileKotlin' as it is up-to-date.
+
+> Task :pkl-commons-cli:compileKotlin UP-TO-DATE
+Transforming pkl-commons-0.27.0-labs-SNAPSHOT.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-jdk8-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-jdk7-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming pkl-core-0.27.0-labs-SNAPSHOT.jar with ClasspathEntrySnapshotTransform
+Transforming annotations-13.0.jar with ClasspathEntrySnapshotTransform
+Transforming pkl-executor-0.27.0-labs-SNAPSHOT.jar with ClasspathEntrySnapshotTransform
+Transforming clikt-jvm-3.5.1.jar with ClasspathEntrySnapshotTransform
+Caching disabled for task ':pkl-commons-cli:compileKotlin' because:
+  Build cache is disabled
+Skipping task ':pkl-commons-cli:compileKotlin' as it is up-to-date.
+Resolve mutations for :pkl-commons-cli:compileJava (Thread[#1154,Execution worker Thread 3,5,main]) started.
+Resolve mutations for :pkl-server:compileJava (Thread[#1155,Execution worker Thread 4,5,main]) started.
+:pkl-commons-cli:compileJava (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:pkl-server:compileJava (Thread[#1155,Execution worker Thread 4,5,main]) started.
+
+> Task :pkl-commons-cli:compileJava UP-TO-DATE
+Custom actions are attached to task ':pkl-commons-cli:compileJava'.
+Caching disabled for task ':pkl-commons-cli:compileJava' because:
+  Build cache is disabled
+Skipping task ':pkl-commons-cli:compileJava' as it is up-to-date.
+No compile result for :pkl-commons-cli:compileJava
+No compile result for :pkl-commons-cli:compileJava
+No compile result for :pkl-commons-cli:compileJava
+No compile result for :pkl-commons-cli:compileJava
+Resolve mutations for :pkl-commons-cli:classes (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :pkl-server:compileJava NO-SOURCE
+Skipping task ':pkl-server:compileJava' as it has no source files and no previous output files.
+:pkl-commons-cli:classes (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :pkl-commons-cli:classes UP-TO-DATE
+Skipping task ':pkl-commons-cli:classes' as it has no actions.
+Resolve mutations for :pkl-server:classes (Thread[#1155,Execution worker Thread 4,5,main]) started.
+:pkl-server:classes (Thread[#1155,Execution worker Thread 4,5,main]) started.
+
+> Task :pkl-server:classes UP-TO-DATE
+Skipping task ':pkl-server:classes' as it has no actions.
+Resolve mutations for :pkl-server:jar (Thread[#1155,Execution worker Thread 4,5,main]) started.
+Resolve mutations for :pkl-commons-cli:jar (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:pkl-commons-cli:jar (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:pkl-server:jar (Thread[#1155,Execution worker Thread 4,5,main]) started.
+
+> Task :pkl-commons-cli:jar UP-TO-DATE
+Caching disabled for task ':pkl-commons-cli:jar' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':pkl-commons-cli:jar' as it is up-to-date.
+work action resolve pkl-commons-cli-0.27.0-labs-SNAPSHOT.jar (project :pkl-commons-cli) (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :pkl-server:jar UP-TO-DATE
+Caching disabled for task ':pkl-server:jar' because:
+  Build cache is disabled
+  Not worth caching
+Skipping task ':pkl-server:jar' as it is up-to-date.
+work action resolve pkl-server-0.27.0-labs-SNAPSHOT.jar (project :pkl-server) (Thread[#1155,Execution worker Thread 4,5,main]) started.
+
+> Task :pkl-cli:inflateProfiles
+Caching disabled for task ':pkl-cli:inflateProfiles' because:
+  Build cache is disabled
+  Not worth caching
+Task ':pkl-cli:inflateProfiles' is not up-to-date because:
+  Output property '$1$1' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/profiles/pkl-cli.iprof has been removed.
+  Output property 'destinationDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/profiles has been removed.
+  Output property 'destinationDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/profiles/pkl-cli.iprof has been removed.
+Resolve mutations for :pkl-cli:compileKotlin (Thread[#1151,included builds,5,main]) started.
+:pkl-cli:compileKotlin (Thread[#1151,included builds,5,main]) started.
+Resolve mutations for :pkl-cli:releasePrep (Thread[#1154,Execution worker Thread 3,5,main]) started.
+:pkl-cli:releasePrep (Thread[#1154,Execution worker Thread 3,5,main]) started.
+
+> Task :pkl-cli:releasePrep SKIPPED
+Skipping task ':pkl-cli:releasePrep' as task onlyIf 'Task satisfies onlyIf spec' is false.
+
+> Task :pkl-cli:compileKotlin
+Transforming pkl-commons-cli-0.27.0-labs-SNAPSHOT.jar with ClasspathEntrySnapshotTransform
+Transforming pkl-commons-0.27.0-labs-SNAPSHOT.jar with ClasspathEntrySnapshotTransform
+Transforming pkl-server-0.27.0-labs-SNAPSHOT.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-jdk8-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-jdk7-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming kotlin-stdlib-1.9.22.jar with ClasspathEntrySnapshotTransform
+Transforming pkl-core-0.27.0-labs-SNAPSHOT.jar with ClasspathEntrySnapshotTransform
+Transforming truffle-runtime-svm-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming svm-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming jline-terminal-jansi-3.25.1.jar with ClasspathEntrySnapshotTransform
+Transforming jansi-2.4.1.jar with ClasspathEntrySnapshotTransform
+Transforming jline-reader-3.25.1.jar with ClasspathEntrySnapshotTransform
+Transforming jline-terminal-3.25.1.jar with ClasspathEntrySnapshotTransform
+Transforming truffle-runtime-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming truffle-api-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming pkl-executor-0.27.0-labs-SNAPSHOT.jar with ClasspathEntrySnapshotTransform
+Transforming annotations-13.0.jar with ClasspathEntrySnapshotTransform
+Transforming objectfile-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming pointsto-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming native-image-base-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming polyglot-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming jniutils-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming nativeimage-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming compiler-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming jline-native-3.25.1.jar with ClasspathEntrySnapshotTransform
+Transforming clikt-jvm-3.5.1.jar with ClasspathEntrySnapshotTransform
+Transforming truffle-compiler-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming word-24.0.0.jar with ClasspathEntrySnapshotTransform
+Transforming collections-24.0.0.jar with ClasspathEntrySnapshotTransform
+Caching disabled for task ':pkl-cli:compileKotlin' because:
+  Build cache is disabled
+Task ':pkl-cli:compileKotlin' is not up-to-date because:
+  Output property 'classpathSnapshotProperties.classpathSnapshotDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/kotlin/compileKotlin/classpath-snapshot has been removed.
+  Output property 'classpathSnapshotProperties.classpathSnapshotDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/kotlin/compileKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin has been removed.
+  Output property 'destinationDirectory' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/kotlin/main has been removed.
+The input changes require a full rebuild for incremental task ':pkl-cli:compileKotlin'.
+Kotlin source files: /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/CliTestRunner.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/CliEvaluatorOptions.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/CliRepl.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/CliServer.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/repl/ReplCommands.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/repl/ReplMessages.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/repl/Repl.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/repl/ReplCompleters.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/CliProjectPackager.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/Main.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/CliEvaluator.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/CliProjectResolver.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/CliDownloadPackageCommand.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/commands/ServerCommand.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/commands/ReplCommand.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/commands/ProjectCommand.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/commands/DownloadPackageCommand.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/commands/EvalCommand.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/commands/TestCommand.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/commands/RootCommand.kt, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/CliAbstractProjectCommand.kt
+Java source files: /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/kotlin/org/pkl/cli/repl/package-info.java, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/java/module-info.java, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/java/org/pkl/cli/svm/InitFeature.java, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/java/org/pkl/cli/svm/WeakAssumedValueTarget.java, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/java/org/pkl/cli/svm/PolyglotContextImplTarget.java, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/java/org/pkl/cli/svm/ThreadLocalHandshakeTarget.java, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/java/org/pkl/cli/svm/MessagePackRecomputations.java, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/main/java/org/pkl/cli/svm/PolyglotThreadInfoTarget.java
+Script source files: 
+Script file extensions: 
+Using Kotlin/JVM incremental compilation
+[KOTLIN] Kotlin compilation 'jdkHome' argument: /Users/sam/.gradle/jdks/eclipse_adoptium-22-aarch64-os_x/jdk-22+36/Contents/Home
+i: found daemon on port 17269 (491430 ms old), trying to connect
+i: connected to the daemon
+Options for KOTLIN DAEMON: IncrementalCompilationOptions(super=CompilationOptions(compilerMode=INCREMENTAL_COMPILER, targetPlatform=JVM, reportCategories=[0, 3], reportSeverity=2, requestedCompilationResults=[0, 2, 3], kotlinScriptExtensions=[]), areFileChangesKnown=false, modifiedFiles=null, deletedFiles=null, classpathChanges=NotAvailableForNonIncrementalRun, workingDir=/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/kotlin/compileKotlin/cacheable, multiModuleICSettings=MultiModuleICSettings(buildHistoryFile=/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/kotlin/compileKotlin/local-state/build-history.bin, useModuleDetection=false), usePreciseJavaTracking=true, outputFiles=[/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/kotlin/main, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/kotlin/compileKotlin/cacheable, /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/kotlin/compileKotlin/local-state])
+w: file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.compiler/compiler/24.0.0/bc6a7f1a5963095b3a20444f4c428fe76ff8cca1/compiler-24.0.0.jarThe root is ignored because a module with the same name 'jdk.graal.compiler' has been found earlier on the module path at: /Users/sam/.gradle/jdks/eclipse_adoptium-22-aarch64-os_x/jdk-22+36/Contents/Home
+Resolve mutations for :pkl-cli:copyKotlinClasses (Thread[#1151,included builds,5,main]) started.
+:pkl-cli:copyKotlinClasses (Thread[#1151,included builds,5,main]) started.
+
+> Task :pkl-cli:copyKotlinClasses
+Caching disabled for task ':pkl-cli:copyKotlinClasses' because:
+  Build cache is disabled
+  Not worth caching
+Task ':pkl-cli:copyKotlinClasses' is not up-to-date because:
+  Output property 'destinationDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main has been removed.
+  Output property 'destinationDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main/caches-jvm has been removed.
+  Output property 'destinationDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main/caches-jvm/inputs has been removed.
+  Output property 'destinationDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main/caches-jvm/jvm has been removed.
+  Output property 'destinationDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main/caches-jvm/lookups has been removed.
+  Output property 'destinationDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main/last-build.bin has been removed.
+  Output property 'destinationDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main/META-INF has been removed.
+  Output property 'destinationDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main/org has been removed.
+  Output property 'destinationDir' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main/shrunk-classpath-snapshot.bin has been removed.
+Resolve mutations for :pkl-cli:compileJava (Thread[#1151,included builds,5,main]) started.
+:pkl-cli:compileJava (Thread[#1151,included builds,5,main]) started.
+This JVM does not support getting OS memory, so no OS memory status updates will be broadcast
+
+> Task :pkl-cli:compileJava
+Custom actions are attached to task ':pkl-cli:compileJava'.
+Caching disabled for task ':pkl-cli:compileJava' because:
+  Build cache is disabled
+  Gradle does not know how file 'build/classes/java/main/shrunk-classpath-snapshot.bin' was created (output property 'destinationDirectory'). Task output caching requires exclusive access to output paths to guarantee correctness (i.e. multiple tasks are not allowed to produce output in the same location).
+Task ':pkl-cli:compileJava' is not up-to-date because:
+  Output property 'destinationDirectory' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main/module-info.class has been removed.
+  Output property 'destinationDirectory' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main/org/pkl/cli/svm has been removed.
+  Output property 'destinationDirectory' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main/org/pkl/cli/svm/InitFeature.class has been removed.
+The input changes require a full rebuild for incremental task ':pkl-cli:compileJava'.
+Full recompilation is required because no incremental change information is available. This is usually caused by clean builds or changing compiler arguments.
+Compiling with toolchain '/Users/sam/.gradle/jdks/eclipse_adoptium-22-aarch64-os_x/jdk-22+36/Contents/Home'.
+Log level has changed, stopping idle worker daemon with out-of-date log level.
+Starting process 'Gradle Worker Daemon 2'. Working directory: /Users/sam/.gradle/workers Command: /Users/sam/.gradle/jdks/eclipse_adoptium-22-aarch64-os_x/jdk-22+36/Contents/Home/bin/java @/Users/sam/.gradle/.tmp/gradle-worker-classpath1263943119768935271txt -Xmx512m -Dfile.encoding=UTF-8 -Duser.country=US -Duser.language=en -Duser.variant worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Worker Daemon 2'
+Successfully started process 'Gradle Worker Daemon 2'
+Started Gradle worker daemon (0.179 secs) with fork options DaemonForkOptions{executable=/Users/sam/.gradle/jdks/eclipse_adoptium-22-aarch64-os_x/jdk-22+36/Contents/Home/bin/java, minHeapSize=null, maxHeapSize=null, jvmArgs=[], keepAliveMode=DAEMON}.
+Compiling with JDK Java compiler API.
+Class dependency analysis for incremental compilation took 0.003 secs.
+Created classpath snapshot for incremental compilation in 0.004 secs.
+Resolve mutations for :pkl-cli:classes (Thread[#1151,included builds,5,main]) started.
+:pkl-cli:classes (Thread[#1151,included builds,5,main]) started.
+
+> Task :pkl-cli:classes
+Skipping task ':pkl-cli:classes' as it has no actions.
+Resolve mutations for :pkl-cli:macExecutableAarch64 (Thread[#1151,included builds,5,main]) started.
+:pkl-cli:macExecutableAarch64 (Thread[#1151,included builds,5,main]) started.
+
+> Task :pkl-cli:macExecutableAarch64
+Selection of org.slf4j:slf4j-api:1.8.0-beta4 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-beta4 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-beta2 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-beta2 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-beta1 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-beta1 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-beta0 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-beta0 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-alpha2 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-alpha2 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-alpha1 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-alpha1 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-alpha0 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-alpha0 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Caching disabled for task ':pkl-cli:macExecutableAarch64' because:
+  Build cache is disabled
+Task ':pkl-cli:macExecutableAarch64' is not up-to-date because:
+  Output property '$1' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/executable/pkl-macos-aarch64 has been removed.
+Selection of org.slf4j:slf4j-api:1.8.0-beta4 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-beta4 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-beta2 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-beta2 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-beta1 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-beta1 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-beta0 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-beta0 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-alpha2 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-alpha2 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-alpha1 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-alpha1 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Selection of org.slf4j:slf4j-api:1.8.0-alpha0 rejected by component selection rule: Rejected dependency org.slf4j:slf4j-api:1.8.0-alpha0 because it has a prelease version suffix matching `-alpha|-beta|-eap|-m|-rc|-snapshot`.
+Starting process 'command '/Library/Java/JavaVirtualMachines/gvm-ce.jdk21/Contents/Home/graalvm-jdk-22_macos-aarch64_bin/Contents/Home/bin/native-image''. Working directory: /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/executable Command: /Library/Java/JavaVirtualMachines/gvm-ce.jdk21/Contents/Home/graalvm-jdk-22_macos-aarch64_bin/Contents/Home/bin/native-image --strict-image-heap --initialize-at-build-time= --no-fallback -H:IncludeResources=org/pkl/core/stdlib/.*\.pkl -H:IncludeResources=org/jline/utils/.* -H:IncludeResources=org/pkl/commons/cli/commands/IncludedCARoots.pem -H:IncludeResourceBundles=org.pkl.core.errorMessages --macro:truffle-svm -H:Module=pkl.cli -H:Class=org.pkl.cli.Main -H:Name=pkl-macos-aarch64 -Dpolyglot.image-build-time.PreinitializeContexts=pkl -H:MaxRuntimeCompileMethods=1800 -H:+EnforceMaxRuntimeCompileMethods --enable-url-protocols=http,https -H:+ReportExceptionStackTraces -H:-ParseRuntimeOptions -J-Dcom.oracle.truffle.aot=true --module-path /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/java/main:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/classes/kotlin/main:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/resources/main:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-commons-cli/build/libs/pkl-commons-cli-0.27.0-labs-SNAPSHOT.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-commons/build/libs/pkl-commons-0.27.0-labs-SNAPSHOT.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.9.22/dea0c11e2fa503ab891c8a090e3b54754472975d/kotlin-stdlib-jdk8-1.9.22.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.9.22/c4b17283ad7939e778989663f8301d871987fa5e/kotlin-stdlib-jdk7-1.9.22.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.9.22/d6c44cd08d8f3f9bece8101216dbe6553365c6e3/kotlin-stdlib-1.9.22.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-reader/3.25.1/46d87459a98d74be8c77645f2bc3c65bb2fc4f3a/jline-reader-3.25.1.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.nativeimage/truffle-runtime-svm/24.0.0/c05977ad30af002189fd6aaf1896e22696c41eb5/truffle-runtime-svm-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.truffle/truffle-runtime/24.0.0/2f3ee79085e59314c8b4ab9d40ac2a118e8cba15/truffle-runtime-24.0.0.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-core/build/libs/pkl-core-0.27.0-labs-SNAPSHOT.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/lib/antlr4-annotations-4.10.0-SNAPSHOT.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/lib/antlr4-runtime-4.10.0-SNAPSHOT.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/lib/paguro-3.11.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.truffle/truffle-api/24.0.0/bc925b49dce52653afba11f65100cf9d83171d40/truffle-api-24.0.0.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-executor/build/libs/pkl-executor-0.27.0-labs-SNAPSHOT.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.25.1/44e0e53397c39d01c525bad3735097596a7d889a/jline-terminal-3.25.1.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.nativeimage/svm/24.0.0/2be0e4d398722840cf9dee36d38e5a00bec7391d/svm-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.nativeimage/objectfile/24.0.0/fc358f16bc376bf0a0127462ee74d36dbca7aa62/objectfile-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.nativeimage/pointsto/24.0.0/e0792342ee15e4f654615b3d391b9e95351706e6/pointsto-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.polyglot/polyglot/24.0.0/26f391313d8b7a4376b0778ea32a075422fb70dd/polyglot-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.sdk/jniutils/24.0.0/206525f96c8d47633769f7dd96ade4c9253e1fd7/jniutils-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.nativeimage/native-image-base/24.0.0/5dc733d5da37457c11fc201a11e2ceade9a442e5/native-image-base-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.compiler/compiler/24.0.0/bc6a7f1a5963095b3a20444f4c428fe76ff8cca1/compiler-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.truffle/truffle-compiler/24.0.0/1dfb80e64dcd92460c2accac4c90935fe6cddf12/truffle-compiler-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.snakeyaml/snakeyaml-engine/2.7/5213e62e87e62ac009d80aeb64c8240075bf078a/snakeyaml-engine-2.7.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.36/6c62681a2f655b49963a5983b8b0950a6120ae14/slf4j-api-1.7.36.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-native/3.25.1/7f58e474f7d94db5bf87b1fddf4fa646475779f2/jline-native-3.25.1.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.sdk/nativeimage/24.0.0/b6bd5f7b8a375832a64e7bea9f2aeed08e7aa9d1/nativeimage-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.sdk/collections/24.0.0/e7fba15f217232d59e2c7eba0ee7480f8dbf32b7/collections-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.sdk/word/24.0.0/dea1fd82aecd2b7776fda84fe944c605b0a44339/word-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/com.github.ajalt.clikt/clikt-jvm/3.5.1/b9aa62a9a8612a5ca120b0278d151b503bd4ad91/clikt-jvm-3.5.1.jar --class-path /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-commons-cli/build/libs/pkl-commons-cli-0.27.0-labs-SNAPSHOT.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-commons/build/libs/pkl-commons-0.27.0-labs-SNAPSHOT.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-server/build/libs/pkl-server-0.27.0-labs-SNAPSHOT.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.9.22/dea0c11e2fa503ab891c8a090e3b54754472975d/kotlin-stdlib-jdk8-1.9.22.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.9.22/c4b17283ad7939e778989663f8301d871987fa5e/kotlin-stdlib-jdk7-1.9.22.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.9.22/d6c44cd08d8f3f9bece8101216dbe6553365c6e3/kotlin-stdlib-1.9.22.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-core/build/libs/pkl-core-0.27.0-labs-SNAPSHOT.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/lib/antlr4-annotations-4.10.0-SNAPSHOT.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/lib/antlr4-runtime-4.10.0-SNAPSHOT.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/lib/paguro-3.11.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal-jansi/3.25.1/ee87b1238f01fe352ff4b78656e3dd4039bee727/jline-terminal-jansi-3.25.1.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.fusesource.jansi/jansi/2.4.1/d5774f204d990c9f5da2809b88f928515577beb4/jansi-2.4.1.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.25.1/44e0e53397c39d01c525bad3735097596a7d889a/jline-terminal-3.25.1.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar:/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-executor/build/libs/pkl-executor-0.27.0-labs-SNAPSHOT.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.truffle/truffle-api/24.0.0/bc925b49dce52653afba11f65100cf9d83171d40/truffle-api-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.snakeyaml/snakeyaml-engine/2.7/5213e62e87e62ac009d80aeb64c8240075bf078a/snakeyaml-engine-2.7.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-native/3.25.1/7f58e474f7d94db5bf87b1fddf4fa646475779f2/jline-native-3.25.1.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.msgpack/msgpack-core/0.9.8/6ea511f551465a0c9670e1bfb403c15d3315b540/msgpack-core-0.9.8.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/com.tunnelvisionlabs/antlr4-runtime/4.9.0/17e19535a875a2a1014197d2bb35faeecf4e50f4/antlr4-runtime-4.9.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/com.github.ajalt.clikt/clikt-jvm/3.5.1/b9aa62a9a8612a5ca120b0278d151b503bd4ad91/clikt-jvm-3.5.1.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.36/6c62681a2f655b49963a5983b8b0950a6120ae14/slf4j-api-1.7.36.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.polyglot/polyglot/24.0.0/26f391313d8b7a4376b0778ea32a075422fb70dd/polyglot-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.sdk/collections/24.0.0/e7fba15f217232d59e2c7eba0ee7480f8dbf32b7/collections-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.sdk/nativeimage/24.0.0/b6bd5f7b8a375832a64e7bea9f2aeed08e7aa9d1/nativeimage-24.0.0.jar:/Users/sam/.gradle/caches/modules-2/files-2.1/org.graalvm.sdk/word/24.0.0/dea1fd82aecd2b7776fda84fe944c605b0a44339/word-24.0.0.jar -J-XX:ActiveProcessorCount=3 -H:+AllowDeprecatedBuilderClassesOnImageClasspath --initialize-at-run-time=org.msgpack.core.buffer.DirectBufferAccess,org.jline.nativ.Kernel32,org.jline.nativ.Kernel32$CHAR_INFO,org.jline.nativ.Kernel32$CONSOLE_SCREEN_BUFFER_INFO,org.jline.nativ.Kernel32$COORD,org.jline.nativ.Kernel32$FOCUS_EVENT_RECORD,org.jline.nativ.Kernel32$INPUT_EVENT_RECORD,org.jline.nativ.Kernel32$INPUT_RECORD,org.jline.nativ.Kernel32$KEY_EVENT_RECORD,org.jline.nativ.Kernel32$MENU_EVENT_RECORD,org.jline.nativ.Kernel32$MOUSE_EVENT_RECORD,org.jline.nativ.Kernel32$SMALL_RECT,org.jline.nativ.Kernel32$WINDOW_BUFFER_SIZE_RECORD --add-exports=org.graalvm.truffle.runtime.svm/com.oracle.svm.truffle=pkl.cli --add-reads=org.graalvm.truffle.runtime.svm=pkl.cli --add-reads=pkl.commons.cli=pkl.core --add-reads=pkl.cli=ALL-UNNAMED --enable-native-access=ALL-UNNAMED --enable-preview --add-modules=jdk.incubator.vector --enable-native-access=pkl.core,pkl.cli,ALL-UNNAMED -J-Dpolyglot.image-build-time.PreinitializeContextsWithNative=true -H:CStandard=C11 -H:+UnlockExperimentalVMOptions -Ob
+Successfully started process 'command '/Library/Java/JavaVirtualMachines/gvm-ce.jdk21/Contents/Home/graalvm-jdk-22_macos-aarch64_bin/Contents/Home/bin/native-image''
+Warning: Using a deprecated option --strict-image-heap from command line. '--strict-image-heap' is now the default. You can remove the option.
+Warning: The option '-H:-ParseRuntimeOptions' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:IncludeResources=org/jline/utils/.*' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:IncludeResourceBundles=org.pkl.core.errorMessages' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:Module=pkl.cli' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:CStandard=C11' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:+EnforceMaxRuntimeCompileMethods' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:+AllowDeprecatedBuilderClassesOnImageClasspath' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:Name=pkl-macos-aarch64' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:IncludeResources=org/pkl/core/stdlib/.*\.pkl' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: The option '-H:IncludeResources=org/pkl/commons/cli/commands/IncludedCARoots.pem' is experimental and must be enabled via '-H:+UnlockExperimentalVMOptions' in the future.
+Warning: Please re-evaluate whether any experimental option is required, and either remove or unlock it. The build output lists all active experimental options, including where they come from and possible alternatives. If you think an experimental option should be considered as stable, please file an issue.
+Warning: Option 'StrictImageHeap' is deprecated and might be removed in a future release: This option was introduced to simplify migration to GraalVM 24.0 and will be removed in a future release. Please refer to the GraalVM release notes.
+Warning: Option 'AllowDeprecatedBuilderClassesOnImageClasspath' is deprecated and might be removed in a future release: This option was introduced to simplify migration to GraalVM 23.0 and will be removed in a future release. Please refer to the GraalVM release notes.
+========================================================================================================================
+GraalVM Native Image: Generating 'pkl-macos-aarch64' (executable)...
+========================================================================================================================
+For detailed information and explanations on the build output, visit:
+https://github.com/oracle/graal/blob/master/docs/reference-manual/native-image/BuildOutput.md
+------------------------------------------------------------------------------------------------------------------------
+[1/8] Initializing...                                                                                    (4.0s @ 0.32GB)
+ Java version: 22+36, vendor version: Oracle GraalVM 22+36.1
+ Graal compiler: optimization level: b, target machine: armv8-a, PGO: off
+ C compiler: cc (apple, arm64, 15.0.0)
+ Garbage collector: Serial GC (max heap size: 80% of RAM)
+ 4 user-specific feature(s):
+ - com.oracle.svm.thirdparty.gson.GsonFeature
+ - com.oracle.svm.truffle.TruffleBaseFeature: Provides support for Truffle languages
+ - com.oracle.svm.truffle.TruffleFeature: Provides support for Truffle runtime compilation
+ - org.graalvm.home.HomeFinderFeature: Finds GraalVM paths and its version number
+------------------------------------------------------------------------------------------------------------------------
+ 11 experimental option(s) unlocked:
+ - '-H:-ParseRuntimeOptions' (origin(s): command line)
+ - '-H:JNIConfigurationResources': Use a jni-config.json in your META-INF/native-image/<groupID>/<artifactID> directory instead. (origin(s): 'META-INF/native-image/org.jline/jline-native/native-image.properties' in 'file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-native/3.25.1/7f58e474f7d94db5bf87b1fddf4fa646475779f2/jline-native-3.25.1.jar', 'META-INF/native-image/org.jline/jline-native/native-image.properties' in 'file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-native/3.25.1/7f58e474f7d94db5bf87b1fddf4fa646475779f2/jline-native-3.25.1.jar')
+ - '-H:Name' (alternative API option(s): -o pkl-macos-aarch64; origin(s): command line)
+ - '-H:CStandard' (origin(s): command line)
+ - '-H:+EnforceMaxRuntimeCompileMethods' (origin(s): command line)
+ - '-H:+AllowDeprecatedBuilderClassesOnImageClasspath' (origin(s): command line)
+ - '-H:IncludeResourceBundles' (origin(s): command line)
+ - '-H:ResourceConfigurationResources': Use a resource-config.json in your META-INF/native-image/<groupID>/<artifactID> directory instead. (origin(s): 'META-INF/native-image/org.jline/jline-terminal/native-image.properties' in 'file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.25.1/44e0e53397c39d01c525bad3735097596a7d889a/jline-terminal-3.25.1.jar', 'META-INF/native-image/org.jline/jline-native/native-image.properties' in 'file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-native/3.25.1/7f58e474f7d94db5bf87b1fddf4fa646475779f2/jline-native-3.25.1.jar', 'META-INF/native-image/org.jline/jline-terminal-jansi/native-image.properties' in 'file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal-jansi/3.25.1/ee87b1238f01fe352ff4b78656e3dd4039bee727/jline-terminal-jansi-3.25.1.jar', 'META-INF/native-image/org.jline/jline-terminal/native-image.properties' in 'file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.25.1/44e0e53397c39d01c525bad3735097596a7d889a/jline-terminal-3.25.1.jar', 'META-INF/native-image/org.jline/jline-native/native-image.properties' in 'file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-native/3.25.1/7f58e474f7d94db5bf87b1fddf4fa646475779f2/jline-native-3.25.1.jar')
+ - '-H:IncludeResources': Use a resource-config.json in your META-INF/native-image/<groupID>/<artifactID> directory instead. (origin(s): command line, command line, command line)
+ - '-H:Module' (origin(s): command line)
+ - '-H:ReflectionConfigurationResources': Use a reflect-config.json in your META-INF/native-image/<groupID>/<artifactID> directory instead. (origin(s): 'META-INF/native-image/org.jline/jline-terminal/native-image.properties' in 'file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.25.1/44e0e53397c39d01c525bad3735097596a7d889a/jline-terminal-3.25.1.jar', 'META-INF/native-image/org.jline/jline-native/native-image.properties' in 'file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-native/3.25.1/7f58e474f7d94db5bf87b1fddf4fa646475779f2/jline-native-3.25.1.jar', 'META-INF/native-image/org.jline/jline-terminal-jansi/native-image.properties' in 'file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal-jansi/3.25.1/ee87b1238f01fe352ff4b78656e3dd4039bee727/jline-terminal-jansi-3.25.1.jar', 'META-INF/native-image/org.jline/jline-terminal/native-image.properties' in 'file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-terminal/3.25.1/44e0e53397c39d01c525bad3735097596a7d889a/jline-terminal-3.25.1.jar', 'META-INF/native-image/org.jline/jline-native/native-image.properties' in 'file:///Users/sam/.gradle/caches/modules-2/files-2.1/org.jline/jline-native/3.25.1/7f58e474f7d94db5bf87b1fddf4fa646475779f2/jline-native-3.25.1.jar')
+------------------------------------------------------------------------------------------------------------------------
+Build resources:
+ - 26.49GB of memory (27.6% of 96.00GB system memory, determined at start)
+ - 3 thread(s) (100.0% of 3 available processor(s), determined at start)
+[2/8] Performing analysis...  [********]                                                                (32.2s @ 1.54GB)
+   16,679 reachable types   (92.6% of   18,020 total)
+   22,806 reachable fields  (55.5% of   41,074 total)
+   84,960 reachable methods (64.3% of  132,058 total)
+    3,832 runtime compiled methods ( 2.9% of  132,058 total)
+    4,739 types,   149 fields, and 2,455 methods registered for reflection
+       91 types,   298 fields, and   138 methods registered for JNI access
+        5 native libraries: -framework CoreServices, -framework Foundation, dl, pthread, z
+[3/8] Building universe...                                                                               (4.5s @ 2.21GB)
+[4/8] Parsing methods...      [**]                                                                       (2.9s @ 1.99GB)
+[5/8] Inlining methods...     [****]                                                                     (2.1s @ 2.11GB)
+[6/8] Compiling methods...    [****]                                                                    (15.6s @ 2.24GB)
+[7/8] Laying out methods...   [**]                                                                       (3.2s @ 2.16GB)
+[8/8] Creating image...       [***]                                                                      (6.1s @ 3.26GB)
+  29.67MB (37.60%) for code area:    61,839 compilation units
+  48.20MB (61.09%) for image heap:  730,112 objects and 402 resources
+   1.04MB ( 1.31%) for other data
+  78.91MB in total
+------------------------------------------------------------------------------------------------------------------------
+Top 10 origins of code area:                                Top 10 object types in image heap:
+   9.15MB java.base                                           10.60MB byte[] for code metadata
+   4.10MB jdk.graal.compiler                                   6.26MB byte[] for java.lang.String
+   3.75MB pkl.core                                             4.26MB byte[] for embedded resources
+   3.58MB svm.jar (Native Image)                               3.83MB java.lang.Class
+   3.30MB org.graalvm.truffle                                  3.04MB java.lang.String
+   1.67MB com.oracle.graal.graal_enterprise                    2.62MB byte[] for graph encodings
+ 403.02kB org.graalvm.truffle.runtime                          2.27MB org.antlr.v4.runtime.atn.ATNConfig
+ 400.00kB org.jline.reader                                     1.24MB byte[] for general heap data
+ 304.99kB org.jline.terminal                                   1.18MB java.lang.Object[]
+ 304.93kB java.rmi                                           978.63kB byte[] for reflection metadata
+   2.38MB for 38 more packages                                11.95MB for 5096 more object types
+                              Use '-H:+BuildReport' to create a report with more details.
+------------------------------------------------------------------------------------------------------------------------
+Security report:
+ - Binary includes Java deserialization.
+ - Use '--enable-sbom' to embed a Software Bill of Materials (SBOM) in the binary.
+------------------------------------------------------------------------------------------------------------------------
+Recommendations:
+ PGO:  Use Profile-Guided Optimizations ('--pgo') for improved throughput.
+ HEAP: Set max heap for improved and more predictable memory usage.
+ CPU:  Enable more CPU features with '-march=native' for improved performance.
+------------------------------------------------------------------------------------------------------------------------
+                       9.8s (13.2% of total time) in 147 GCs | Peak RSS: 4.25GB | CPU load: 3.24
+------------------------------------------------------------------------------------------------------------------------
+Produced artifacts:
+ /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/executable/pkl-macos-aarch64 (executable)
+========================================================================================================================
+Finished generating 'pkl-macos-aarch64' in 1m 13s.
+Resolve mutations for :pkl-cli:macosAarch64DistZip (Thread[#1151,included builds,5,main]) started.
+:pkl-cli:macosAarch64DistZip (Thread[#1151,included builds,5,main]) started.
+
+> Task :pkl-cli:macosAarch64DistZip
+Caching disabled for task ':pkl-cli:macosAarch64DistZip' because:
+  Build cache is disabled
+  Not worth caching
+Task ':pkl-cli:macosAarch64DistZip' is not up-to-date because:
+  Output property 'archiveFile' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/distributions/pkl-cli-0.27.0-labs-SNAPSHOT-macos-aarch64-dev.zip has been removed.
+file or directory '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/macosAarch64/dist', not found
+Resolve mutations for :pkl-cli:macosAarch64DistTar (Thread[#1151,included builds,5,main]) started.
+:pkl-cli:macosAarch64DistTar (Thread[#1151,included builds,5,main]) started.
+
+> Task :pkl-cli:macosAarch64DistTar
+Caching disabled for task ':pkl-cli:macosAarch64DistTar' because:
+  Build cache is disabled
+  Not worth caching
+Task ':pkl-cli:macosAarch64DistTar' is not up-to-date because:
+  Output property 'archiveFile' file /Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/build/distributions/pkl-cli-0.27.0-labs-SNAPSHOT-macos-aarch64-dev.tar has been removed.
+file or directory '/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl/pkl-cli/src/macosAarch64/dist', not found
+Resolve mutations for :pkl-cli:nativeHostExecutable (Thread[#1151,included builds,5,main]) started.
+:pkl-cli:nativeHostExecutable (Thread[#1151,included builds,5,main]) started.
+
+> Task :pkl-cli:nativeHostExecutable
+Skipping task ':pkl-cli:nativeHostExecutable' as it has no actions.
+Could not execute [report metric STATISTICS_COLLECT_METRICS_OVERHEAD]
+Could not execute [report metric STATISTICS_COLLECT_METRICS_OVERHEAD]
+
+BUILD SUCCESSFUL in 1m 21s
+42 actionable tasks: 16 executed, 26 up-to-date
+Watched directory hierarchies: [/Volumes/VAULTROOM/kotlin-edge/dont/third_party/pkl]

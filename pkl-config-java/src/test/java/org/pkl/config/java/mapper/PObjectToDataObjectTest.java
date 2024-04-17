@@ -116,13 +116,13 @@ public class PObjectToDataObjectTest {
                 + "PObjectToDataObjectTest$Pair`:");
   }
 
-  static class Person {
+  public static class Person {
     final String name;
     final int age;
     final Set<Hobby> hobbies;
     final Address address;
 
-    Person(
+    public Person(
         @Named("name") String name,
         @Named("age") int age,
         @Named("hobbies") Set<Hobby> hobbies,
@@ -151,14 +151,14 @@ public class PObjectToDataObjectTest {
     }
   }
 
-  static class PersonConstructoProperties {
+  public static class PersonConstructoProperties {
     final String name;
     final int age;
     final Set<Hobby> hobbies;
     final Address address;
 
     @ConstructorProperties({"name", "age", "hobbies", "address"})
-    PersonConstructoProperties(String name, int age, Set<Hobby> hobbies, Address address) {
+    public PersonConstructoProperties(String name, int age, Set<Hobby> hobbies, Address address) {
       this.name = name;
       this.age = age;
       this.hobbies = hobbies;
@@ -183,11 +183,11 @@ public class PObjectToDataObjectTest {
     }
   }
 
-  static class Address {
+  public static class Address {
     final String street;
     final int zip;
 
-    Address(@Named("street") String street, @Named("zip") int zip) {
+    public Address(@Named("street") String street, @Named("zip") int zip) {
       this.street = street;
       this.zip = zip;
     }
@@ -213,11 +213,11 @@ public class PObjectToDataObjectTest {
     READING
   }
 
-  static class Pair<S, T> {
+  public static class Pair<S, T> {
     final S first;
     final T second;
 
-    Pair(@Named("first") S first, @Named("second") T second) {
+    public Pair(@Named("first") S first, @Named("second") T second) {
       this.first = first;
       this.second = second;
     }
@@ -237,18 +237,18 @@ public class PObjectToDataObjectTest {
     }
   }
 
-  static class UpperBounds {
+  public static class UpperBounds {
     final List<? extends Number> numbers;
 
-    UpperBounds(@Named("numbers") List<? extends Number> numbers) {
+    public UpperBounds(@Named("numbers") List<? extends Number> numbers) {
       this.numbers = numbers;
     }
   }
 
-  static class LowerBounds {
+  public static class LowerBounds {
     final List<? super Integer> numbers;
 
-    LowerBounds(@Named("numbers") List<? super Integer> numbers) {
+    public LowerBounds(@Named("numbers") List<? super Integer> numbers) {
       this.numbers = numbers;
     }
   }

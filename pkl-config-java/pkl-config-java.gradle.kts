@@ -34,6 +34,10 @@ val bundleTests by tasks.registering(Jar::class) {
   from(sourceSets.test.get().output)
 }
 
+tasks.jar {
+  duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
 // Runs unit tests using jar'd class files as a source.
 // This is to test loading the ClassRegistry from within a jar, as opposed to directly from the file system.
 val testFromJar by tasks.registering(Test::class) {

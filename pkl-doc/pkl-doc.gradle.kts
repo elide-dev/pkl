@@ -11,6 +11,17 @@ plugins {
 description = "Pkl documentation generator"
 
 val graalVmBaseDir = buildInfo.graalVm.baseDir
+val addExports = listOf(
+  "org.commonmark" to "org.commonmark.internal",
+)
+
+kotlin {
+  sourceSets {
+    named("main") {
+      kotlin.exclude("module-info.java")
+    }
+  }
+}
 
 dependencies {
   implementation(projects.pklCore)
@@ -46,8 +57,27 @@ publishing {
 
 tasks.jar {
   manifest {
-    attributes += mapOf("Main-Class" to "org.pkl.doc.Main")
+    attributes += mapOf(
+      "Main-Class" to "org.pkl.doc.Main",
+      "Add-Exports" to addExports.joinToString(","),
+    )
   }
+}
+
+val addExportsString = addExports.joinToString(",") {
+  "${it.first}/${it.second}"
+}
+
+tasks.compileKotlin {
+  compilerOptions.freeCompilerArgs.addAll(listOf(
+    "-Xadd-exports=$addExportsString"
+  ))
+}
+
+tasks.withType<JavaCompile> {
+  options.compilerArgs.addAll(arrayOf(
+    "--add-exports", addExportsString,
+  ))
 }
 
 htmlValidator {

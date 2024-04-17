@@ -28,10 +28,9 @@ import org.snakeyaml.engine.v2.common.FlowStyle;
 import org.snakeyaml.engine.v2.emitter.Emitter;
 import org.snakeyaml.engine.v2.events.*;
 import org.snakeyaml.engine.v2.nodes.Tag;
-import org.snakeyaml.engine.v2.resolver.ScalarResolver;
 
 final class YamlRenderer implements ValueRenderer {
-  private final ScalarResolver resolver = YamlUtils.getEmitterResolver("compat");
+  private final YamlSchema yamlSchema = YamlSchema.of();
   private final Visitor visitor = new Visitor();
   private final Emitter emitter;
   private final boolean omitNullProperties;
@@ -42,7 +41,7 @@ final class YamlRenderer implements ValueRenderer {
         DumpSettings.builder()
             .setIndent(indent)
             .setBestLineBreak("\n")
-            .setScalarResolver(resolver)
+            .setSchema(yamlSchema)
             .build();
 
     emitter =
@@ -109,7 +108,7 @@ final class YamlRenderer implements ValueRenderer {
   protected class Visitor implements ValueVisitor {
     @Override
     public void visitString(String value) {
-      emitter.emit(YamlUtils.stringScalar(value, resolver));
+      emitter.emit(YamlUtils.stringScalar(value, yamlSchema.getScalarResolver()));
     }
 
     @Override
@@ -226,7 +225,7 @@ final class YamlRenderer implements ValueRenderer {
           continue;
         }
 
-        emitter.emit(YamlUtils.stringScalar(entry.getKey(), resolver));
+        emitter.emit(YamlUtils.stringScalar(entry.getKey(), yamlSchema.getScalarResolver()));
         visit(value);
       }
 

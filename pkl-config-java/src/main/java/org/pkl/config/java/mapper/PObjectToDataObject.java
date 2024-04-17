@@ -18,7 +18,6 @@ package org.pkl.config.java.mapper;
 import java.beans.ConstructorProperties;
 import java.lang.annotation.Annotation;
 import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
 import java.lang.reflect.*;
 import java.util.*;
@@ -28,7 +27,7 @@ import org.pkl.core.PObject;
 import org.pkl.core.util.Nullable;
 
 public class PObjectToDataObject implements ConverterFactory {
-  private static final Lookup lookup = MethodHandles.lookup();
+  private static final Lookup lookup = ModuleUtil.lookup();
 
   @SuppressWarnings("unchecked")
   private static final @Nullable Class<? extends Annotation> javaxInjectNamedClass =

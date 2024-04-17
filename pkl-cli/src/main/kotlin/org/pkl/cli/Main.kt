@@ -24,7 +24,7 @@ import org.pkl.commons.cli.cliMain
 import org.pkl.core.Release
 
 /** Main method of the Pkl CLI (command-line evaluator and REPL). */
-internal fun main(args: Array<String>) {
+public fun main(args: Array<String>) {
   val version = Release.current().versionInfo()
   val helpLink = "${Release.current().documentation().homepage()}pkl-cli/index.html#usage"
   val commands =

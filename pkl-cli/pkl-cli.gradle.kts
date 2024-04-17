@@ -42,6 +42,7 @@ val extraJavacArgs: List<String> = listOfNotNull(
   "--add-exports=org.graalvm.truffle.runtime.svm/com.oracle.svm.truffle=$module",
   if (oracleGvm) null else "--add-reads=org.graalvm.truffle.runtime.svm=$module",
   if (!oracleGvm) null else "--add-reads=com.oracle.svm.truffle=$module",
+  "--add-reads=pkl.commons.cli=pkl.core",
   "--add-reads=$module=ALL-UNNAMED",
 )
 val extraJvmArgs: List<String> = listOf(

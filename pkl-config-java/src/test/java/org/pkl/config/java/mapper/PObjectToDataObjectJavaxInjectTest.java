@@ -71,13 +71,13 @@ public class PObjectToDataObjectJavaxInjectTest {
     assertThat(mapped).isEqualTo(new Pair<>("foo", 42));
   }
 
-  static class Person {
+  public static class Person {
     final String name;
     final int age;
     final Set<Hobby> hobbies;
     final Address address;
 
-    Person(
+    public Person(
         @Named("name") String name,
         @Named("age") int age,
         @Named("hobbies") Set<Hobby> hobbies,
@@ -106,11 +106,11 @@ public class PObjectToDataObjectJavaxInjectTest {
     }
   }
 
-  static class Address {
+  public static class Address {
     final String street;
     final int zip;
 
-    Address(@Named("street") String street, @Named("zip") int zip) {
+    public Address(@Named("street") String street, @Named("zip") int zip) {
       this.street = street;
       this.zip = zip;
     }
