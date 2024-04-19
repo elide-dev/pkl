@@ -65,6 +65,10 @@ public final class org/pkl/cli/CliTestRunner : org/pkl/commons/cli/CliCommand {
 	public synthetic fun <init> (Lorg/pkl/commons/cli/CliBaseOptions;Lorg/pkl/commons/cli/CliTestOptions;Ljava/io/Writer;Ljava/io/Writer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 }
 
+public final class org/pkl/cli/Main {
+	public static final fun main ([Ljava/lang/String;)V
+}
+
 public final class org/pkl/cli/commands/DownloadPackageCommand : org/pkl/commons/cli/commands/BaseCommand {
 	public fun <init> (Ljava/lang/String;)V
 	public fun run ()V
