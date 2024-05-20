@@ -20,6 +20,8 @@ import com.oracle.truffle.api.nodes.Node;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
+
 import org.pkl.core.Logger;
 import org.pkl.core.SecurityManager;
 import org.pkl.core.StackFrameTransformer;
@@ -29,8 +31,8 @@ import org.pkl.core.util.LateInit;
 import org.pkl.core.util.Nullable;
 
 public final class VmContext {
-  private static final ContextReference<VmContext> REFERENCE =
-      ContextReference.create(VmLanguage.class);
+  private static final AtomicReference<ContextReference<VmContext>> REFERENCE =
+    new AtomicReference<>();
 
   @LateInit private Holder holder;
 
@@ -84,7 +86,16 @@ public final class VmContext {
   }
 
   public static VmContext get(@Nullable Node node) {
-    return REFERENCE.get(node);
+    var ref = REFERENCE.get();
+    if (ref == null) {
+      ContextReference<VmContext> created;
+      synchronized (REFERENCE) {
+        created = ContextReference.create(VmLanguage.class);
+        REFERENCE.set(created);
+      }
+      return created.get(node);
+    }
+    return ref.get(node);
   }
 
   public void initialize(Holder holder) {

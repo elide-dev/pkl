@@ -32,6 +32,8 @@ import org.pkl.core.parser.antlr.PklParser;
 import org.pkl.core.util.IoUtils;
 import org.pkl.core.util.Nullable;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 @TruffleLanguage.Registration(
     id = "pkl",
     name = "Pkl",
@@ -41,11 +43,20 @@ import org.pkl.core.util.Nullable;
 public final class VmLanguage extends TruffleLanguage<VmContext> {
   public static final String MIME_TYPE = "application/x-pkl";
 
-  private static final LanguageReference<VmLanguage> REFERENCE =
-      LanguageReference.create(VmLanguage.class);
+  private static final AtomicReference<LanguageReference<VmLanguage>> REFERENCE =
+      new AtomicReference<>();
 
   public static VmLanguage get(@Nullable Node node) {
-    return REFERENCE.get(node);
+    var ref = REFERENCE.get();
+    if (ref == null) {
+      LanguageReference<VmLanguage> created;
+      synchronized (REFERENCE) {
+        created = LanguageReference.create(VmLanguage.class);
+        REFERENCE.set(created);
+      }
+      return created.get(node);
+    }
+    return ref.get(node);
   }
 
   @Override
