@@ -77,8 +77,6 @@ fun Project.useGraalVm(javaVersion: JavaLanguageVersion? = null) {
         .let { JavaLanguageVersion.of(it.toInt()) }
 
   configure<JavaPluginExtension> {
-    toolchain { graalvmAt(gvmVersion) }.also {
-      useGraalvmToolchainForAllTasks(gvmVersion)
-    }
+    toolchain { graalvmAt(gvmVersion) }.also { useGraalvmToolchainForAllTasks(gvmVersion) }
   }
 }
