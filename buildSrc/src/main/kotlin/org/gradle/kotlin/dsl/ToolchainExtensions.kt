@@ -24,7 +24,7 @@ import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.jvm.toolchain.*
 import org.gradle.kotlin.dsl.support.serviceOf
 
-private const val oracleGraalvm = true
+private val oracleGraalvm = java.lang.Boolean.getBoolean("oracleGraalvm")
 private val graalvmVendor = if (oracleGraalvm) JvmVendorSpec.ORACLE else JvmVendorSpec.GRAAL_VM
 
 /**
