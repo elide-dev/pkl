@@ -99,7 +99,6 @@ jobs:
           build-scan-terms-of-service-agree: "yes"
           arguments: |
             test
-            reports
             -x check
             --continue
             --scan
