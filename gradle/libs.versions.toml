@@ -13,7 +13,7 @@ graalVm = "24.1.1"
 graalVmJdkVersion = "23.0.1"
 # slightly hacky but convenient place so we remember to update the checksum
 graalVmSha256-macos-x64 = "bad"
-graalVmSha256-macos-aarch64 = "bad"
+graalVmSha256-macos-aarch64 = "c00a7a62ce453aa026bff65e5a18c63464f725c01e5a71771856226928ba5b0f"
 graalVmSha256-linux-x64 = "46ec9582ebe114f93470403f2cc123238ac0c7982129c358af7d8e1de52dd663"
 graalVmSha256-linux-aarch64 = "bad"
 graalVmSha256-windows-x64 = "bad"
@@ -97,6 +97,7 @@ svm = { group = "org.graalvm.nativeimage", name = "svm", version.ref = "graalVm"
 truffleApi = { group = "org.graalvm.truffle", name = "truffle-api", version.ref = "graalVm" }
 truffleDslProcessor = { group = "org.graalvm.truffle", name = "truffle-dsl-processor", version.ref = "graalVm" }
 truffleSvm = { group = "org.graalvm.nativeimage", name = "truffle-runtime-svm", version.ref = "graalVm" }
+truffleRuntime = { group = "org.graalvm.truffle", name = "truffle-runtime", version.ref = "graalVm" }
 wiremock = { group = "org.wiremock", name = "wiremock", version.ref = "wiremock" }
 
 [plugins] # ordered alphabetically
