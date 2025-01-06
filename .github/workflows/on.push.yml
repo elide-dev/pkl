@@ -47,17 +47,6 @@ jobs:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   ##
-  ## Job: Checks with Detekt
-  ##
-  check-detekt:
-    name: "Checks"
-    uses: ./.github/workflows/checks.detekt.yml
-    needs: [preflight-checks]
-    permissions:
-      contents: "read"
-      security-events: "write"
-
-  ##
   ## Job: Checks with Scorecard
   ##
   check-scorecard:

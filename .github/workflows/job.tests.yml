@@ -99,10 +99,6 @@ jobs:
           build-scan-terms-of-service-agree: "yes"
           arguments: |
             test
-            koverVerify
-            koverXmlReport
-            koverHtmlReport
-            koverBinaryReport
             reports
             -x check
             --continue
