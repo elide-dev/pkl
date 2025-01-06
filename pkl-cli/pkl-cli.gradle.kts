@@ -119,10 +119,11 @@ val javaExecutable by
 
 val testJavaExecutable by
   tasks.registering(Test::class) {
-    javaLauncher = javaToolchains.launcherFor {
-      languageVersion = JavaLanguageVersion.of(21)
-      vendor = JvmVendorSpec.GRAAL_VM
-    }
+    javaLauncher =
+      javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(21)
+        vendor = JvmVendorSpec.GRAAL_VM
+      }
     testClassesDirs = tasks.test.get().testClassesDirs
     classpath =
       // compiled test classes
