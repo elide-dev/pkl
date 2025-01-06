@@ -21,10 +21,13 @@ plugins {
   pklJavaLibrary
   pklPublishLibrary
   pklKotlinTest
+  `jvm-toolchains`
 }
 
 val pklDistributionCurrent: Configuration by configurations.creating
 val pklHistoricalDistributions: Configuration by configurations.creating
+
+java { useGraalVm() }
 
 // Because pkl-executor doesn't depend on other Pkl modules
 // (nor has overlapping dependencies that could cause a version conflict),
@@ -38,6 +41,10 @@ dependencies {
 
   testImplementation(projects.pklCommonsTest)
   testImplementation(projects.pklCore)
+  testImplementation(libs.truffleApi)
+  testImplementation(libs.graalSdk)
+  testImplementation(libs.svm)
+  testImplementation(libs.truffleSvm)
   testImplementation(libs.slf4jSimple)
 }
 
@@ -98,4 +105,8 @@ val prepareHistoricalDistributions by
 val prepareTest by
   tasks.registering { dependsOn(pklDistributionCurrent, prepareHistoricalDistributions) }
 
-tasks.test { dependsOn(prepareTest) }
+tasks.test {
+  dependsOn(prepareTest)
+  useJUnitPlatform()
+  jvmArgumentProviders.add(CommandLineArgumentProvider { listOf("--add-modules=jdk.unsupported") })
+}
