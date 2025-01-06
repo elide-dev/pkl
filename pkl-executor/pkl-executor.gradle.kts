@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.gradle.internal.jvm.inspection.JvmVendor
 import java.nio.file.Files
 import java.nio.file.LinkOption
 
@@ -104,16 +103,15 @@ val prepareHistoricalDistributions by
 val prepareTest by
   tasks.registering { dependsOn(pklDistributionCurrent, prepareHistoricalDistributions) }
 
-val testToolchain = javaToolchains.launcherFor {
-  languageVersion = JavaLanguageVersion.of(21)
-  vendor = JvmVendorSpec.GRAAL_VM
-}
+val testToolchain =
+  javaToolchains.launcherFor {
+    languageVersion = JavaLanguageVersion.of(21)
+    vendor = JvmVendorSpec.GRAAL_VM
+  }
 
 tasks.test {
   javaLauncher = testToolchain
   dependsOn(prepareTest)
   useJUnitPlatform()
-  jvmArgumentProviders.add(CommandLineArgumentProvider {
-    listOf("--add-modules=jdk.unsupported")
-  })
+  jvmArgumentProviders.add(CommandLineArgumentProvider { listOf("--add-modules=jdk.unsupported") })
 }

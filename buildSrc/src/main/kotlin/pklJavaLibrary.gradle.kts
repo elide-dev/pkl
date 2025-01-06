@@ -98,22 +98,15 @@ fun Project.ifJpms(block: Project.() -> Unit) {
   }
 }
 
-val jpmsJavacArgs = listOf(
-  "--add-modules=jdk.unsupported",
-)
+val jpmsJavacArgs =
+  listOf(
+    "--add-modules=jdk.unsupported",
+  )
 
 val jpmsJvmArgs = jpmsJavacArgs.plus(listOf())
 
 tasks.withType<JavaCompile>().configureEach {
-  ifJpms {
-    options.compilerArgumentProviders.add(CommandLineArgumentProvider {
-      jpmsJavacArgs
-    })
-  }
+  ifJpms { options.compilerArgumentProviders.add(CommandLineArgumentProvider { jpmsJavacArgs }) }
 }
 
-tasks.withType<JavaExec>().configureEach {
-  ifJpms {
-    jvmArgs(jpmsJvmArgs)
-  }
-}
+tasks.withType<JavaExec>().configureEach { ifJpms { jvmArgs(jpmsJvmArgs) } }
