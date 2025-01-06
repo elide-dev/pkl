@@ -141,7 +141,7 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '21'
-      - name: "Setup: GraalVM (Java 21)"
+      - name: "Setup: GraalVM (Java 23)"
         uses: graalvm/setup-graalvm@4a200f28cd70d1940b5e33bd00830b7dc71a7e2b # v1.2.6
         if: ${{ matrix.enabled }}
         with:
