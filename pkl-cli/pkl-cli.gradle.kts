@@ -217,8 +217,20 @@ fun Exec.configureExecutable(
         // executable
         if (!buildInfo.isReleaseBuild) {
           add("-Ob")
+        } else {
+          add("-Os")
         }
-        add("-march=compatibility")
+        if (buildInfo.isNativeArch) {
+          add("-march=native")
+        } else {
+          add("-march=compatibility")
+        }
+        if (buildInfo.isEnableOracleGraalvm) {
+          add("--gc=G1")
+          add("--enable-sbom=cyclonedx")
+        } else {
+          add("--gc=serial")
+        }
         // native-image rejects non-existing class path entries -> filter
         add("--class-path")
         val pathInput =
