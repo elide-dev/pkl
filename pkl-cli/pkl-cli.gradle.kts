@@ -51,6 +51,7 @@ val stagedWindowsAmd64Executable: Configuration by configurations.creating
 dependencies {
   compileOnly(libs.svm)
   compileOnly(libs.truffleSvm)
+  compileOnly(libs.truffleRuntime)
 
   // CliEvaluator exposes PClass
   api(projects.pklCore)
