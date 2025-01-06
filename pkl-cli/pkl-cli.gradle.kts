@@ -50,11 +50,14 @@ val stagedWindowsAmd64Executable: Configuration by configurations.creating
 
 dependencies {
   compileOnly(libs.svm)
+  compileOnly(libs.truffleSvm)
 
   // CliEvaluator exposes PClass
   api(projects.pklCore)
   // CliEvaluatorOptions exposes CliBaseOptions
   api(projects.pklCommonsCli)
+
+  compileOnly(libs.graalSdk)
 
   implementation(projects.pklCommons)
   implementation(libs.jansi)
@@ -179,7 +182,8 @@ fun Exec.configureExecutable(
   executable = "${graalVm.baseDir}/bin/$nativeImageCommandName"
 
   // JARs to exclude from the class path for the native-image build.
-  val exclusions = listOf(libs.truffleApi, libs.graalSdk).map { it.get().module.name }
+  val exclusions =
+    listOf(libs.truffleApi, libs.graalSdk, libs.truffleSvm).map { it.get().module.name }
   // https://www.graalvm.org/22.0/reference-manual/native-image/Options/
   argumentProviders.add(
     CommandLineArgumentProvider {

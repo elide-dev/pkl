@@ -24,7 +24,7 @@ import org.gradle.kotlin.dsl.*
 plugins {
   `java-library`
   `maven-publish`
-  id("com.github.johnrengelman.shadow")
+  id("com.gradleup.shadow")
 }
 
 // make fat Jar available to other subprojects
