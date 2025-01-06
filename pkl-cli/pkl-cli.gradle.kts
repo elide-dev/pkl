@@ -111,12 +111,18 @@ val javaExecutable by
     inJar.set(tasks.shadowJar.flatMap { it.archiveFile })
     outJar.set(layout.buildDirectory.file("executable/jpkl"))
 
+    jvmArgs.addAll("--add-modules=jdk.unsupported")
+
     // uncomment for debugging
     // jvmArgs.addAll("-ea", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005")
   }
 
 val testJavaExecutable by
   tasks.registering(Test::class) {
+    javaLauncher = javaToolchains.launcherFor {
+      languageVersion = JavaLanguageVersion.of(21)
+      vendor = JvmVendorSpec.GRAAL_VM
+    }
     testClassesDirs = tasks.test.get().testClassesDirs
     classpath =
       // compiled test classes
