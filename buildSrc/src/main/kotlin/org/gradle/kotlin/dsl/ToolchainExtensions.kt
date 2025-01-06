@@ -32,7 +32,7 @@ private val graalvmVendor = if (oracleGraalvm) JvmVendorSpec.ORACLE else JvmVend
  *
  * @param javaVersion The version of GraalVM to use.
  */
-fun JavaToolchainSpec.useGraalvm(javaVersion: JavaLanguageVersion) {
+fun JavaToolchainSpec.graalvmAt(javaVersion: JavaLanguageVersion) {
   languageVersion = javaVersion
   vendor = graalvmVendor
 }
@@ -47,8 +47,8 @@ fun Project.graalvmToolchain(
   javaVersion: JavaLanguageVersion
 ): Provider<Pair<JavaCompiler, JavaLauncher>> {
   val javaToolchains = serviceOf<JavaToolchainService>()
-  val compiler = javaToolchains.compilerFor { useGraalvm(javaVersion) }
-  val launcher = javaToolchains.launcherFor { useGraalvm(javaVersion) }
+  val compiler = javaToolchains.compilerFor { graalvmAt(javaVersion) }
+  val launcher = javaToolchains.launcherFor { graalvmAt(javaVersion) }
   return provider { compiler.get() to launcher.get() }
 }
 
@@ -56,10 +56,11 @@ fun Project.graalvmToolchain(
  * Configure a project to use the pinned version of GraalVM; this will apply the Java compiler and
  * launcher resolved by [graalvmToolchain] to all Java compile and exec tasks.
  */
-fun Project.useGraalvmToolchain(javaVersion: JavaLanguageVersion) {
-  val (compiler, launcher) = graalvmToolchain(javaVersion).get()
-  tasks.withType<JavaCompile> { javaCompiler = compiler }
-  tasks.withType<JavaExec> { javaLauncher = launcher }
+fun Project.useGraalvmToolchainForAllTasks(javaVersion: JavaLanguageVersion) {
+  graalvmToolchain(javaVersion).get().let { (compiler, launcher) ->
+    tasks.withType<JavaCompile> { javaCompiler = compiler }
+    tasks.withType<JavaExec> { javaLauncher = launcher }
+  }
 }
 
 /**
@@ -71,15 +72,13 @@ fun Project.useGraalVm(javaVersion: JavaLanguageVersion? = null) {
   val gvmVersion =
     javaVersion
       ?: requireNotNull(libs.versions.graalVmJdkVersion.get().substringBefore('.').toUIntOrNull()) {
-          "GraalVmMajor version is not valid or not supported on this platform"
+          "GraalVM JDK version is not valid or not supported on this platform"
         }
         .let { JavaLanguageVersion.of(it.toInt()) }
 
   configure<JavaPluginExtension> {
-    // assign the Java toolchain to the project
-    toolchain { useGraalvm(gvmVersion) }
-
-    // assign toolchain for all configured and applicable tasks
-    useGraalvmToolchain(gvmVersion)
+    toolchain { graalvmAt(gvmVersion) }.also {
+      useGraalvmToolchainForAllTasks(gvmVersion)
+    }
   }
 }
