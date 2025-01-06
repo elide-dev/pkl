@@ -182,8 +182,7 @@ fun Exec.configureExecutable(
   executable = "${graalVm.baseDir}/bin/$nativeImageCommandName"
 
   // JARs to exclude from the class path for the native-image build.
-  val exclusions =
-    listOf(libs.truffleApi, libs.graalSdk, libs.truffleSvm).map { it.get().module.name }
+  val exclusions = listOf(libs.graalSdk).map { it.get().module.name }
   // https://www.graalvm.org/22.0/reference-manual/native-image/Options/
   argumentProviders.add(
     CommandLineArgumentProvider {
