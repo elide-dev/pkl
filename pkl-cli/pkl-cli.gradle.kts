@@ -194,13 +194,16 @@ fun Exec.configureExecutable(
         // needed for messagepack-java (see https://github.com/msgpack/msgpack-java/issues/600)
         add("--initialize-at-run-time=org.msgpack.core.buffer.DirectBufferAccess")
         add("--no-fallback")
+        // must be emitted before any experimental options are used
+        add("-H:+UnlockExperimentalVMOptions")
         add("-H:IncludeResources=org/pkl/core/stdlib/.*\\.pkl")
         add("-H:IncludeResources=org/jline/utils/.*")
         add("-H:IncludeResourceBundles=org.pkl.core.errorMessages")
         add("-H:IncludeResources=org/pkl/commons/cli/PklCARoots.pem")
-        add("--macro:truffle")
+        add("--macro:truffle-svm")
         add("-H:Class=org.pkl.cli.Main")
-        add("-H:Name=${outputFile.get().asFile.name}")
+        add("-o")
+        add(outputFile.get().asFile.name)
         // the actual limit (currently) used by native-image is this number + 1400 (idea is to
         // compensate for Truffle's own nodes)
         add("-H:MaxRuntimeCompileMethods=1800")
