@@ -50,11 +50,15 @@ val stagedWindowsAmd64Executable: Configuration by configurations.creating
 
 dependencies {
   compileOnly(libs.svm)
+  compileOnly(libs.truffleSvm)
+  implementation(libs.truffleRuntime)
 
   // CliEvaluator exposes PClass
   api(projects.pklCore)
   // CliEvaluatorOptions exposes CliBaseOptions
   api(projects.pklCommonsCli)
+
+  compileOnly(libs.graalSdk)
 
   implementation(projects.pklCommons)
   implementation(libs.jansi)
@@ -106,6 +110,8 @@ val javaExecutable by
   tasks.registering(ExecutableJar::class) {
     inJar.set(tasks.shadowJar.flatMap { it.archiveFile })
     outJar.set(layout.buildDirectory.file("executable/jpkl"))
+
+    jvmArgs.addAll("--add-modules=jdk.unsupported")
 
     // uncomment for debugging
     // jvmArgs.addAll("-ea", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005")
@@ -179,7 +185,7 @@ fun Exec.configureExecutable(
   executable = "${graalVm.baseDir}/bin/$nativeImageCommandName"
 
   // JARs to exclude from the class path for the native-image build.
-  val exclusions = listOf(libs.truffleApi, libs.graalSdk).map { it.get().module.name }
+  val exclusions = listOf(libs.graalSdk).map { it.get().module.name }
   // https://www.graalvm.org/22.0/reference-manual/native-image/Options/
   argumentProviders.add(
     CommandLineArgumentProvider {
@@ -190,13 +196,15 @@ fun Exec.configureExecutable(
         // needed for messagepack-java (see https://github.com/msgpack/msgpack-java/issues/600)
         add("--initialize-at-run-time=org.msgpack.core.buffer.DirectBufferAccess")
         add("--no-fallback")
+        // must be emitted before any experimental options are used
+        add("-H:+UnlockExperimentalVMOptions")
         add("-H:IncludeResources=org/pkl/core/stdlib/.*\\.pkl")
         add("-H:IncludeResources=org/jline/utils/.*")
         add("-H:IncludeResourceBundles=org.pkl.core.errorMessages")
         add("-H:IncludeResources=org/pkl/commons/cli/PklCARoots.pem")
-        add("--macro:truffle")
         add("-H:Class=org.pkl.cli.Main")
-        add("-H:Name=${outputFile.get().asFile.name}")
+        add("-o")
+        add(outputFile.get().asFile.name)
         // the actual limit (currently) used by native-image is this number + 1400 (idea is to
         // compensate for Truffle's own nodes)
         add("-H:MaxRuntimeCompileMethods=1800")
@@ -208,10 +216,24 @@ fun Exec.configureExecutable(
         add("-H:-ParseRuntimeOptions")
         // quick build mode: 40% faster compilation, 20% smaller (but presumably also slower)
         // executable
-        if (!buildInfo.isReleaseBuild) {
-          add("-Ob")
+        when {
+          // non-releases should optimize for build time
+          !buildInfo.isReleaseBuild -> add("-Ob")
+
+          // size optimization is only supported at GraalVM JDK 23+
+          libs.versions.graalVmJdkVersion.get().split(".").first().toInt() >= 23 -> add("-Os")
         }
-        add("-march=compatibility")
+        if (buildInfo.isNativeArch) {
+          add("-march=native")
+        } else {
+          add("-march=compatibility")
+        }
+        if (buildInfo.isEnableOracleGraalvm) {
+          add("--gc=G1")
+          add("--enable-sbom=cyclonedx")
+        } else {
+          add("--gc=serial")
+        }
         // native-image rejects non-existing class path entries -> filter
         add("--class-path")
         val pathInput =
