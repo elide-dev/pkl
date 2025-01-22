@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2025 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,13 +17,60 @@
 
 import java.io.File
 import org.gradle.api.Project
+import org.gradle.api.Task
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.api.attributes.Category
+import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.TaskProvider
+import org.gradle.api.tasks.testing.Test
+import org.gradle.internal.extensions.stdlib.capitalized
+import org.gradle.jvm.toolchain.*
+import org.gradle.kotlin.dsl.assign
 import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.register
+import org.gradle.kotlin.dsl.support.serviceOf
+import org.gradle.process.CommandLineArgumentProvider
+
+/**
+ * JVM bytecode target; this is pinned at a reasonable version, because downstream JVM projects
+ * which consume Pkl will need a minimum Bytecode level at or above this one.
+ *
+ * Kotlin and Java need matching bytecode targets, so this is expressed as a build setting and
+ * constant default. To override, pass `-DpklJdkToolchain=X` to the Gradle command line, where X is
+ * a major Java version.
+ */
+const val PKL_JVM_TARGET_DEFAULT_MAXIMUM = 17
+
+/**
+ * The Pkl build requires JDK 21+ to build, because JDK 17 is no longer within the default set of
+ * supported JDKs for GraalVM. This is a build-time requirement, not a runtime requirement.
+ *
+ * See `settings.gradle.kts`, where this is enforced.
+ */
+const val PKL_JDK_VERSION_MIN = 21
+
+/**
+ * The JDK minimum is set to match the bytecode minimum, to guarantee that fat JARs work against the
+ * earliest supported bytecode target.
+ */
+const val PKL_TEST_JDK_MINIMUM = PKL_JVM_TARGET_DEFAULT_MAXIMUM
+
+/**
+ * Maximum JDK version which Pkl is tested with; this should be bumped when new JDK stable releases
+ * are issued. At the time of this writing, JDK 23 is the latest available release.
+ */
+const val PKL_TEST_JDK_MAXIMUM = 23
+
+/**
+ * Test the full suite of JDKs between [PKL_TEST_JDK_MINIMUM] and [PKL_TEST_JDK_MAXIMUM]; if this is
+ * set to `false` (or overridden on the command line), only LTS releases are tested by default.
+ */
+const val PKL_TEST_ALL_JDKS = false
 
 // `buildInfo` in main build scripts
 // `project.extensions.getByType<BuildInfo>()` in precompiled script plugins
-open class BuildInfo(project: Project) {
+open class BuildInfo(private val project: Project) {
   inner class GraalVm(val arch: String) {
     val homeDir: String by lazy {
       System.getenv("GRAALVM_HOME") ?: "${System.getProperty("user.home")}/.graalvm"
@@ -79,6 +126,194 @@ open class BuildInfo(project: Project) {
   val isCiBuild: Boolean by lazy { System.getenv("CI") != null }
 
   val isReleaseBuild: Boolean by lazy { java.lang.Boolean.getBoolean("releaseBuild") }
+
+  val isNativeArch: Boolean by lazy { java.lang.Boolean.getBoolean("nativeArch") }
+
+  val jvmTarget: Int by lazy {
+    System.getProperty("pklJvmTarget")?.toInt() ?: PKL_JVM_TARGET_DEFAULT_MAXIMUM
+  }
+
+  // JPMS exports for Truffle.
+  val jpmsExports =
+    arrayOf(
+      "org.graalvm.truffle/com.oracle.truffle.api.exception=ALL-UNNAMED",
+      "org.graalvm.truffle/com.oracle.truffle.api=ALL-UNNAMED",
+      "org.graalvm.truffle/com.oracle.truffle.api.nodes=ALL-UNNAMED",
+      "org.graalvm.truffle/com.oracle.truffle.api.source=ALL-UNNAMED",
+    )
+
+  val jdkVendor: JvmVendorSpec = JvmVendorSpec.GRAAL_VM
+
+  val jdkToolchainVersion: JavaLanguageVersion by lazy {
+    JavaLanguageVersion.of(System.getProperty("pklJdkToolchain")?.toInt() ?: PKL_JDK_VERSION_MIN)
+  }
+
+  val jdkTestFloor: JavaLanguageVersion by lazy { JavaLanguageVersion.of(PKL_TEST_JDK_MINIMUM) }
+
+  val jdkTestCeiling: JavaLanguageVersion by lazy { JavaLanguageVersion.of(PKL_TEST_JDK_MAXIMUM) }
+
+  val testAllJdks: Boolean by lazy {
+    // By default, Pkl is tested against LTS JDK releases within the bounds of `PKL_TEST_JDK_TARGET`
+    // and `PKL_TEST_JDK_MAXIMUM`. To test against the full suite of JDK versions, past and present,
+    // set `-DpklTestAllJdks=true` on the Gradle command line. This results in non-LTS releases, old
+    // releases, and "experimental releases" (newer than the toolchain version) being included in
+    // the default `check` suite.
+    System.getProperty("pklTestAllJdks")?.toBoolean() ?: PKL_TEST_ALL_JDKS
+  }
+
+  val testExperimentalJdks: Boolean by lazy {
+    System.getProperty("pklTestFutureJdks")?.toBoolean() ?: testAllJdks
+  }
+
+  val testJdkVendors: Sequence<JvmVendorSpec> by lazy {
+    // By default, only OpenJDK is tested during multi-JDK testing. Flip `-DpklTestAllVendors=true`
+    // to additionally test against a suite of JDK vendors, including Azul, Oracle, and GraalVM.
+    when (System.getProperty("pklTestAllVendors")?.toBoolean()) {
+      true -> sequenceOf(JvmVendorSpec.AZUL, JvmVendorSpec.GRAAL_VM, JvmVendorSpec.ORACLE)
+      else -> sequenceOf(JvmVendorSpec.AZUL)
+    }
+  }
+
+  val jdkTestRange: JavaVersionRange by lazy {
+    JavaVersionRange.inclusive(jdkTestFloor, jdkTestCeiling)
+  }
+
+  private fun JavaToolchainSpec.pklJdkToolchain() {
+    languageVersion.set(jdkToolchainVersion)
+    vendor.set(jdkVendor)
+  }
+
+  private fun labelForVendor(vendor: JvmVendorSpec): String =
+    when (vendor) {
+      JvmVendorSpec.AZUL -> "Zulu"
+      JvmVendorSpec.GRAAL_VM -> "GraalVm"
+      JvmVendorSpec.ORACLE -> "Oracle"
+      JvmVendorSpec.ADOPTIUM -> "OpenJdk"
+      else -> error("Unrecognized JDK vendor: $vendor")
+    }
+
+  private fun testNamer(baseName: () -> String): (JavaLanguageVersion, JvmVendorSpec?) -> String =
+    { jdkTarget, vendor ->
+      val targetToken =
+        when (vendor) {
+          null -> "Jdk${jdkTarget.asInt()}"
+          else -> "Jdk${jdkTarget.asInt()}${labelForVendor(vendor).capitalized()}"
+        }
+      if (jdkTarget > jdkToolchainVersion) {
+        // test targets above the toolchain target are considered "experimental".
+        "${baseName()}${targetToken}Experimental"
+      } else {
+        "${baseName()}${targetToken}"
+      }
+    }
+
+  fun multiJdkTestingWith(
+    templateTask: TaskProvider<out Task>,
+    includeExperimental: Boolean = testExperimentalJdks,
+    namer: (JavaLanguageVersion, JvmVendorSpec?) -> String = testNamer { templateTask.get().name },
+    configurator: Test.(launcher: Provider<JavaLauncher>) -> Unit = {},
+  ): Iterable<TaskProvider<out Task>> =
+    multiJdkTesting(
+      includeExperimental = includeExperimental,
+      baseNameProvider = { templateTask.get().name },
+      namer = namer,
+    ) { jdkTarget ->
+      // 1) copy configurations from the template task
+      dependsOn(templateTask)
+      templateTask.get().let { template ->
+        when (template) {
+          is Test -> {
+            classpath = template.classpath
+            testClassesDirs = template.testClassesDirs
+            jvmArgumentProviders.addAll(template.jvmArgumentProviders)
+            forkEvery = template.forkEvery
+            maxParallelForks = template.maxParallelForks
+            minHeapSize = template.minHeapSize
+            maxHeapSize = template.maxHeapSize
+          }
+
+          else -> error("No idea how to clone task for multi-JDK testing: $template")
+        }
+      }
+
+      // 2) dispatch the user's configurator
+      configurator(jdkTarget)
+    }
+
+  @Suppress("UnstableApiUsage")
+  fun multiJdkTesting(
+    includeExperimental: Boolean = testExperimentalJdks,
+    baseNameProvider: () -> String = { "test" },
+    namer: (JavaLanguageVersion, JvmVendorSpec?) -> String = testNamer(baseNameProvider),
+    configurator: Test.(launcher: Provider<JavaLauncher>) -> Unit,
+  ): Iterable<TaskProvider<out Task>> =
+    with(project) {
+      val isMultiVendor = testJdkVendors.count() > 1
+      val basename = baseNameProvider()
+
+      serviceOf<JavaToolchainService>().let { toolchains ->
+        jdkTestRange
+          .asSequence()
+          .flatMap { targetVersion ->
+            // multiply out by jdk vendor
+            testJdkVendors.map { vendor -> (targetVersion to vendor) }
+          }
+          .filter { (version, _) ->
+            // unless we are instructed to test all JDKs, tests only include LTS releases and
+            // versions above the toolchain version.
+            testAllJdks || (JavaVersionRange.isLTS(version) || version >= jdkToolchainVersion)
+          }
+          .map { (jdkTarget, vendor) ->
+            if (jdkToolchainVersion == jdkTarget)
+              tasks.register(namer(jdkTarget, vendor)) {
+                // alias to `test`
+                dependsOn(basename)
+                group = Category.VERIFICATION
+                description = "Alias for regular '$basename' task, on JDK ${jdkTarget.asInt()}"
+              }
+            else
+              tasks.register(namer(jdkTarget, vendor.takeIf { isMultiVendor }), Test::class) {
+                group = Category.VERIFICATION
+                description = "Run tests against JDK ${jdkTarget.asInt()}"
+                configurator(toolchains.launcherFor { languageVersion = jdkTarget })
+
+                // fix: on jdk17, we must force the polyglot module on to the modulepath
+                if (jdkTarget.asInt() == 17)
+                  jvmArgumentProviders.add(
+                    CommandLineArgumentProvider {
+                      buildList { listOf("--add-modules=org.graalvm.polyglot") }
+                    }
+                  )
+              }
+          }
+          .filter {
+            // only include experimental tasks in the return suite if the flag is set. if the task
+            // is withheld from the returned list, it will not be executed by default with `gradle
+            // check`.
+            includeExperimental || !it.name.contains("Experimental")
+          }
+          .toList()
+      }
+    }
+
+  val javaCompiler: Provider<JavaCompiler> by lazy {
+    project.serviceOf<JavaToolchainService>().let { toolchainService ->
+      toolchainService.compilerFor { pklJdkToolchain() }
+    }
+  }
+
+  val javaTestLauncher: Provider<JavaLauncher> by lazy {
+    project.serviceOf<JavaToolchainService>().let { toolchainService ->
+      toolchainService.launcherFor { pklJdkToolchain() }
+    }
+  }
+
+  val multiJdkTesting: Boolean by lazy {
+    // By default, Pkl is tested against a full range of JDK versions, past and present, within the
+    // supported bounds of `PKL_TEST_JDK_TARGET` and `PKL_TEST_JDK_MAXIMUM`. To opt-out of this
+    // behavior, set `-DpklMultiJdkTesting=false` on the Gradle command line.
+    System.getProperty("pklMultiJdkTesting")?.toBoolean() ?: true
+  }
 
   val hasMuslToolchain: Boolean by lazy {
     // see "install musl" in .circleci/jobs/BuildNativeJob.pkl
