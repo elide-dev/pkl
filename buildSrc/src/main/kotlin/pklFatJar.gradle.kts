@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2025 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,7 +82,29 @@ tasks.shadowJar {
 
   exclude("META-INF/maven/**")
   exclude("META-INF/upgrade/**")
-  exclude("META-INF/versions/19/**")
+
+  val info = project.extensions.getByType<BuildInfo>()
+  val minimumJvmTarget = JavaVersion.toVersion(info.jvmTarget)
+
+  // effectively, this results in calls excluding:
+  // `META-INF/versions/{17-25}/**`
+  // at the time of this writing; multi-release JARs beyond JDK 21 break the current
+  // version of the Shadow plugin, and aren't needed for Truffle's use by Pkl.
+  sortedSetOf(
+      // minimum jvm target + 1
+      JavaVersion.toVersion(minimumJvmTarget.majorVersion.toInt() + 1)
+    )
+    .plus(
+      // all subsequent versions
+      JavaVersion
+        .values()
+        .filter { it.isCompatibleWith(minimumJvmTarget) }
+        .toSortedSet()
+    )
+    .forEach {
+      // exclude all such versions up to the supported maximum for the build toolchain
+      exclude("META-INF/versions/${it.majorVersion}/**")
+    }
 
   // org.antlr.v4.runtime.misc.RuleDependencyProcessor
   exclude("META-INF/services/javax.annotation.processing.Processor")

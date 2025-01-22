@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2025 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,12 +56,16 @@ pluginManagement {
   }
 }
 
+plugins {
+  id("org.gradle.toolchains.foojay-resolver-convention") version("0.8.0")
+}
+
 @Suppress("UnstableApiUsage") dependencyResolutionManagement { repositories { mavenCentral() } }
 
-val javaVersion = JavaVersion.current()
-
-require(javaVersion.isCompatibleWith(JavaVersion.VERSION_17)) {
-  "Project requires Java 17 or higher, but found ${javaVersion.majorVersion}."
+JavaVersion.current().let { toolchain ->
+  require(toolchain.isCompatibleWith(JavaVersion.VERSION_21)) {
+    "Project requires Java 21+ to build, but found ${toolchain.majorVersion}."
+  }
 }
 
 if (

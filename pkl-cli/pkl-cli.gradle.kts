@@ -50,6 +50,9 @@ val stagedWindowsAmd64Executable: Configuration by configurations.creating
 
 dependencies {
   compileOnly(libs.svm)
+  compileOnly(libs.truffleSvm)
+  implementation(libs.truffleRuntime)
+  compileOnly(libs.graalSdk)
 
   // CliEvaluator exposes PClass
   api(projects.pklCore)
@@ -157,7 +160,7 @@ tasks.check { dependsOn(testStartJavaExecutable) }
 fun Exec.configureExecutable(
   graalVm: BuildInfo.GraalVm,
   outputFile: Provider<RegularFile>,
-  extraArgs: List<String> = listOf()
+  extraArgs: List<String> = listOf(),
 ) {
   inputs
     .files(sourceSets.main.map { it.output })
@@ -179,11 +182,13 @@ fun Exec.configureExecutable(
   executable = "${graalVm.baseDir}/bin/$nativeImageCommandName"
 
   // JARs to exclude from the class path for the native-image build.
-  val exclusions = listOf(libs.truffleApi, libs.graalSdk).map { it.get().module.name }
+  val exclusions = listOf(libs.graalSdk).map { it.get().module.name }
   // https://www.graalvm.org/22.0/reference-manual/native-image/Options/
   argumentProviders.add(
     CommandLineArgumentProvider {
       buildList {
+        // must be emitted before any experimental options are used
+        add("-H:+UnlockExperimentalVMOptions")
         // currently gives a deprecation warning, but we've been told
         // that the "initialize everything at build time" *CLI* option is likely here to stay
         add("--initialize-at-build-time=")
@@ -194,9 +199,9 @@ fun Exec.configureExecutable(
         add("-H:IncludeResources=org/jline/utils/.*")
         add("-H:IncludeResourceBundles=org.pkl.core.errorMessages")
         add("-H:IncludeResources=org/pkl/commons/cli/PklCARoots.pem")
-        add("--macro:truffle")
         add("-H:Class=org.pkl.cli.Main")
-        add("-H:Name=${outputFile.get().asFile.name}")
+        add("-o")
+        add(outputFile.get().asFile.name)
         // the actual limit (currently) used by native-image is this number + 1400 (idea is to
         // compensate for Truffle's own nodes)
         add("-H:MaxRuntimeCompileMethods=1800")
@@ -210,8 +215,14 @@ fun Exec.configureExecutable(
         // executable
         if (!buildInfo.isReleaseBuild) {
           add("-Ob")
+        } else {
+          add("-Os")
         }
-        add("-march=compatibility")
+        if (buildInfo.isNativeArch) {
+          add("-march=native")
+        } else {
+          add("-march=compatibility")
+        }
         // native-image rejects non-existing class path entries -> filter
         add("--class-path")
         val pathInput =
@@ -240,7 +251,7 @@ val macExecutableAmd64: TaskProvider<Exec> by
     dependsOn(":installGraalVmAmd64")
     configureExecutable(
       buildInfo.graalVmAmd64,
-      layout.buildDirectory.file("executable/pkl-macos-amd64")
+      layout.buildDirectory.file("executable/pkl-macos-amd64"),
     )
   }
 
@@ -251,7 +262,7 @@ val macExecutableAarch64: TaskProvider<Exec> by
     configureExecutable(
       buildInfo.graalVmAarch64,
       layout.buildDirectory.file("executable/pkl-macos-aarch64"),
-      listOf("-H:+AllowDeprecatedBuilderClassesOnImageClasspath")
+      listOf("-H:+AllowDeprecatedBuilderClassesOnImageClasspath"),
     )
   }
 
@@ -261,7 +272,7 @@ val linuxExecutableAmd64: TaskProvider<Exec> by
     dependsOn(":installGraalVmAmd64")
     configureExecutable(
       buildInfo.graalVmAmd64,
-      layout.buildDirectory.file("executable/pkl-linux-amd64")
+      layout.buildDirectory.file("executable/pkl-linux-amd64"),
     )
   }
 
@@ -281,7 +292,7 @@ val linuxExecutableAarch64: TaskProvider<Exec> by
         // Ensure compatibility for kernels with page size set to 4k, 16k and 64k
         // (e.g. Raspberry Pi 5, Asahi Linux)
         "-H:PageSize=65536"
-      )
+      ),
     )
   }
 
@@ -297,7 +308,7 @@ val alpineExecutableAmd64: TaskProvider<Exec> by
     configureExecutable(
       buildInfo.graalVmAmd64,
       layout.buildDirectory.file("executable/pkl-alpine-linux-amd64"),
-      listOf("--static", "--libc=musl")
+      listOf("--static", "--libc=musl"),
     )
   }
 
@@ -307,7 +318,7 @@ val windowsExecutableAmd64: TaskProvider<Exec> by
     configureExecutable(
       buildInfo.graalVmAmd64,
       layout.buildDirectory.file("executable/pkl-windows-amd64"),
-      listOf("-Dfile.encoding=UTF-8")
+      listOf("-Dfile.encoding=UTF-8"),
     )
   }
 

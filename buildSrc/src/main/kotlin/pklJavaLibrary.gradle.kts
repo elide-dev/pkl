@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2025 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import org.gradle.accessors.dm.LibrariesForLibs
 
 plugins {
   `java-library`
+  id("pklJvmToolchain")
   id("pklKotlinTest")
   id("com.diffplug.spotless")
 }
@@ -29,9 +30,22 @@ val sourcesJarConfiguration = configurations.register("sourcesJar")
 // Version Catalog library symbols.
 val libs = the<LibrariesForLibs>()
 
+// Build configuration.
+val info = project.extensions.getByType<BuildInfo>()
+
 java {
+  val jvmTarget = JavaVersion.toVersion(info.jvmTarget)
+
   withSourcesJar() // creates `sourcesJar` task
   withJavadocJar()
+
+  sourceCompatibility = jvmTarget
+  targetCompatibility = jvmTarget
+
+  toolchain {
+    languageVersion = info.jdkToolchainVersion
+    vendor = info.jdkVendor
+  }
 }
 
 artifacts {
@@ -80,9 +94,34 @@ val workAroundKotlinGradlePluginBug by
     }
   }
 
+val truffleJavacArgs =
+  listOf(
+    // TODO: determine correct limits for Truffle specializations
+    // (see https://graalvm.slack.com/archives/CNQSB2DHD/p1712380902746829)
+    "-Atruffle.dsl.SuppressWarnings=truffle-limit"
+  )
+
+val jpmsJavacArgs = listOf("--add-modules=jdk.unsupported")
+val javacArgsProvider = CommandLineArgumentProvider { jpmsJavacArgs }
+
 tasks.compileJava {
+  javaCompiler = info.javaCompiler
   dependsOn(workAroundKotlinGradlePluginBug)
-  // TODO: determine correct limits for Truffle specializations
-  // (see https://graalvm.slack.com/archives/CNQSB2DHD/p1712380902746829)
-  options.compilerArgs.add("-Atruffle.dsl.SuppressWarnings=truffle-limit")
+  options.compilerArgumentProviders.add(CommandLineArgumentProvider { truffleJavacArgs })
+}
+
+tasks.withType<JavaCompile>().configureEach {
+  val jvmTarget = JavaVersion.toVersion(info.jvmTarget)
+  javaCompiler = info.javaCompiler
+  sourceCompatibility = jvmTarget.majorVersion
+  targetCompatibility = jvmTarget.majorVersion
+
+  options.compilerArgumentProviders.add(javacArgsProvider)
+}
+
+tasks.withType<JavaExec>().configureEach { jvmArgs(jpmsJavacArgs) }
+
+tasks.test {
+  javaLauncher = info.javaTestLauncher
+  jvmArgumentProviders.add(javacArgsProvider)
 }
