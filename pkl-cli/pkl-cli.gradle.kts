@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import org.gradle.kotlin.dsl.support.serviceOf
+
 plugins {
   pklAllProjects
   pklKotlinLibrary
@@ -50,6 +52,9 @@ val stagedWindowsAmd64Executable: Configuration by configurations.creating
 
 dependencies {
   compileOnly(libs.svm)
+  compileOnly(libs.truffleSvm)
+  implementation(libs.truffleRuntime)
+  compileOnly(libs.graalSdk)
 
   // CliEvaluator exposes PClass
   api(projects.pklCore)
@@ -81,7 +86,13 @@ dependencies {
   stagedWindowsAmd64Executable(executableDir("pkl-windows-amd64.exe"))
 }
 
-tasks.jar { manifest { attributes += mapOf("Main-Class" to "org.pkl.cli.Main") } }
+tasks.jar {
+  manifest.attributes +=
+    mapOf(
+      "Main-Class" to "org.pkl.cli.Main",
+      "Add-Exports" to buildInfo.jpmsExports.joinToString(" ") { it.substringBefore("=") },
+    )
+}
 
 tasks.javadoc { enabled = false }
 
@@ -121,7 +132,8 @@ val testJavaExecutable by
         (configurations.testRuntimeClasspath.get() - configurations.runtimeClasspath.get())
   }
 
-tasks.check { dependsOn(testJavaExecutable) }
+// Setup `testJavaExecutable` tasks for multi-JDK testing.
+val testJavaExecutableOnOtherJdks = buildInfo.multiJdkTestingWith(testJavaExecutable)
 
 // 0.14 Java executable was broken because javaExecutable.jvmArgs wasn't commented out.
 // To catch this and similar problems, test that Java executable starts successfully.
@@ -147,7 +159,43 @@ val testStartJavaExecutable by
     doLast { outputFile.get().asFile.writeText("OK") }
   }
 
-tasks.check { dependsOn(testStartJavaExecutable) }
+// Setup `testStartJavaExecutable` tasks for multi-JDK testing.
+val testStartJavaExecutableOnOtherJdks =
+  buildInfo.jdkTestRange.map { jdkTarget ->
+    val taskName = "testStartJavaExecutableJdk${jdkTarget.asInt()}"
+    val toolchains = project.serviceOf<JavaToolchainService>()
+
+    tasks.register(taskName, Exec::class) {
+      // dummy output to satisfy up-to-date check
+      val outputFile = layout.buildDirectory.file(taskName)
+      outputs.file(outputFile)
+      dependsOn(javaExecutable)
+      executable =
+        toolchains
+          .launcherFor { languageVersion = jdkTarget }
+          .map { it.executablePath.asFile.absolutePath }
+          .get()
+
+      argumentProviders.add(
+        CommandLineArgumentProvider {
+          listOf("-jar", javaExecutable.get().outputs.files.singleFile.toString(), "--version")
+        }
+      )
+
+      doFirst { outputFile.get().asFile.delete() }
+
+      doLast { outputFile.get().asFile.writeText("OK") }
+    }
+  }
+
+tasks.check {
+  dependsOn(
+    testJavaExecutable,
+    testStartJavaExecutable,
+    testJavaExecutableOnOtherJdks,
+    testStartJavaExecutableOnOtherJdks,
+  )
+}
 
 fun Exec.configureExecutable(
   graalVm: BuildInfo.GraalVm,
@@ -174,11 +222,13 @@ fun Exec.configureExecutable(
   executable = "${graalVm.baseDir}/bin/$nativeImageCommandName"
 
   // JARs to exclude from the class path for the native-image build.
-  val exclusions = listOf(libs.truffleApi, libs.graalSdk).map { it.get().module.name }
+  val exclusions = listOf(libs.graalSdk).map { it.get().module.name }
   // https://www.graalvm.org/22.0/reference-manual/native-image/Options/
   argumentProviders.add(
     CommandLineArgumentProvider {
       buildList {
+        // must be emitted before any experimental options are used
+        add("-H:+UnlockExperimentalVMOptions")
         // currently gives a deprecation warning, but we've been told
         // that the "initialize everything at build time" *CLI* option is likely here to stay
         add("--initialize-at-build-time=")
@@ -189,9 +239,9 @@ fun Exec.configureExecutable(
         add("-H:IncludeResources=org/jline/utils/.*")
         add("-H:IncludeResourceBundles=org.pkl.core.errorMessages")
         add("-H:IncludeResources=org/pkl/commons/cli/PklCARoots.pem")
-        add("--macro:truffle")
         add("-H:Class=org.pkl.cli.Main")
-        add("-H:Name=${outputFile.get().asFile.name}")
+        add("-o")
+        add(outputFile.get().asFile.name)
         // the actual limit (currently) used by native-image is this number + 1400 (idea is to
         // compensate for Truffle's own nodes)
         add("-H:MaxRuntimeCompileMethods=1800")
@@ -206,7 +256,11 @@ fun Exec.configureExecutable(
         if (!buildInfo.isReleaseBuild) {
           add("-Ob")
         }
-        add("-march=compatibility")
+        if (buildInfo.isNativeArch) {
+          add("-march=native")
+        } else {
+          add("-march=compatibility")
+        }
         // native-image rejects non-existing class path entries -> filter
         add("--class-path")
         val pathInput =
