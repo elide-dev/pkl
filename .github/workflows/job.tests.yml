@@ -93,8 +93,7 @@ jobs:
           build-scan-terms-of-service-url: "https://gradle.com/terms-of-service"
           build-scan-terms-of-service-agree: "yes"
           arguments: |
-            test
-            -x check
+            check
             --continue
             --scan
       - name: "Artifact: Test Reports"
