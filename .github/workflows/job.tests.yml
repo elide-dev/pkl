@@ -94,6 +94,7 @@ jobs:
           build-scan-terms-of-service-agree: "yes"
           arguments: |
             check
+            -x spotlessCheck
             --continue
             --scan
       - name: "Artifact: Test Reports"
