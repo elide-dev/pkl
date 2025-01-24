@@ -1,0 +1,14 @@
+{
+  "initializeAtRunTime": [
+    // needed for messagepack-java (see https://github.com/msgpack/msgpack-java/issues/600)
+    "org.msgpack.core.buffer.DirectBufferAccess"
+  ],
+  "initializeAtBuildTime": [
+    "org.antlr.v4",
+    "org.organicdesign",
+    "org.pkl",
+    "org.snakeyaml",
+    "org.msgpack",
+    "org.w3c.dom"
+  ]
+}

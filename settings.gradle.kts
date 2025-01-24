@@ -49,6 +49,8 @@ include("pkl-tools")
 
 include("pkl-server")
 
+include("pkl-nativeimage")
+
 pluginManagement {
   repositories {
     mavenCentral()
