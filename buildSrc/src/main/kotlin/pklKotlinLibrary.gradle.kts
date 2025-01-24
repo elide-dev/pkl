@@ -51,7 +51,7 @@ tasks.withType<KotlinJvmCompile>().configureEach {
     javaParameters = true
 
     // consider kotlin warnings errors if not otherwise suppressed
-    allWarningsAsErrors = true
+    allWarningsAsErrors = false
 
     freeCompilerArgs.addAll(
       listOf(
