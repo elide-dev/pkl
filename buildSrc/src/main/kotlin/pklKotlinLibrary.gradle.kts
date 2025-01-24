@@ -19,6 +19,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
   id("pklJavaLibrary")
+  id("org.jetbrains.kotlinx.binary-compatibility-validator")
   kotlin("jvm")
 }
 
