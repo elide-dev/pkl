@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
@@ -41,5 +42,23 @@ tasks.compileKotlin {
 }
 
 tasks.withType<KotlinJvmCompile>().configureEach {
-  kotlinOptions { jvmTarget = JavaVersion.toVersion(buildInfo.jvmTarget).majorVersion }
+  compilerOptions {
+    // must match the minimum JVM bytecode target for Pkl
+    jvmTarget = JvmTarget.fromTarget(buildInfo.jvmTarget.toString())
+
+    // enable java parameter names for stronger Kotlin-Java interop and debugging
+    javaParameters = true
+
+    // consider kotlin warnings errors if not otherwise suppressed
+    allWarningsAsErrors = true
+
+    freeCompilerArgs.addAll(
+      listOf(
+        // enable strict nullability checking and integration with pkl's own annotations
+        "-Xjsr305=strict",
+        "-Xjsr305=@org.pkl.core.util.Nullable:strict",
+        "-Xjsr305=@org.pkl.core.util.Nonnull:strict",
+      )
+    )
+  }
 }
