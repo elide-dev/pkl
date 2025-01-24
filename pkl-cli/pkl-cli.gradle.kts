@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import org.gradle.kotlin.dsl.support.serviceOf
 import java.nio.file.Path
+import org.gradle.kotlin.dsl.support.serviceOf
 
 plugins {
   pklAllProjects
@@ -241,8 +241,7 @@ fun Exec.configureExecutable(
         // currently gives a deprecation warning, but we've been told
         // that the "initialize everything at build time" *CLI* option is likely here to stay
         add("--initialize-at-build-time=")
-        if (JavaVersion.current() == JavaVersion.VERSION_21)
-          add("--strict-image-heap")
+        if (JavaVersion.current() == JavaVersion.VERSION_21) add("--strict-image-heap")
         // load, compute, and configure class initialization
         addAll(classinit.asArgs)
         // needed for messagepack-java (see https://github.com/msgpack/msgpack-java/issues/600)

@@ -1,0 +1,9 @@
+{
+  "initializeAtRunTime": [
+    // needed for messagepack-java (see https://github.com/msgpack/msgpack-java/issues/600)
+    "org.msgpack.core.buffer.DirectBufferAccess"
+  ],
+  "initializeAtBuildTime": [
+    "org.pkl"
+  ]
+}

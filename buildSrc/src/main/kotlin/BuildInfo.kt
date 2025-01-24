@@ -15,9 +15,9 @@
  */
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
 import java.io.File
+import java.nio.charset.StandardCharsets
+import kotlinx.serialization.json.Json
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.artifacts.VersionCatalog
@@ -34,7 +34,6 @@ import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.register
 import org.gradle.kotlin.dsl.support.serviceOf
 import org.gradle.process.CommandLineArgumentProvider
-import java.nio.charset.StandardCharsets
 
 /**
  * JVM bytecode target; this is pinned at a reasonable version, because downstream JVM projects
@@ -182,14 +181,18 @@ open class BuildInfo(private val project: Project) {
     JavaVersionRange.inclusive(jdkTestFloor, jdkTestCeiling)
   }
 
-  /**
-   * Read a configuration file for GraalVM initialization.
-   */
+  /** Read a configuration file for GraalVM initialization. */
   fun graalvmConfig(file: RegularFile): GraalVmInitializationConfig =
     file.asFile.reader(StandardCharsets.UTF_8).use {
-      Json.decodeFromString(it.readText().lineSequence().filter { line ->
-        !line.trim().startsWith("//")  // filter out comments
-      }.joinToString("\n"))
+      Json.decodeFromString(
+        it
+          .readText()
+          .lineSequence()
+          .filter { line ->
+            !line.trim().startsWith("//") // filter out comments
+          }
+          .joinToString("\n")
+      )
     }
 
   private fun JavaToolchainSpec.pklJdkToolchain() {
