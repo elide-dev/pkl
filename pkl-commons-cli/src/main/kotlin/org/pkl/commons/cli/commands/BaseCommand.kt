@@ -16,9 +16,15 @@
 package org.pkl.commons.cli.commands
 
 import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.parameters.groups.provideDelegate
 
-abstract class BaseCommand(name: String, helpLink: String, help: String = "") :
-  CliktCommand(name = name, help = help, epilog = "For more information, visit $helpLink") {
+abstract class BaseCommand(name: String, private val helpLink: String, help: String = "") :
+  CliktCommand(name = name) {
+  private val helpText = help
+
+  override fun help(context: Context): String = helpText
+  override fun helpEpilog(context: Context): String = "For more information, visit $helpLink"
+
   val baseOptions: BaseOptions by BaseOptions()
 }

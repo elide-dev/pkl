@@ -17,6 +17,7 @@
 
 package org.pkl.codegen.java
 
+import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.parameters.options.*
 import com.github.ajalt.clikt.parameters.types.path
 import java.nio.file.Path

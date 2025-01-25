@@ -15,25 +15,27 @@
  */
 package org.pkl.cli.commands
 
+import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.core.NoOpCliktCommand
 import com.github.ajalt.clikt.core.context
 import com.github.ajalt.clikt.parameters.options.versionOption
 
-class RootCommand(name: String, version: String, helpLink: String) :
+class RootCommand(name: String, version: String, private val helpLink: String) :
   NoOpCliktCommand(
     name = name,
-    printHelpOnEmptyArgs = true,
-    epilog = "For more information, visit $helpLink",
   ) {
   init {
     versionOption(version, names = setOf("-v", "--version"), message = { it })
 
     context {
-      correctionSuggestor = { given, possible ->
+      suggestTypoCorrection = { given, possible ->
         if (!given.startsWith("-")) {
           registeredSubcommands().map { it.commandName }
         } else possible
       }
     }
   }
+
+  override fun helpEpilog(context: Context): String = "For more information, visit $helpLink"
+  override val printHelpOnEmptyArgs: Boolean get() = true
 }

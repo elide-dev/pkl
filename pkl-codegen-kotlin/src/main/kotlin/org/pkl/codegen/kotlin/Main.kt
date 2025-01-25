@@ -17,6 +17,7 @@
 
 package org.pkl.codegen.kotlin
 
+import com.github.ajalt.clikt.core.main
 import com.github.ajalt.clikt.parameters.options.associate
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag

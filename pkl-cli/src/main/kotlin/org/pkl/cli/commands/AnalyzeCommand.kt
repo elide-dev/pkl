@@ -15,6 +15,7 @@
  */
 package org.pkl.cli.commands
 
+import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.core.NoOpCliktCommand
 import com.github.ajalt.clikt.core.subcommands
 import com.github.ajalt.clikt.parameters.options.option
@@ -25,15 +26,16 @@ import org.pkl.cli.CliImportAnalyzerOptions
 import org.pkl.commons.cli.commands.ModulesCommand
 import org.pkl.commons.cli.commands.single
 
-class AnalyzeCommand(helpLink: String) :
+class AnalyzeCommand(private val helpLink: String) :
   NoOpCliktCommand(
     name = "analyze",
-    help = "Commands related to static analysis",
-    epilog = "For more information, visit $helpLink"
   ) {
   init {
     subcommands(AnalyzeImportsCommand(helpLink))
   }
+
+  override fun help(context: Context): String = "Commands related to static analysis"
+  override fun helpEpilog(context: Context): String = "For more information, visit $helpLink"
 
   companion object {
     class AnalyzeImportsCommand(helpLink: String) :

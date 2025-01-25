@@ -15,6 +15,7 @@
  */
 package org.pkl.cli.commands
 
+import com.github.ajalt.clikt.core.Context
 import com.github.ajalt.clikt.core.NoOpCliktCommand
 import com.github.ajalt.clikt.core.subcommands
 import com.github.ajalt.clikt.parameters.arguments.argument
@@ -31,15 +32,16 @@ import org.pkl.commons.cli.commands.BaseCommand
 import org.pkl.commons.cli.commands.TestOptions
 import org.pkl.commons.cli.commands.single
 
-class ProjectCommand(helpLink: String) :
+class ProjectCommand(private val helpLink: String) :
   NoOpCliktCommand(
     name = "project",
-    help = "Run commands related to projects",
-    epilog = "For more information, visit $helpLink"
   ) {
   init {
     subcommands(ResolveCommand(helpLink), PackageCommand(helpLink))
   }
+
+  override fun help(context: Context): String = "Run commands related to projects"
+  override fun helpEpilog(context: Context): String = "For more information, visit $helpLink"
 
   companion object {
     class ResolveCommand(helpLink: String) :
