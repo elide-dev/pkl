@@ -78,6 +78,9 @@ tasks.shadowJar {
 
   configurations = listOf(project.configurations.runtimeClasspath.get())
 
+  // not required at runtime / fat JARs can't be used in native-image builds anyway
+  exclude("org/pkl/cli/svm/**")
+
   exclude("META-INF/maven/**")
   exclude("META-INF/upgrade/**")
 
