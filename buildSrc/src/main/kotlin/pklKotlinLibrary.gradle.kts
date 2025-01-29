@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2025 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 import org.gradle.accessors.dm.LibrariesForLibs
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
   id("pklJavaLibrary")
-
+  id("org.jetbrains.kotlinx.binary-compatibility-validator")
   kotlin("jvm")
 }
 
+// Build configuration.
 val buildInfo = project.extensions.getByType<BuildInfo>()
 
 // Version Catalog library symbols.
@@ -37,4 +40,26 @@ dependencies {
 
 tasks.compileKotlin {
   enabled = true // disabled by pklJavaLibrary
+}
+
+tasks.withType<KotlinJvmCompile>().configureEach {
+  compilerOptions {
+    // must match the minimum JVM bytecode target for Pkl
+    jvmTarget = JvmTarget.fromTarget(buildInfo.jvmTarget.toString())
+
+    // enable java parameter names for stronger Kotlin-Java interop and debugging
+    javaParameters = true
+
+    // consider kotlin warnings errors if not otherwise suppressed
+    allWarningsAsErrors = false
+
+    freeCompilerArgs.addAll(
+      listOf(
+        // enable strict nullability checking and integration with pkl's own annotations
+        "-Xjsr305=strict",
+        "-Xjsr305=@org.pkl.core.util.Nullable:strict",
+        "-Xjsr305=@org.pkl.core.util.Nonnull:strict",
+      )
+    )
+  }
 }
