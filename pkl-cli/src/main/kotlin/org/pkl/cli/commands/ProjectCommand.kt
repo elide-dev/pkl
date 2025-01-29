@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2025 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,15 +32,13 @@ import org.pkl.commons.cli.commands.BaseCommand
 import org.pkl.commons.cli.commands.TestOptions
 import org.pkl.commons.cli.commands.single
 
-class ProjectCommand(private val helpLink: String) :
-  NoOpCliktCommand(
-    name = "project",
-  ) {
+class ProjectCommand(private val helpLink: String) : NoOpCliktCommand(name = "project") {
   init {
     subcommands(ResolveCommand(helpLink), PackageCommand(helpLink))
   }
 
   override fun help(context: Context): String = "Run commands related to projects"
+
   override fun helpEpilog(context: Context): String = "For more information, visit $helpLink"
 
   companion object {
@@ -123,7 +121,7 @@ class ProjectCommand(private val helpLink: String) :
         option(
             names = arrayOf("--output-path"),
             help = "The directory to write artifacts to",
-            metavar = "<path>"
+            metavar = "<path>",
           )
           .single()
           .default(".out/%{name}@%{version}")
@@ -142,7 +140,7 @@ class ProjectCommand(private val helpLink: String) :
             projectDirs,
             testOptions.cliTestOptions,
             outputPath,
-            skipPublishCheck
+            skipPublishCheck,
           )
           .run()
       }

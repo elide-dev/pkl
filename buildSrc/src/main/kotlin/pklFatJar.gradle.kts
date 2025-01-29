@@ -98,11 +98,8 @@ tasks.shadowJar {
   // `META-INF/versions/{18-25}/**`
   // at the time of this writing; multi-release JARs beyond JDK 21 break the current
   // version of the Shadow plugin, and aren't needed for Truffle's use by Pkl.
-  JavaVersionRange.startingAt(
-    JavaLanguageVersion.of(minimumJvmTarget.majorVersion.toInt() + 1)
-  ).forEach {
-    exclude("META-INF/versions/${it.asInt()}/**")
-  }
+  JavaVersionRange.startingAt(JavaLanguageVersion.of(minimumJvmTarget.majorVersion.toInt() + 1))
+    .forEach { exclude("META-INF/versions/${it.asInt()}/**") }
 
   // org.antlr.v4.runtime.misc.RuleDependencyProcessor
   exclude("META-INF/services/javax.annotation.processing.Processor")

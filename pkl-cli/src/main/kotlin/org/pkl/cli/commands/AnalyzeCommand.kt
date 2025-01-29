@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2025 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,15 +26,13 @@ import org.pkl.cli.CliImportAnalyzerOptions
 import org.pkl.commons.cli.commands.ModulesCommand
 import org.pkl.commons.cli.commands.single
 
-class AnalyzeCommand(private val helpLink: String) :
-  NoOpCliktCommand(
-    name = "analyze",
-  ) {
+class AnalyzeCommand(private val helpLink: String) : NoOpCliktCommand(name = "analyze") {
   init {
     subcommands(AnalyzeImportsCommand(helpLink))
   }
 
   override fun help(context: Context): String = "Commands related to static analysis"
+
   override fun helpEpilog(context: Context): String = "For more information, visit $helpLink"
 
   companion object {
@@ -42,14 +40,14 @@ class AnalyzeCommand(private val helpLink: String) :
       ModulesCommand(
         name = "imports",
         helpLink = helpLink,
-        help = "Prints the graph of modules imported by the input module(s)."
+        help = "Prints the graph of modules imported by the input module(s).",
       ) {
 
       private val outputPath: Path? by
         option(
             names = arrayOf("-o", "--output-path"),
             metavar = "<path>",
-            help = "File path where the output file is placed."
+            help = "File path where the output file is placed.",
           )
           .path()
           .single()
@@ -59,7 +57,7 @@ class AnalyzeCommand(private val helpLink: String) :
           CliImportAnalyzerOptions(
             base = baseOptions.baseOptions(modules, projectOptions),
             outputFormat = baseOptions.format,
-            outputPath = outputPath
+            outputPath = outputPath,
           )
         CliImportAnalyzer(options).run()
       }

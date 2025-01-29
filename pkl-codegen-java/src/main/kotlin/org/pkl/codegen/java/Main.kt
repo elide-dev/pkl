@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2025 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,7 +44,7 @@ class PklJavaCodegenCommand :
     option(
         names = arrayOf("-o", "--output-dir"),
         metavar = "<path>",
-        help = "The directory where generated source code is placed."
+        help = "The directory where generated source code is placed.",
       )
       .path()
       .default(defaults.outputDir)
@@ -53,7 +53,7 @@ class PklJavaCodegenCommand :
     option(
         names = arrayOf("--indent"),
         metavar = "<chars>",
-        help = "The characters to use for indenting generated source code."
+        help = "The characters to use for indenting generated source code.",
       )
       .default(defaults.indent)
 
@@ -62,21 +62,21 @@ class PklJavaCodegenCommand :
         names = arrayOf("--generate-getters"),
         help =
           "Whether to generate public getter methods and " +
-            "private final fields instead of public final fields."
+            "private final fields instead of public final fields.",
       )
       .flag()
 
   private val generateJavadoc: Boolean by
     option(
         names = arrayOf("--generate-javadoc"),
-        help = "Whether to preserve Pkl doc comments by generating corresponding Javadoc comments."
+        help = "Whether to preserve Pkl doc comments by generating corresponding Javadoc comments.",
       )
       .flag()
 
   private val generateSpringBoot: Boolean by
     option(
         names = arrayOf("--generate-spring-boot"),
-        help = "Whether to generate config classes for use with Spring Boot."
+        help = "Whether to generate config classes for use with Spring Boot.",
       )
       .flag()
 
@@ -84,7 +84,7 @@ class PklJavaCodegenCommand :
     option(
         names = arrayOf("--params-annotation"),
         help =
-          "Fully qualified name of the annotation type to use for annotating constructor parameters with their name."
+          "Fully qualified name of the annotation type to use for annotating constructor parameters with their name.",
       )
       .defaultLazy(
         "`none` if `--generate-spring-boot` is set, `org.pkl.config.java.mapper.Named` otherwise"
@@ -101,13 +101,13 @@ class PklJavaCodegenCommand :
       The specified annotation type must be annotated with `@java.lang.annotation.Target(ElementType.TYPE_USE)`
       or the generated code may not compile.
     """
-          .trimIndent()
+          .trimIndent(),
     )
 
   private val implementSerializable: Boolean by
     option(
         names = arrayOf("--implement-serializable"),
-        help = "Whether to generate classes that implement java.io.Serializable."
+        help = "Whether to generate classes that implement java.io.Serializable.",
       )
       .flag()
 
@@ -122,7 +122,7 @@ class PklJavaCodegenCommand :
             With this option, you can override or modify the default names, renaming entire
             classes or just their packages.
           """
-            .trimIndent()
+            .trimIndent(),
       )
       .associate()
 
@@ -138,7 +138,7 @@ class PklJavaCodegenCommand :
         paramsAnnotation = if (paramsAnnotation == "none") null else paramsAnnotation,
         nonNullAnnotation = nonNullAnnotation,
         implementSerializable = implementSerializable,
-        renames = renames
+        renames = renames,
       )
     CliJavaCodeGenerator(options).run()
   }

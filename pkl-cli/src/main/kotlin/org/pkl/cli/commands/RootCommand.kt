@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2025 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,7 @@ import com.github.ajalt.clikt.core.context
 import com.github.ajalt.clikt.parameters.options.versionOption
 
 class RootCommand(name: String, version: String, private val helpLink: String) :
-  NoOpCliktCommand(
-    name = name,
-  ) {
+  NoOpCliktCommand(name = name) {
   init {
     versionOption(version, names = setOf("-v", "--version"), message = { it })
 
@@ -37,5 +35,7 @@ class RootCommand(name: String, version: String, private val helpLink: String) :
   }
 
   override fun helpEpilog(context: Context): String = "For more information, visit $helpLink"
-  override val printHelpOnEmptyArgs: Boolean get() = true
+
+  override val printHelpOnEmptyArgs: Boolean
+    get() = true
 }

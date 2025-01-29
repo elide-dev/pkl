@@ -24,6 +24,7 @@ abstract class BaseCommand(name: String, private val helpLink: String, help: Str
   private val helpText = help
 
   override fun help(context: Context): String = helpText
+
   override fun helpEpilog(context: Context): String = "For more information, visit $helpLink"
 
   val baseOptions: BaseOptions by BaseOptions()
