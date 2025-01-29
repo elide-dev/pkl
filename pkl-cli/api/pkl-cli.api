@@ -90,6 +90,8 @@ public final class org/pkl/cli/CliTestRunner : org/pkl/commons/cli/CliCommand {
 public final class org/pkl/cli/commands/AnalyzeCommand : com/github/ajalt/clikt/core/NoOpCliktCommand {
 	public static final field Companion Lorg/pkl/cli/commands/AnalyzeCommand$Companion;
 	public fun <init> (Ljava/lang/String;)V
+	public fun help (Lcom/github/ajalt/clikt/core/Context;)Ljava/lang/String;
+	public fun helpEpilog (Lcom/github/ajalt/clikt/core/Context;)Ljava/lang/String;
 }
 
 public final class org/pkl/cli/commands/AnalyzeCommand$Companion {
@@ -113,6 +115,8 @@ public final class org/pkl/cli/commands/EvalCommand : org/pkl/commons/cli/comman
 public final class org/pkl/cli/commands/ProjectCommand : com/github/ajalt/clikt/core/NoOpCliktCommand {
 	public static final field Companion Lorg/pkl/cli/commands/ProjectCommand$Companion;
 	public fun <init> (Ljava/lang/String;)V
+	public fun help (Lcom/github/ajalt/clikt/core/Context;)Ljava/lang/String;
+	public fun helpEpilog (Lcom/github/ajalt/clikt/core/Context;)Ljava/lang/String;
 }
 
 public final class org/pkl/cli/commands/ProjectCommand$Companion {
@@ -135,10 +139,14 @@ public final class org/pkl/cli/commands/ReplCommand : org/pkl/commons/cli/comman
 
 public final class org/pkl/cli/commands/RootCommand : com/github/ajalt/clikt/core/NoOpCliktCommand {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public fun getPrintHelpOnEmptyArgs ()Z
+	public fun helpEpilog (Lcom/github/ajalt/clikt/core/Context;)Ljava/lang/String;
 }
 
 public final class org/pkl/cli/commands/ServerCommand : com/github/ajalt/clikt/core/CliktCommand {
 	public fun <init> (Ljava/lang/String;)V
+	public fun help (Lcom/github/ajalt/clikt/core/Context;)Ljava/lang/String;
+	public fun helpEpilog (Lcom/github/ajalt/clikt/core/Context;)Ljava/lang/String;
 	public fun run ()V
 }
 

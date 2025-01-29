@@ -110,6 +110,8 @@ public abstract class org/pkl/commons/cli/commands/BaseCommand : com/github/ajal
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun getBaseOptions ()Lorg/pkl/commons/cli/commands/BaseOptions;
+	public fun help (Lcom/github/ajalt/clikt/core/Context;)Ljava/lang/String;
+	public fun helpEpilog (Lcom/github/ajalt/clikt/core/Context;)Ljava/lang/String;
 }
 
 public final class org/pkl/commons/cli/commands/BaseOptions : com/github/ajalt/clikt/parameters/groups/OptionGroup {
@@ -166,5 +168,9 @@ public final class org/pkl/commons/cli/commands/ProjectOptions : com/github/ajal
 public final class org/pkl/commons/cli/commands/TestOptions : com/github/ajalt/clikt/parameters/groups/OptionGroup {
 	public fun <init> ()V
 	public final fun getCliTestOptions ()Lorg/pkl/commons/cli/CliTestOptions;
+}
+
+public final class org/pkl/commons/cli/err/ExceptionExtensionsKt {
+	public static final fun defaultErrorMessage (Lcom/github/ajalt/clikt/core/UsageError;)Ljava/lang/String;
 }
 

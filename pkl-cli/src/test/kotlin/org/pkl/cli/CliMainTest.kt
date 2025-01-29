@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2025 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,7 @@
  */
 package org.pkl.cli
 
-import com.github.ajalt.clikt.core.BadParameterValue
-import com.github.ajalt.clikt.core.subcommands
+import com.github.ajalt.clikt.core.*
 import java.nio.file.Path
 import kotlin.io.path.createDirectory
 import kotlin.io.path.createSymbolicLinkPointingTo
@@ -30,6 +29,7 @@ import org.junit.jupiter.api.io.TempDir
 import org.pkl.cli.commands.AnalyzeCommand
 import org.pkl.cli.commands.EvalCommand
 import org.pkl.cli.commands.RootCommand
+import org.pkl.commons.cli.err.defaultErrorMessage
 import org.pkl.commons.writeString
 
 class CliMainTest {
@@ -42,20 +42,29 @@ class CliMainTest {
   fun `duplicate CLI option produces meaningful error message`(@TempDir tempDir: Path) {
     val inputFile = tempDir.resolve("test.pkl").writeString("").toString()
 
-    assertThatCode {
+    val exc1 =
+      assertThrows<UsageError> {
         cmd.parse(arrayOf("eval", "--output-path", "path1", "--output-path", "path2", inputFile))
       }
-      .hasMessage("Invalid value for \"--output-path\": Option cannot be repeated")
+    assertThat(exc1).hasMessage("Option cannot be repeated")
+    assertThat(exc1.defaultErrorMessage())
+      .contains("invalid value for --output-path: Option cannot be repeated")
 
-    assertThatCode {
+    val exc2 =
+      assertThrows<Throwable> {
         cmd.parse(arrayOf("eval", "-o", "path1", "--output-path", "path2", inputFile))
       }
-      .hasMessage("Invalid value for \"--output-path\": Option cannot be repeated")
+    assertThat(exc2).hasMessage("Option cannot be repeated")
+    assertThat(exc1.defaultErrorMessage())
+      .contains("invalid value for --output-path: Option cannot be repeated")
   }
 
   @Test
   fun `eval requires at least one file`() {
-    assertThatCode { cmd.parse(arrayOf("eval")) }.hasMessage("""Missing argument "<modules>"""")
+    val exc = assertThrows<MissingArgument> { cmd.parse(arrayOf("eval")) }
+    assertThat(exc).hasNoCause().isInstanceOf(MissingArgument::class.java)
+
+    assertThat(exc.defaultErrorMessage()).contains("missing argument").contains("modules")
   }
 
   // Can't reliably create symlinks on Windows.
@@ -84,8 +93,7 @@ class CliMainTest {
   fun `cannot have multiple output with -o or -x`(@TempDir tempDir: Path) {
     val testIn = makeInput(tempDir)
     val testOut = tempDir.resolve("test").toString()
-    val error =
-      """Invalid value for "--multiple-file-output-path": Option is mutually exclusive with -o, --output-path and -x, --expression."""
+    val error = """Option is mutually exclusive with -o, --output-path and -x, --expression."""
 
     assertThatCode { cmd.parse(arrayOf("eval", "-m", testOut, "-x", "x", testIn)) }
       .hasMessage(error)

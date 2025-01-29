@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2025 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package org.pkl.commons.cli
 
 import com.github.ajalt.clikt.core.BadParameterValue
 import com.github.ajalt.clikt.core.PrintHelpMessage
+import com.github.ajalt.clikt.core.parse
 import java.io.File
 import java.nio.file.Path
 import java.util.regex.Pattern
@@ -36,7 +37,7 @@ class BaseCommandTest {
   @Test
   fun `invalid timeout`() {
     val e = assertThrows<BadParameterValue> { cmd.parse(arrayOf("--timeout", "abc")) }
-    assertThat(e).hasMessageContaining("timeout")
+    assertThat(e.paramName).contains("timeout")
   }
 
   @Test
@@ -85,21 +86,21 @@ class BaseCommandTest {
         "--external-resource-reader",
         "scheme1=reader1",
         "--external-resource-reader",
-        "scheme2=reader2 with args"
+        "scheme2=reader2 with args",
       )
     )
     assertThat(cmd.baseOptions.externalModuleReaders)
       .isEqualTo(
         mapOf(
           "scheme3" to ExternalReader("reader3", emptyList()),
-          "scheme4" to ExternalReader("reader4", listOf("with", "args"))
+          "scheme4" to ExternalReader("reader4", listOf("with", "args")),
         )
       )
     assertThat(cmd.baseOptions.externalResourceReaders)
       .isEqualTo(
         mapOf(
           "scheme1" to ExternalReader("reader1", emptyList()),
-          "scheme2" to ExternalReader("reader2", listOf("with", "args"))
+          "scheme2" to ExternalReader("reader2", listOf("with", "args")),
         )
       )
   }

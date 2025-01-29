@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2025 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 package org.pkl.cli
 
 import com.github.ajalt.clikt.core.MissingArgument
+import com.github.ajalt.clikt.core.parse
 import com.github.ajalt.clikt.core.subcommands
 import java.io.StringWriter
 import java.io.Writer
@@ -32,6 +33,7 @@ import org.pkl.cli.commands.RootCommand
 import org.pkl.commons.cli.CliBaseOptions
 import org.pkl.commons.cli.CliException
 import org.pkl.commons.cli.CliTestOptions
+import org.pkl.commons.cli.err.defaultErrorMessage
 import org.pkl.commons.readString
 import org.pkl.commons.toUri
 import org.pkl.commons.writeString
@@ -381,7 +383,7 @@ class CliTestRunnerTest {
     val opts =
       CliBaseOptions(
         sourceModules = listOf(input.toUri(), input2.toUri()),
-        settings = URI("pkl:settings")
+        settings = URI("pkl:settings"),
       )
     val testOpts = CliTestOptions(junitDir = tempDir)
     val runner = CliTestRunner(opts, testOpts, noopWriter, noopWriter)
@@ -398,7 +400,8 @@ class CliTestRunnerTest {
         rootCommand.parse(listOf("eval"))
       }
     assertThat(e1).hasMessageContaining("Missing argument \"<modules>\"")
-    assertThat(e1.message!!.replace("test", "eval")).isEqualTo(e2.helpMessage())
+    assertThat(e1.message!!.replace("test", "eval").lowercase())
+      .contains(e2.defaultErrorMessage().lowercase().replace("<modules>", "\"<modules>\""))
   }
 
   @Test
