@@ -258,6 +258,8 @@ import org.pkl.core.util.Nullable;
 import org.pkl.core.util.Pair;
 
 public class AstBuilder extends AbstractAstBuilder<Object> {
+  private static final boolean OPEN_EXTERNALS =
+      "true".equals(System.getProperty("pkl.openExternals"));
   private final VmLanguage language;
   private final ModuleInfo moduleInfo;
 
@@ -2502,7 +2504,7 @@ public class AstBuilder extends AbstractAstBuilder<Object> {
 
     // flag modifier combinations that are never valid right away
 
-    if (VmModifier.isExternal(result) && !ModuleKeys.isStdLibModule(moduleKey)) {
+    if (VmModifier.isExternal(result) && !qualifiesForExternal(moduleKey)) {
       throw exceptionBuilder()
           .evalError("cannotDefineExternalMember")
           .withSourceSection(createSourceSection(modifiers, ModifierValue.EXTERNAL))
@@ -2531,6 +2533,10 @@ public class AstBuilder extends AbstractAstBuilder<Object> {
     }
 
     return result;
+  }
+
+  private boolean qualifiesForExternal(ModuleKey moduleKey) {
+    return OPEN_EXTERNALS || ModuleKeys.isStdLibModule(moduleKey);
   }
 
   private UnresolvedTypeNode[] doVisitParameterTypes(ObjectBody body) {
