@@ -76,9 +76,6 @@ public final class VmUtils {
 
   public static final URI REPL_TEXT_URI = URI.create(REPL_TEXT);
 
-  private static final Engine PKL_ENGINE =
-      Engine.newBuilder("pkl").option("engine.WarnInterpreterOnly", "false").build();
-
   private static final Pattern DOC_COMMENT_LINE_START =
       Pattern.compile(
           "(?:^|\n|\r\n?)[ \t\f]*///[ \t\f]?",
@@ -99,6 +96,12 @@ public final class VmUtils {
 
   private static final Parser parser = new Parser();
 
+  static {
+    if (!Boolean.getBoolean("org.pkl-lang.lazy-engine-init")) {
+      VmEngineHolder.preloadEngine();
+    }
+  }
+
   private VmUtils() {}
 
   static VmTyped createEmptyModule() {
@@ -111,7 +114,8 @@ public final class VmUtils {
   }
 
   public static Context createContext(Runnable initializer) {
-    var context = Context.newBuilder("pkl").engine(PKL_ENGINE).build();
+    var eng = VmEngineHolder.resolveEngine();
+    var context = Context.newBuilder("pkl").engine(eng).build();
     context.initialize("pkl");
     context.enter();
     try {
