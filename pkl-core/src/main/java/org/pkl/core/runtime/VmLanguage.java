@@ -58,7 +58,7 @@ public final class VmLanguage extends TruffleLanguage<VmContext> {
 
   @Override
   protected boolean patchContext(VmContext context, Env newEnv) {
-    return true;  // no-op
+    return true; // no-op
   }
 
   @Override
