@@ -34,7 +34,7 @@ import org.pkl.parser.syntax.Module;
 @TruffleLanguage.Registration(
     id = "pkl",
     name = "Pkl",
-    version = "0.32.1",
+    version = "0.32.2",
     characterMimeTypes = VmLanguage.MIME_TYPE,
     contextPolicy = ContextPolicy.SHARED)
 @ProvidedTags(PklTags.Expression.class)
@@ -58,7 +58,7 @@ public final class VmLanguage extends TruffleLanguage<VmContext> {
 
   @Override
   protected boolean patchContext(VmContext context, Env newEnv) {
-    return true;  // no-op
+    return true; // no-op
   }
 
   @Override

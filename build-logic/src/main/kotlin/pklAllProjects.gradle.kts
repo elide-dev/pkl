@@ -117,14 +117,14 @@ private fun KotlinGradleExtension.configureFormatter() {
 }
 
 val originalRemoteName = System.getenv("PKL_ORIGINAL_REMOTE_NAME") ?: "origin"
-// if we're running against a release branch (or a PR targeted at one), use that branch for
-// ratcheting
+// Ratchet against the maintained fork branch, not the fork's stale upstream main.
+// Upstream release branches still use their own baseline.
 // these env vars are set by GitHub actions:
 // https://docs.github.com/en/actions/reference/workflows-and-actions/variables#default-environment-variables
 val ratchetBranchName =
   (System.getenv("GITHUB_BASE_REF") ?: System.getenv("GITHUB_REF_NAME"))?.let {
     if (it.startsWith("release/")) it else null
-  } ?: "main"
+  } ?: "elide/0.32.x"
 
 spotless {
   ratchetFrom = "$originalRemoteName/$ratchetBranchName"
