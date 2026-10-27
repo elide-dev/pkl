@@ -13,6 +13,10 @@
 #   - Manual dispatch (once this file is on the default branch), which builds and stages only
 #     unless `publish` is set.
 #
+# The build job runs the repository's build and holds no secrets. The publish job runs no repository
+# code: it takes the staged repository from the build job, and holds the R2 credentials in the
+# `maven-release` environment.
+#
 name: Elide release
 
 on:
@@ -46,10 +50,17 @@ env:
   ARTIFACT: pkl-core
 
 jobs:
-  release:
-    name: Build and publish pkl-core
+  build:
+    name: Build pkl-core
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+      branch: ${{ steps.meta.outputs.branch }}
+      publish: ${{ steps.meta.outputs.publish }}
+      jar-sha256: ${{ steps.stage.outputs.jar-sha256 }}
     env:
       LANG: en_US.UTF-8
     defaults:
@@ -90,8 +101,12 @@ jobs:
           {
             echo "VERSION=${version}"
             echo "BASE_VERSION=${base}"
-            echo "PUBLISH=${publish}"
           } >> "${GITHUB_ENV}"
+          {
+            echo "version=${version}"
+            echo "branch=elide/${base%.*}.x"
+            echo "publish=${publish}"
+          } >> "${GITHUB_OUTPUT}"
           echo "Release ${version} (upstream ${base}) from ${GITHUB_SHA}, publish=${publish}" >> "${GITHUB_STEP_SUMMARY}"
       - name: Set up JDK
         uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520  # v5
@@ -104,6 +119,7 @@ jobs:
           ./gradlew --no-daemon :pkl-core:jar :pkl-core:sourcesJar :pkl-core:generatePomFileForLibraryPublication \
             -DreleaseBuild=true "-DcommitId=${GITHUB_SHA}"
       - name: Stage the Maven repository
+        id: stage
         run: |
           dir="stage/${GROUP_PATH}/${ARTIFACT}"
           out="${dir}/${VERSION}"
@@ -160,6 +176,7 @@ jobs:
           done
           (cd stage && find . -type f | sort) | tee -a "${GITHUB_STEP_SUMMARY}"
           echo "jar sha256: $(cat "${out}/${ARTIFACT}-${VERSION}.jar.sha256")" | tee -a "${GITHUB_STEP_SUMMARY}"
+          echo "jar-sha256=$(cat "${out}/${ARTIFACT}-${VERSION}.jar.sha256")" >> "${GITHUB_OUTPUT}"
       - name: Upload the staged repository
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
         with:
@@ -167,17 +184,59 @@ jobs:
           path: stage
           if-no-files-found: error
           retention-days: 30
+
+  publish:
+    name: Publish to maven.elide.dev
+    needs: build
+    if: needs.build.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: maven-release
+    permissions:
+      contents: read
+    env:
+      VERSION: ${{ needs.build.outputs.version }}
+      RELEASE_BRANCH: ${{ needs.build.outputs.branch }}
+      JAR_SHA256: ${{ needs.build.outputs.jar-sha256 }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Refuse a commit outside the release branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          status=$(gh api "repos/${GITHUB_REPOSITORY}/compare/${RELEASE_BRANCH}...${GITHUB_SHA}" -q .status)
+          case "${status}" in
+            identical|behind) echo "${GITHUB_SHA} is on ${RELEASE_BRANCH}" ;;
+            *) echo "::error::${GITHUB_SHA} is not on ${RELEASE_BRANCH} (${status})"; exit 1 ;;
+          esac
       - name: Refuse to overwrite a published version
-        if: env.PUBLISH == 'true'
         run: |
           url="${PUBLIC_BASE}/${VERSION}/${GROUP_PATH}/${ARTIFACT}/${VERSION}/${ARTIFACT}-${VERSION}.pom"
-          code=$(curl -s -o /dev/null -w '%{http_code}' "${url}")
-          if [ "${code}" = "200" ]; then
-            echo "::error::${VERSION} is already published; versions are immutable, pick a new one"
+          code=$(curl -s -I -o /dev/null -w '%{http_code}' "${url}")
+          if [ "${code}" != "404" ]; then
+            echo "::error::${url} returned ${code}; versions are immutable, pick a new one"
             exit 1
           fi
+      - name: Download the staged repository
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  # v8.0.1
+        with:
+          name: pkl-elide-${{ env.VERSION }}
+          path: stage
+      - name: Check the staged repository
+        run: |
+          cd stage
+          jar="${GROUP_PATH}/${ARTIFACT}/${VERSION}/${ARTIFACT}-${VERSION}.jar"
+          [ "$(sha256sum "${jar}" | cut -d' ' -f1)" = "${JAR_SHA256}" ] \
+            || { echo "::error::${jar} is not the jar the build job staged"; exit 1; }
+          find . -type f -name '*.sha256' | sort | while read -r c; do
+            f=${c%.sha256}
+            [ "$(sha256sum "${f}" | cut -d' ' -f1)" = "$(cat "${c}")" ] || { echo "::error::${f}: checksum mismatch"; exit 1; }
+            [ "$(sha1sum "${f}" | cut -d' ' -f1)" = "$(cat "${f}.sha1")" ] || { echo "::error::${f}: sha1 mismatch"; exit 1; }
+            [ "$(md5sum "${f}" | cut -d' ' -f1)" = "$(cat "${f}.md5")" ] || { echo "::error::${f}: md5 mismatch"; exit 1; }
+          done
       - name: Upload to R2
-        if: env.PUBLISH == 'true'
         uses: elide-tools/r2-upload-action@b59314040b32715ae31337cdbb7418582ade7cff  # main
         with:
           path: stage
@@ -187,7 +246,6 @@ jobs:
           access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
           secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
       - name: Verify the published release
-        if: env.PUBLISH == 'true'
         run: |
           cd stage
           find . -type f ! -name '*.md5' ! -name '*.sha1' ! -name '*.sha256' | sort | while read -r f; do
