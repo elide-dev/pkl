@@ -9,7 +9,9 @@
 #
 # Triggers:
 #   - Push a tag `<version>`, e.g. `0.32.2-elide.1`, to build and publish.
-#   - Manual dispatch, which builds and stages only unless `publish` is set.
+#     A tag ending in `-dryrun` builds and stages only.
+#   - Manual dispatch (once this file is on the default branch), which builds and stages only
+#     unless `publish` is set.
 #
 name: Elide release
 
@@ -67,6 +69,10 @@ jobs:
           if [ "${GITHUB_REF_TYPE}" = "tag" ]; then
             version=${GITHUB_REF_NAME}
             publish=true
+            if [[ "${version}" == *-dryrun ]]; then
+              version=${version%-dryrun}
+              publish=false
+            fi
           else
             version=${INPUT_VERSION}
             publish=${INPUT_PUBLISH}
