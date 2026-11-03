@@ -43,18 +43,18 @@ fun Project.configurePklPomMetadata() {
           }
         }
         scm {
-          connection.set("scm:git:git://github.com/apple/pkl.git")
-          developerConnection.set("scm:git:ssh://github.com/apple/pkl.git")
+          connection.set("scm:git:git://github.com/elide-dev/pkl.git")
+          developerConnection.set("scm:git:ssh://github.com/elide-dev/pkl.git")
           val buildInfo = extensions.getByType<BuildInfo>()
-          url.set("https://github.com/apple/pkl/tree/${buildInfo.commitish}")
+          url.set("https://github.com/elide-dev/pkl/tree/${buildInfo.commitish}")
         }
         issueManagement {
           system.set("GitHub Issues")
-          url.set("https://github.com/apple/pkl/issues")
+          url.set("https://github.com/elide-dev/pkl/issues")
         }
         ciManagement {
           system.set("GitHub Actions")
-          url.set("https://github.com/apple/pkl/actions")
+          url.set("https://github.com/elide-dev/pkl/actions")
         }
       }
     }
