@@ -16,16 +16,20 @@
 package org.pkl.core.runtime;
 
 import com.oracle.truffle.api.CallTarget;
+import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 import com.oracle.truffle.api.ContextThreadLocal;
 import com.oracle.truffle.api.TruffleLanguage;
 import com.oracle.truffle.api.TruffleLanguage.ContextPolicy;
+import com.oracle.truffle.api.frame.VirtualFrame;
 import com.oracle.truffle.api.instrumentation.ProvidedTags;
 import com.oracle.truffle.api.nodes.Node;
+import com.oracle.truffle.api.nodes.RootNode;
 import com.oracle.truffle.api.source.Source;
 import org.jspecify.annotations.Nullable;
 import org.pkl.core.ast.PklRootNode;
 import org.pkl.core.ast.builder.AstBuilder;
 import org.pkl.core.module.ModuleKey;
+import org.pkl.core.module.ModuleKeys;
 import org.pkl.core.module.ResolvedModuleKey;
 import org.pkl.core.util.IoUtils;
 import org.pkl.parser.Parser;
@@ -60,8 +64,31 @@ public final class VmLanguage extends TruffleLanguage<VmContext> {
   }
 
   @Override
+  protected Object getScope(VmContext context) {
+    return context.polyglotScope;
+  }
+
+  @Override
   public CallTarget parse(ParsingRequest request) {
-    throw new UnsupportedOperationException("parse");
+    if (!request.getArgumentNames().isEmpty()) {
+      throw new IllegalArgumentException("Pkl modules do not accept parse arguments.");
+    }
+    var source = request.getSource();
+    var moduleKey = ModuleKeys.synthetic(source.getURI(), source.getCharacters().toString());
+    return new RootNode(this) {
+      @Override
+      @TruffleBoundary
+      public Object execute(VirtualFrame frame) {
+        var context = VmContext.get(this);
+        context.initializeForPolyglot();
+        return VmPolyglotValue.export(VmLanguage.get(this).loadModule(moduleKey));
+      }
+
+      @Override
+      public String getName() {
+        return source.getName();
+      }
+    }.getCallTarget();
   }
 
   public VmTyped loadModule(ModuleKey moduleKey) {

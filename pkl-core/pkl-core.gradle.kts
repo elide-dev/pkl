@@ -64,7 +64,7 @@ dependencies {
   implementation(projects.pklFormatter)
   implementation(libs.msgpack)
   implementation(libs.truffleApi)
-  implementation(libs.graalSdk)
+  api(libs.graalSdk)
 
   implementation(libs.paguro) { exclude(group = "org.jetbrains", module = "annotations") }
 
@@ -72,6 +72,7 @@ dependencies {
 
   testImplementation(projects.pklCommonsTest)
   testImplementation(libs.wiremock)
+  testRuntimeOnly(libs.graalJs)
 
   add("generatorImplementation", libs.javaPoet)
   add("generatorImplementation", libs.truffleApi)
