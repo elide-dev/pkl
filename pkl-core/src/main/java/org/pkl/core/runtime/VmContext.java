@@ -21,16 +21,23 @@ import com.oracle.truffle.api.instrumentation.Instrumenter;
 import com.oracle.truffle.api.nodes.Node;
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.function.Supplier;
 import org.jspecify.annotations.Nullable;
 import org.pkl.core.Logger;
+import org.pkl.core.Loggers;
 import org.pkl.core.SecurityManager;
+import org.pkl.core.SecurityManagers;
 import org.pkl.core.StackFrameTransformer;
+import org.pkl.core.StackFrameTransformers;
 import org.pkl.core.evaluatorSettings.TraceMode;
 import org.pkl.core.http.HttpClient;
+import org.pkl.core.module.ModuleKeyFactories;
 import org.pkl.core.module.ProjectDependenciesManager;
 import org.pkl.core.packages.PackageResolver;
-import org.pkl.core.util.LateInit;
+import org.pkl.core.resource.ResourceReaders;
 
 public final class VmContext {
   private static final ContextReference<VmContext> REFERENCE =
@@ -42,7 +49,7 @@ public final class VmContext {
         new VmValueTrackerFactory(env.lookup(Instrumenter.class), vmLanguage);
   }
 
-  @LateInit private Holder holder;
+  @Nullable private Holder holder;
 
   public static final class Holder {
     private static final String OUTPUT_FORMAT_KEY = "pkl.outputFormat";
@@ -112,60 +119,91 @@ public final class VmContext {
     this.holder = holder;
   }
 
+  private Holder getHolder() {
+    return Objects.requireNonNull(holder, "Pkl context is not initialized");
+  }
+
+  /** Bootstrap with fixed inputs and isolated thread-local type-checking/instrumentation state. */
+  <T> T withStandardLibraryHolder(Supplier<T> action) {
+    var previous = holder;
+    holder =
+        new Holder(
+            StackFrameTransformers.defaultTransformer,
+            SecurityManagers.defaultManager,
+            HttpClient.dummyClient(),
+            new ModuleResolver(List.of(ModuleKeyFactories.standardLibrary)),
+            new ResourceManager(
+                SecurityManagers.defaultManager, List.of(ResourceReaders.externalProperty())),
+            Loggers.noop(),
+            Map.of(),
+            Map.of(),
+            null,
+            null,
+            null,
+            null,
+            TraceMode.COMPACT,
+            false);
+    try {
+      return VmLanguage.get(null).localContext.get().withBootstrapState(action);
+    } finally {
+      holder = previous;
+    }
+  }
+
   public ModuleCache getModuleCache() {
-    return holder.moduleCache;
+    return getHolder().moduleCache;
   }
 
   public @Nullable Path getModuleCacheDir() {
-    return holder.moduleCacheDir;
+    return getHolder().moduleCacheDir;
   }
 
   public StackFrameTransformer getFrameTransformer() {
-    return holder.frameTransformer;
+    return getHolder().frameTransformer;
   }
 
   public SecurityManager getSecurityManager() {
-    return holder.securityManager;
+    return getHolder().securityManager;
   }
 
   public HttpClient getHttpClient() {
-    return holder.httpClient;
+    return getHolder().httpClient;
   }
 
   public ModuleResolver getModuleResolver() {
-    return holder.moduleResolver;
+    return getHolder().moduleResolver;
   }
 
   public ResourceManager getResourceManager() {
-    return holder.resourceManager;
+    return getHolder().resourceManager;
   }
 
   public Logger getLogger() {
-    return holder.logger;
+    return getHolder().logger;
   }
 
   public Map<String, String> getEnvironmentVariables() {
-    return holder.environmentVariables;
+    return getHolder().environmentVariables;
   }
 
   public Map<String, String> getExternalProperties() {
-    return holder.externalProperties;
+    return getHolder().externalProperties;
   }
 
   public @Nullable PackageResolver getPackageResolver() {
-    return holder.packageResolver;
+    return getHolder().packageResolver;
   }
 
   public @Nullable ProjectDependenciesManager getProjectDependenciesManager() {
-    return holder.projectDependenciesManager;
+    return getHolder().projectDependenciesManager;
   }
 
   public TraceMode getTraceMode() {
-    return holder.traceMode;
+    return getHolder().traceMode;
   }
 
   public boolean getPowerAssertionsEnabled() {
-    return holder.powerAssertions;
+    return getHolder().powerAssertions;
   }
 
   public VmValueTrackerFactory getValueTrackerFactory() {

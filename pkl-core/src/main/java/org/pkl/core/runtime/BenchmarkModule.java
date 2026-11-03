@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2026 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,22 +19,13 @@ import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 import java.net.URI;
 
 public final class BenchmarkModule extends StdLibModule {
-  private static final VmTyped instance = VmUtils.createEmptyModule();
-
-  static {
-    loadModule(URI.create("pkl:Benchmark"), instance);
-  }
 
   public static VmTyped getModule() {
-    return instance;
+    return getModule(URI.create("pkl:Benchmark"));
   }
 
   public static VmClass getBenchmarkResultClass() {
-    return BenchmarkResultClass.instance;
-  }
-
-  private static final class BenchmarkResultClass {
-    static final VmClass instance = loadClass("BenchmarkResult");
+    return loadClass("BenchmarkResult");
   }
 
   @TruffleBoundary

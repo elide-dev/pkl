@@ -17,81 +17,96 @@ package org.pkl.core.runtime;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.function.Supplier;
 
 /** A per-context thread-local value that can be used to influence execution. */
 public class VmLocalContext {
-  private boolean shouldEagerTypecheck = false;
+  private State state = new State();
 
-  /** Whether we are currently inside a type test ({@code is} check). */
-  private boolean inTypeTest = false;
+  private static final class State {
+    private boolean shouldEagerTypecheck = false;
 
-  /** The number of classes currently being initialized. */
-  private int classDepth = 0;
+    /** Whether we are currently inside a type test ({@code is} check). */
+    private boolean inTypeTest = false;
 
-  /** The classes currently being initialized. */
-  private final Deque<VmClass> pendingClasses = new ArrayDeque<>();
+    /** The number of classes currently being initialized. */
+    private int classDepth = 0;
 
-  /**
-   * Number of active {@link VmValueTracker} instances. Used to determine if instrumentation is
-   * already active.
-   */
-  private int activeTrackerDepth = 0;
+    /** The classes currently being initialized. */
+    private final Deque<VmClass> pendingClasses = new ArrayDeque<>();
 
-  private boolean instrumentationEverUsed = false;
+    /**
+     * Number of active {@link VmValueTracker} instances. Used to determine if instrumentation is
+     * already active.
+     */
+    private int activeTrackerDepth = 0;
+
+    private boolean instrumentationEverUsed = false;
+  }
+
+  <T> T withBootstrapState(Supplier<T> action) {
+    var previous = state;
+    state = new State();
+    try {
+      return action.get();
+    } finally {
+      state = previous;
+    }
+  }
 
   public VmLocalContext() {}
 
   public void shouldEagerTypecheck(boolean shouldEagerTypecheck) {
-    this.shouldEagerTypecheck = shouldEagerTypecheck;
+    state.shouldEagerTypecheck = shouldEagerTypecheck;
   }
 
   public boolean shouldEagerTypecheck() {
-    return this.shouldEagerTypecheck;
+    return state.shouldEagerTypecheck;
   }
 
   public void setInTypeTest(boolean inTypeTest) {
-    this.inTypeTest = inTypeTest;
+    state.inTypeTest = inTypeTest;
   }
 
   public boolean isInTypeTest() {
-    return inTypeTest;
+    return state.inTypeTest;
   }
 
   public void beginClassInit(VmClass vmClass) {
-    classDepth++;
-    pendingClasses.add(vmClass);
+    state.classDepth++;
+    state.pendingClasses.add(vmClass);
   }
 
   public void endClassInit() {
-    classDepth--;
-    if (classDepth > 0) {
+    state.classDepth--;
+    if (state.classDepth > 0) {
       return;
     }
-    while (!pendingClasses.isEmpty()) {
-      var clazz = pendingClasses.pop();
+    while (!state.pendingClasses.isEmpty()) {
+      var clazz = state.pendingClasses.pop();
       clazz.onFullyInitialized();
     }
   }
 
   public void clearClassInitState() {
-    pendingClasses.clear();
-    classDepth = 0;
+    state.pendingClasses.clear();
+    state.classDepth = 0;
   }
 
   public void enterTracker() {
-    activeTrackerDepth++;
-    instrumentationEverUsed = true;
+    state.activeTrackerDepth++;
+    state.instrumentationEverUsed = true;
   }
 
   public void exitTracker() {
-    activeTrackerDepth--;
+    state.activeTrackerDepth--;
   }
 
   public boolean hasActiveTracker() {
-    return activeTrackerDepth > 0;
+    return state.activeTrackerDepth > 0;
   }
 
   public boolean isInstrumentationEverUsed() {
-    return instrumentationEverUsed;
+    return state.instrumentationEverUsed;
   }
 }
