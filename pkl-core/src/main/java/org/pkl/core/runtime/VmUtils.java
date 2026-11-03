@@ -89,9 +89,6 @@ public final class VmUtils {
 
   public static final int REGEX_FLAGS = Pattern.UNICODE_CHARACTER_CLASS | Pattern.UNICODE_CASE;
 
-  // The legacy Evaluator shares an engine to reuse compiled code and standard-library state.
-  private static final Engine PKL_ENGINE = makePklEngine();
-
   @SuppressWarnings("MagicConstant")
   private static final Pattern DOC_COMMENT_LINE_START =
       Pattern.compile("(?:^|\n|\r\n?)[ \t\f]*///[ \t\f]?", REGEX_FLAGS);
@@ -111,18 +108,20 @@ public final class VmUtils {
 
   private static final Parser parser = new Parser();
 
+  static {
+    if (!Boolean.getBoolean("org.pkl-lang.lazy-engine-init")) {
+      VmEngineHolder.preloadEngine();
+    }
+  }
+
   private VmUtils() {}
 
   public static Engine getEngine() {
-    return PKL_ENGINE;
-  }
-
-  private static Engine makePklEngine() {
-    return Engine.newBuilder().option("engine.WarnInterpreterOnly", "false").build();
+    return VmEngineHolder.resolveEngine();
   }
 
   public static void closeEngine() {
-    PKL_ENGINE.close(true);
+    getEngine().close(true);
   }
 
   static VmTyped createEmptyModule() {
@@ -135,7 +134,7 @@ public final class VmUtils {
   }
 
   public static Context createContext(Runnable initializer) {
-    var context = Context.newBuilder("pkl").engine(PKL_ENGINE).build();
+    var context = Context.newBuilder("pkl").engine(getEngine()).build();
     context.initialize("pkl");
     context.enter();
     try {

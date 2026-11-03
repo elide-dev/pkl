@@ -73,6 +73,9 @@ plugins { id("org.gradle.toolchains.foojay-resolver-convention") version ("1.0.0
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
   repositories {
+    maven("https://maven.elide.dev/gvm-elide/25.5.5-elide.21") {
+      content { includeGroupByRegex("org\\.graalvm.*") }
+    }
     mavenCentral()
     // Source archives of tagged GitHub releases (used to bundle sources of native executables).
     exclusiveContent {
