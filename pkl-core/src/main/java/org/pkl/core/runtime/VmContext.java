@@ -19,12 +19,14 @@ import com.oracle.truffle.api.TruffleLanguage.ContextReference;
 import com.oracle.truffle.api.TruffleLanguage.Env;
 import com.oracle.truffle.api.instrumentation.Instrumenter;
 import com.oracle.truffle.api.nodes.Node;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
+import java.util.regex.Pattern;
 import org.jspecify.annotations.Nullable;
 import org.pkl.core.Logger;
 import org.pkl.core.Loggers;
@@ -43,8 +45,11 @@ public final class VmContext {
   private static final ContextReference<VmContext> REFERENCE =
       ContextReference.create(VmLanguage.class);
   private final VmValueTrackerFactory valueTrackerFactory;
+  private final Env env;
+  final VmPolyglotScope polyglotScope = new VmPolyglotScope(this);
 
   public VmContext(VmLanguage vmLanguage, Env env) {
+    this.env = env;
     this.valueTrackerFactory =
         new VmValueTrackerFactory(env.lookup(Instrumenter.class), vmLanguage);
   }
@@ -117,6 +122,32 @@ public final class VmContext {
     //noinspection ConstantValue
     assert this.holder == null;
     this.holder = holder;
+  }
+
+  /** Initializes standalone polyglot evaluation without ambient I/O capabilities. */
+  void initializeForPolyglot() {
+    // The embedding Evaluator supplies its own holder before evaluating any source.
+    //noinspection ConstantValue
+    if (holder != null) return;
+    var securityManager =
+        SecurityManagers.standard(
+            List.of(Pattern.compile(".*")), List.of(), SecurityManagers.defaultTrustLevels, null);
+    initialize(
+        new Holder(
+            StackFrameTransformers.empty,
+            securityManager,
+            HttpClient.dummyClient(),
+            new ModuleResolver(List.of(ModuleKeyFactories.standardLibrary)),
+            new ResourceManager(securityManager, List.of()),
+            Loggers.writer(new PrintWriter(env.err(), true)),
+            Map.of(),
+            Map.of(),
+            null,
+            null,
+            null,
+            null,
+            TraceMode.COMPACT,
+            false));
   }
 
   private Holder getHolder() {

@@ -131,3 +131,174 @@ Module loaders can be configured and customized using {uri-pkl-core-ModuleKeyFac
 == Further Information
 
 Refer to the Javadoc and sources published with the library, or browse the library's {uri-pkl-core-main-sources}[main] and {uri-pkl-core-test-sources}[test] sources.
+
+== Experimental polyglot object and function access
+
+Pkl can be evaluated in a GraalVM polyglot context alongside other Truffle languages.
+The result is a read-only view of the Pkl module, with lazy access to its properties.
+For example, with compatible Pkl and GraalJS dependencies on the classpath:
+
+[source,java]
+----
+try (var context = org.graalvm.polyglot.Context.newBuilder("js", "pkl")
+    .allowPolyglotAccess(org.graalvm.polyglot.PolyglotAccess.ALL)
+    .build()) {
+  var result = context.eval("js", """
+      const config = Polyglot.eval('pkl', `
+        name = "birds"
+        ports = List(8080, 8081)
+      `);
+      config.name + ':' + config.ports[0];
+      """);
+  System.out.println(result.asString()); // birds:8080
+}
+----
+
+A Java host can also call `context.eval("pkl", source)` and use the returned
+`org.graalvm.polyglot.Value` directly.
+JavaScript uses GraalJS here; this does not add Pkl support to arbitrary Node.js or browser runtimes.
+
+[cols="1,2"]
+|===
+|Pkl value |Interop representation
+
+|Boolean, String, Int, Float
+|Native interop primitives. Int remains a signed 64-bit integer; a consuming language's numeric conversion rules still apply.
+
+|Null
+|Interop null.
+
+|Module, Typed, Dynamic
+|Readable public properties. Local and hidden properties are excluded, including from direct lookup.
+
+|List, Listing, Bytes
+|Read-only arrays and iterables. Bytes expose unsigned integer elements.
+
+|Map, Mapping
+|Read-only hash entries and entry iterators. Keys retain their types rather than being converted to strings.
+
+|Dynamic elements and entries
+|Array (when elements are present) and hash protocols, respectively, in addition to named properties.
+
+|Set
+|An iterable in Pkl iteration order.
+
+|Pair
+|Readable `first` and `second` properties.
+
+|Duration, DataSize
+|Readable `value` and `unit` properties, preserving the original unit.
+
+|Function-valued properties
+|Executable closures. Arguments may be primitives or Pkl values belonging to the same context.
+
+|Other Pkl values
+|Opaque Pkl values. Named Pkl method declarations and class instantiation are not yet exposed.
+|===
+
+Numeric hash-key lookup first tries the supplied numeric type. If no key matches, it tries the
+other Pkl numeric type only when conversion is lossless. This accommodates languages such as
+JavaScript whose numeric representations do not distinguish Pkl Int and Float reliably.
+
+Member enumeration does not evaluate property values.
+Reading a property or element performs normal Pkl evaluation and type checking, and caches the result
+according to Pkl's existing rules. Errors in unread properties remain deferred.
+Object identity is preserved across repeated reads, including cyclic references; values are not
+recursively copied or serialized. Debugger display strings do not force lazy values.
+All views and iterators belong to their originating context and must be used before it is closed.
+
+The standalone polyglot entry point accepts supplied source text and standard-library imports.
+It does not configure filesystem, network, package, environment, or external-property readers,
+even when the host grants the polyglot context I/O access.
+The existing `Evaluator` API retains its own configuration and behavior.
+Each evaluation creates a new root module; source caching does not share root module values.
+
+=== Calling Pkl functions
+
+Function-valued properties can be read and executed, or invoked directly from a guest language.
+For example, JavaScript in the context above can use:
+
+[source,javascript]
+----
+const functions = Polyglot.eval('pkl', `
+  greeting = (name: String) -> "Hello, " + name
+  describe = (data: Dynamic) -> data.name + ":" + data.port.toString()
+`);
+functions.greeting('Sam'); // "Hello, Sam"
+----
+
+A Java host uses `module.getMember("greeting").execute("Sam")`.
+Calls use Pkl's normal call targets, preserving parameter constraints and declared return checks.
+Arity errors and unsupported argument types are reported through the interop protocol;
+Pkl evaluation errors retain their formatted diagnostics.
+Returned objects remain lazy, read-only Pkl views.
+Function-type annotations have the same semantics as within Pkl; interop does not strengthen them.
+
+Foreign objects and callbacks are rejected as direct arguments. Pkl objects and closures can be
+passed back to functions in their owning context, but cannot be passed directly to a function in
+a different context, even when both contexts share an engine.
+
+Capability queries do not evaluate properties. An unread property advertises deferred invocation
+because its value might be a function. Calling it evaluates the property and reports a type error
+if the value is not callable. Once the value is cached, invocation capability reflects its type.
+This preserves lazy evaluation while allowing ordinary JavaScript method-call syntax.
+
+=== Explicit snapshots of foreign data
+
+Use `PolyglotContext.snapshot(context, foreignValue)` from Java to copy foreign data into
+immutable Pkl values. The operation is also available as
+`context.getBindings("pkl").getMember("snapshot")`.
+To expose it to JavaScript, bind the Pkl scope once:
+
+[source,java]
+----
+context.getBindings("js").putMember("Pkl", context.getBindings("pkl"));
+----
+
+[source,javascript]
+----
+const source = {name: 'api', port: 8080};
+const saved = Pkl.snapshot(source);
+source.port = 9999;
+functions.describe(saved); // "api:8080"
+----
+
+Snapshots use the following mappings, in this order:
+
+* Null-like values, booleans, strings, and losslessly representable numbers become Pkl primitives.
+  Numbers fitting Int are represented as Int; other exactly representable numbers become Float.
+  GraalJS `undefined`, including readable sparse-array holes, becomes Pkl `null`.
+* Arrays become List; additional named properties are not copied.
+* Hash entries become Map, preserving key types and rejecting keys that collapse to the same Pkl key.
+* Other iterables, including foreign sets, become List in iteration order.
+* Objects with readable members become Dynamic using the enumerated member names.
+
+Repeated references within a snapshot preserve identity. Cycles are rejected with a path to the
+cycle, as are foreign functions, constructors, known side-effecting accessors, unreadable values,
+and numbers that cannot be represented without loss. Collection sizes and visited values are
+limited to 100,000, and nesting depth to 256. A failed snapshot publishes no partial graph and does
+not affect subsequent copies. Pkl values already belonging to the target context are reused
+without forcing or copying.
+
+The source must remain stable while copying: a snapshot is not an atomic transaction over
+concurrent mutations. Foreign iteration and proxy operations can execute guest code during the
+explicit copy. After a successful copy, foreign mutation cannot change the captured data, and no
+foreign object or callback is retained in that data.
+
+=== Independent engines and lifecycle
+
+Ordinary `Context.newBuilder(...)` and caller-supplied `Engine` instances are supported.
+`PolyglotContext.newBuilder(...)` is a convenience alias for the ordinary builder.
+Each Truffle language instance owns its standard-library modules, built-in classes, and factory
+call targets. Contexts on compatible sharing layers of one engine reuse that state; independent
+engines do not retain each other's executable nodes or prototypes.
+
+Contexts on different engines may use different host-access policies. Contexts sharing an engine
+must still obey GraalVM's engine-sharing requirements. Closing one engine does not invalidate
+values in another. A value, function, snapshot, or iterator must be used before its own context
+is closed.
+
+The existing `Evaluator` API continues to use its internal shared engine. Standard-library
+bootstrap uses fixed inputs and isolated type-checking state, without capturing the embedding
+context's environment or external properties. Foreign mutation remains outside Pkl evaluation;
+there is no implicit live import of objects or callbacks.
