@@ -229,7 +229,7 @@ final class VmDynamicCursors {
       super(iteratee);
       var builder = ArrayBuilder.of(UnmodifiableMapCursor[]::new);
       for (VmObject object = iteratee;
-          object != null && object.parent != objectPrototype;
+          object != null && object.parent != BaseModule.getObjectClass().getPrototype();
           object = object.parent) {
         builder.add(object.members.getEntries());
       }
@@ -265,7 +265,6 @@ final class VmDynamicCursors {
   }
 
   abstract static sealed class AbstractUnorderedMemberCursor extends VmObjectCursor {
-    private static final VmTyped dynamicPrototype = BaseModule.getDynamicClass().getPrototype();
 
     protected final VmDynamic iteratee;
     private VmObject currentObject;
@@ -293,7 +292,7 @@ final class VmDynamicCursors {
               && shouldVisit(currentMember.getValue())) return true;
         }
         var parent = currentObject.parent;
-        if (parent == dynamicPrototype) return false;
+        if (parent == BaseModule.getDynamicClass().getPrototype()) return false;
         assert parent != null;
         currentObject = parent;
         currentMember = currentObject.members.getEntries();

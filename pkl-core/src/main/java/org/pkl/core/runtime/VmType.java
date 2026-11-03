@@ -264,11 +264,11 @@ public abstract sealed class VmType {
       var goalState =
           typeArguments.length > 0
               ? typeArguments
-              : nCopies(clazz.getTypeParameterCount(), ClassType.ANY);
+              : nCopies(clazz.getTypeParameterCount(), new ClassType(BaseModule.getAnyClass()));
       var state =
           ct.typeArguments.length > 0
               ? ct.typeArguments
-              : nCopies(ct.clazz.getTypeParameterCount(), ClassType.ANY);
+              : nCopies(ct.clazz.getTypeParameterCount(), new ClassType(BaseModule.getAnyClass()));
       for (var c = ct.clazz; c != clazz; c = c.getSuperclass()) {
         assert c != null; // we know walking parents reaches clazz before null
         var cSuperclass = c.getSuperclass();
@@ -278,7 +278,8 @@ public abstract sealed class VmType {
 
         if (cSupertype.typeArguments.length == 0) {
           // supertype args could be omitted, e.g. class MyList<T> extends List
-          state = nCopies(cSuperclass.getTypeParameterCount(), ClassType.ANY);
+          state =
+              nCopies(cSuperclass.getTypeParameterCount(), new ClassType(BaseModule.getAnyClass()));
           continue;
         } else if (state.length == 0) {
           // subclass may not have type args, e.g. class A extends B<Int>
@@ -330,8 +331,6 @@ public abstract sealed class VmType {
     public ClassType(VmClass clazz, VmType[] typeArguments) {
       super(clazz, typeArguments);
     }
-
-    private static final ClassType ANY = new ClassType(BaseModule.getAnyClass());
 
     public VmType.ClassType withTypeArguments(VmType[] typeArguments) {
       return new VmType.ClassType(clazz, typeArguments);
