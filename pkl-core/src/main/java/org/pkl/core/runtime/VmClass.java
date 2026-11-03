@@ -37,8 +37,8 @@ import org.pkl.core.util.CollectionUtils;
 import org.pkl.core.util.EconomicMaps;
 import org.pkl.core.util.LateInit;
 
-// Most stdlib modules and their members are initialized in static initializers
-// and reused across Truffle contexts.
+// Standard-library modules and their members are initialized per language instance
+// and reused by contexts sharing that instance.
 // As a consequence, VmObject/VmClass instances of stdlib modules must be thread-safe.
 // The currently implemented (and likely insufficient) solution is to
 // * deeply force standard library modules at initialization time.

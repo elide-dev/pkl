@@ -83,10 +83,6 @@ public final class RendererNodes {
   private static final ArrayCharEscaper fieldNameEscaper =
       ArrayCharEscaper.builder().withEscape('.', "_").withEscape('#', "_").build();
 
-  private static final StringTypeNode STRING_TYPE =
-      new StringTypeNode(VmUtils.unavailableSourceSection());
-  private static final IntTypeNode INT_TYPE = new IntTypeNode(VmUtils.unavailableSourceSection());
-
   private RendererNodes() {}
 
   public abstract static class renderDocument extends ExternalMethod1Node {
@@ -582,10 +578,10 @@ public final class RendererNodes {
           || type instanceof BooleanTypeNode) {
         return type;
       } else if (type instanceof IntSlotTypeNode) {
-        return INT_TYPE;
+        return new IntTypeNode(VmUtils.unavailableSourceSection());
       } else if (type instanceof UnionOfStringLiteralsTypeNode
           || type instanceof StringLiteralTypeNode) {
-        return STRING_TYPE;
+        return new StringTypeNode(VmUtils.unavailableSourceSection());
       } else if (type instanceof NullableTypeNode nullableType) {
         return resolveType(nullableType.getElementTypeNode());
       } else if (type instanceof TypeAliasTypeNode typeAliasType) {

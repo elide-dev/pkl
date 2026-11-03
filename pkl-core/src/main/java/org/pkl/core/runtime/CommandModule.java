@@ -19,72 +19,39 @@ import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 import java.net.URI;
 
 public final class CommandModule extends StdLibModule {
-  static final VmTyped instance = VmUtils.createEmptyModule();
-
-  static {
-    loadModule(URI.create("pkl:Command"), instance);
-  }
 
   private CommandModule() {}
 
   public static VmTyped getModule() {
-    return instance;
+    return getModule(URI.create("pkl:Command"));
   }
 
   public static VmClass getCommandInfoClass() {
-    return CommandInfoClass.instance;
+    return loadClass("CommandInfo");
   }
 
   public static VmClass getBaseFlagClass() {
-    return BaseFlagClass.instance;
+    return loadClass("BaseFlag");
   }
 
   public static VmClass getFlagClass() {
-    return FlagClass.instance;
+    return loadClass("Flag");
   }
 
   public static VmClass getBooleanFlagClass() {
-    return BooleanFlagClass.instance;
+    return loadClass("BooleanFlag");
   }
 
   public static VmClass getCountedFlagClass() {
-    return CountedFlagClass.instance;
+    return loadClass("CountedFlag");
   }
 
   public static VmClass getArgumentClass() {
-    return ArgumentClass.instance;
+    return loadClass("Argument");
   }
 
   public static VmClass getImportClass() {
-    return ImportClass.instance;
-  }
-
-  private static final class CommandInfoClass {
-    static final VmClass instance = loadClass("CommandInfo");
-  }
-
-  private static final class BaseFlagClass {
-    static final VmClass instance = loadClass("BaseFlag");
-  }
-
-  private static final class FlagClass {
-    static final VmClass instance = loadClass("Flag");
-  }
-
-  private static final class BooleanFlagClass {
-    static final VmClass instance = loadClass("BooleanFlag");
-  }
-
-  private static final class CountedFlagClass {
-    static final VmClass instance = loadClass("CountedFlag");
-  }
-
-  private static final class ArgumentClass {
-    static final VmClass instance = loadClass("Argument");
-  }
-
-  private static final class ImportClass {
-    static final VmClass instance = loadClass("Import");
+    return loadClass("Import");
   }
 
   @TruffleBoundary

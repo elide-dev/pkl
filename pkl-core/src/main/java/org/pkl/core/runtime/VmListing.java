@@ -32,19 +32,15 @@ import org.pkl.core.util.CollectionUtils;
 import org.pkl.core.util.EconomicMaps;
 
 public final class VmListing extends VmListingOrMapping {
-  private static final class EmptyHolder {
-    private static final VmListing EMPTY =
-        new VmListing(
-            VmUtils.createEmptyMaterializedFrame(),
-            BaseModule.getListingClass().getPrototype(),
-            EconomicMaps.create(),
-            0);
-  }
 
   private final int length;
 
   public static VmListing empty() {
-    return EmptyHolder.EMPTY;
+    return new VmListing(
+        VmUtils.createEmptyMaterializedFrame(),
+        BaseModule.getListingClass().getPrototype(),
+        EconomicMaps.create(),
+        0);
   }
 
   public VmListing(

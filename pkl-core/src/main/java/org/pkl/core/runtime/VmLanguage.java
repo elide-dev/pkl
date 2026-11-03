@@ -40,6 +40,8 @@ import org.pkl.parser.syntax.Module;
     contextPolicy = ContextPolicy.SHARED)
 @ProvidedTags(PklTags.Expression.class)
 public final class VmLanguage extends TruffleLanguage<VmContext> {
+  final StdLibModule.Registry standardLibrary = new StdLibModule.Registry();
+
   public static final String MIME_TYPE = "application/x-pkl";
 
   private static final LanguageReference<VmLanguage> REFERENCE =

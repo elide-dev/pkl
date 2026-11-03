@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2026 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,62 +19,33 @@ import com.oracle.truffle.api.CompilerDirectives;
 import java.net.URI;
 
 public final class PlatformModule extends StdLibModule {
-  private static final VmTyped instance = VmUtils.createEmptyModule();
-
-  static {
-    loadModule(URI.create("pkl:platform"), instance);
-  }
 
   public static VmTyped getModule() {
-    return instance;
+    return getModule(URI.create("pkl:platform"));
   }
 
   public static VmClass getPlatformClass() {
-    return PlatformClass.instance;
+    return loadClass("Platform");
   }
 
   public static VmClass getLanguageClass() {
-    return LanguageClass.instance;
+    return loadClass("Language");
   }
 
   public static VmClass getRuntimeClass() {
-    return RuntimeClass.instance;
+    return loadClass("Runtime");
   }
 
   public static VmClass getVirtualMachineClass() {
-    return VirtualMachineClass.instance;
+    return loadClass("VirtualMachine");
   }
 
   public static VmClass getOperatingSystemClass() {
-    return OperatingSystemClass.instance;
+    return loadClass("OperatingSystem");
   }
 
   public static VmClass getProcessorClass() {
-    return ProcessorClass.instance;
-  }
-
-  private static final class PlatformClass {
-    static final VmClass instance = loadClass("Platform");
-  }
-
-  private static final class LanguageClass {
-    static final VmClass instance = loadClass("Language");
-  }
-
-  private static final class RuntimeClass {
-    static final VmClass instance = loadClass("Runtime");
-  }
-
-  private static final class VirtualMachineClass {
-    static final VmClass instance = loadClass("VirtualMachine");
-  }
-
-  private static final class OperatingSystemClass {
-    static final VmClass instance = loadClass("OperatingSystem");
-  }
-
-  private static final class ProcessorClass {
-    static final VmClass instance = loadClass("Processor");
+    return loadClass("Processor");
   }
 
   @CompilerDirectives.TruffleBoundary

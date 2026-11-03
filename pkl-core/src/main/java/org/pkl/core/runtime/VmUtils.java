@@ -89,8 +89,7 @@ public final class VmUtils {
 
   public static final int REGEX_FLAGS = Pattern.UNICODE_CHARACTER_CLASS | Pattern.UNICODE_CASE;
 
-  // must be a singleton because stdlib modules are singletons; otherwise we get "invalid sharing of
-  // AST Nodes"
+  // The legacy Evaluator shares an engine to reuse compiled code and standard-library state.
   private static final Engine PKL_ENGINE = makePklEngine();
 
   @SuppressWarnings("MagicConstant")
@@ -119,7 +118,7 @@ public final class VmUtils {
   }
 
   private static Engine makePklEngine() {
-    return Engine.newBuilder("pkl").option("engine.WarnInterpreterOnly", "false").build();
+    return Engine.newBuilder().option("engine.WarnInterpreterOnly", "false").build();
   }
 
   public static void closeEngine() {

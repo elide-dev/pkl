@@ -53,7 +53,6 @@ import org.pkl.core.ast.member.ObjectMember;
  * objects}.
  */
 public abstract class VmObjectCursor {
-  protected static final VmTyped objectPrototype = BaseModule.getObjectClass().getPrototype();
 
   public enum CursorOption {
     /**
@@ -239,7 +238,7 @@ public abstract class VmObjectCursor {
       if (value != null) return value;
       // find and evaluate bottom-most member for key (simplified version of VmUtils.readMember())
       for (VmObject object = iteratee;
-          object != null && object.parent != objectPrototype;
+          object != null && object.parent != BaseModule.getObjectClass().getPrototype();
           object = object.parent) {
         var member = object.getMember(key);
         if (member != null) {
