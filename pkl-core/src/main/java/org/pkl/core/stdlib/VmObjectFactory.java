@@ -20,6 +20,7 @@ import com.oracle.truffle.api.frame.FrameDescriptor;
 import com.oracle.truffle.api.frame.VirtualFrame;
 import java.util.function.Supplier;
 import org.graalvm.collections.EconomicMap;
+import org.graalvm.collections.UnmodifiableEconomicMap;
 import org.jspecify.annotations.Nullable;
 import org.pkl.core.ast.ExpressionNode;
 import org.pkl.core.ast.VmModifier;
@@ -32,7 +33,8 @@ import org.pkl.core.util.IoUtils;
 
 public final class VmObjectFactory<E> {
   private final Supplier<VmClass> classSupplier;
-  private final EconomicMap<Object, ObjectMember> members = EconomicMaps.create();
+  private boolean initialized;
+  private final EconomicMap<String, Supplier<ExpressionNode>> definitions = EconomicMaps.create();
   // not static to avoid compile-time evaluation by native-image
   private final boolean isPropertyTypeChecked = IoUtils.isTestMode();
 
@@ -41,71 +43,80 @@ public final class VmObjectFactory<E> {
   }
 
   public VmObjectFactory<E> addIntProperty(String name, IntProperty<E> impl) {
-    return doAddProperty(name, new IntPropertyNode<>(impl));
+    return doAddProperty(name, () -> new IntPropertyNode<>(impl));
   }
 
   public VmObjectFactory<E> addBooleanProperty(String name, BooleanProperty<E> impl) {
-    return doAddProperty(name, new BooleanPropertyNode<>(impl));
+    return doAddProperty(name, () -> new BooleanPropertyNode<>(impl));
   }
 
   public VmObjectFactory<E> addStringProperty(String name, Property<E, String> impl) {
-    return doAddProperty(name, new PropertyNode<>(impl));
+    return doAddProperty(name, () -> new PropertyNode<>(impl));
   }
 
   public VmObjectFactory<E> addValueProperty(String name, Property<E, VmValue> impl) {
-    return doAddProperty(name, new PropertyNode<>(impl));
+    return doAddProperty(name, () -> new PropertyNode<>(impl));
   }
 
   public VmObjectFactory<E> addDurationProperty(String name, Property<E, VmDuration> impl) {
-    return doAddProperty(name, new PropertyNode<>(impl));
+    return doAddProperty(name, () -> new PropertyNode<>(impl));
   }
 
   public VmObjectFactory<E> addTypedProperty(String name, Property<E, VmTyped> impl) {
-    return doAddProperty(name, new PropertyNode<>(impl));
+    return doAddProperty(name, () -> new PropertyNode<>(impl));
   }
 
   public VmObjectFactory<E> addListProperty(String name, Property<E, VmList> impl) {
-    return doAddProperty(name, new PropertyNode<>(impl));
+    return doAddProperty(name, () -> new PropertyNode<>(impl));
   }
 
   public VmObjectFactory<E> addSetProperty(String name, Property<E, VmSet> impl) {
-    return doAddProperty(name, new PropertyNode<>(impl));
+    return doAddProperty(name, () -> new PropertyNode<>(impl));
   }
 
   public VmObjectFactory<E> addMapProperty(String name, Property<E, VmMap> impl) {
-    return doAddProperty(name, new PropertyNode<>(impl));
+    return doAddProperty(name, () -> new PropertyNode<>(impl));
   }
 
   public VmObjectFactory<E> addClassProperty(String name, Property<E, VmClass> impl) {
-    return doAddProperty(name, new PropertyNode<>(impl));
+    return doAddProperty(name, () -> new PropertyNode<>(impl));
   }
 
   public <T> VmObjectFactory<E> addProperty(String name, Property<E, T> impl) {
-    return doAddProperty(name, new PropertyNode<>(impl));
+    return doAddProperty(name, () -> new PropertyNode<>(impl));
   }
 
   @TruffleBoundary
-  private VmObjectFactory<E> doAddProperty(String name, ExpressionNode bodyNode) {
-    var section = VmUtils.unavailableSourceSection();
-    var identifier = Identifier.get(name);
-    var member = new ObjectMember(section, section, VmModifier.NONE, identifier, name);
-    var node =
-        isPropertyTypeChecked
-            ? TypeCheckedPropertyNodeGen.create(null, new FrameDescriptor(), member, bodyNode)
-            : new UntypedObjectMemberNode(null, new FrameDescriptor(), member, bodyNode);
-    member.initMemberNode(node);
-    //noinspection ConstantValue
-    if (members.put(identifier, member) != null) {
-      throw new VmExceptionBuilder()
-          .bug(
-              "Duplicate definition of property `"
-                  + name
-                  + "` for object of type `"
-                  + classSupplier.get().getDisplayName()
-                  + "`.")
-          .build();
-    }
+  private synchronized VmObjectFactory<E> doAddProperty(
+      String name, Supplier<ExpressionNode> body) {
+    if (initialized)
+      throw new IllegalStateException("Configure factory properties before creating instances.");
+    if (definitions.containsKey(name))
+      throw new IllegalArgumentException("Duplicate factory property: " + name);
+    definitions.put(name, body);
     return this;
+  }
+
+  private synchronized UnmodifiableEconomicMap<Object, ObjectMember> createMembers() {
+    initialized = true;
+    var members = EconomicMaps.<Object, ObjectMember>create();
+    var cursor = definitions.getEntries();
+    while (cursor.advance()) {
+      var name = cursor.getKey();
+      var bodyNode = cursor.getValue().get();
+      var section = VmUtils.unavailableSourceSection();
+      var identifier = Identifier.get(name);
+      var member = new ObjectMember(section, section, VmModifier.NONE, identifier, name);
+      var node =
+          isPropertyTypeChecked
+              ? TypeCheckedPropertyNodeGen.create(
+                  VmLanguage.get(null), new FrameDescriptor(), member, bodyNode)
+              : new UntypedObjectMemberNode(
+                  VmLanguage.get(null), new FrameDescriptor(), member, bodyNode);
+      member.initMemberNode(node);
+      members.put(identifier, member);
+    }
+    return members;
   }
 
   @TruffleBoundary
@@ -113,7 +124,11 @@ public final class VmObjectFactory<E> {
     var clazz = classSupplier.get();
 
     var result =
-        new VmTyped(VmUtils.createEmptyMaterializedFrame(), clazz.getPrototype(), clazz, members);
+        new VmTyped(
+            VmUtils.createEmptyMaterializedFrame(),
+            clazz.getPrototype(),
+            clazz,
+            StdLibModule.factoryMembers(this, this::createMembers));
     result.setExtraStorage(extraStorage);
     return result;
   }
@@ -122,7 +137,12 @@ public final class VmObjectFactory<E> {
   public VmTyped create(@Nullable E extraStorage, VmTyped parent) {
     var clazz = classSupplier.get();
     assert parent.getVmClass() == clazz;
-    var result = new VmTyped(VmUtils.createEmptyMaterializedFrame(), parent, clazz, members);
+    var result =
+        new VmTyped(
+            VmUtils.createEmptyMaterializedFrame(),
+            parent,
+            clazz,
+            StdLibModule.factoryMembers(this, this::createMembers));
     result.setExtraStorage(extraStorage);
     return result;
   }

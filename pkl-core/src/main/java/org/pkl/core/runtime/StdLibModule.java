@@ -15,80 +15,103 @@
  */
 package org.pkl.core.runtime;
 
-import static org.pkl.core.PClassInfo.pklBaseUri;
-
 import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 import java.net.URI;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
-import org.pkl.core.Loggers;
-import org.pkl.core.SecurityManagers;
-import org.pkl.core.StackFrameTransformers;
-import org.pkl.core.evaluatorSettings.TraceMode;
-import org.pkl.core.http.HttpClient;
-import org.pkl.core.module.ModuleKeyFactories;
+import java.util.WeakHashMap;
+import java.util.function.Supplier;
+import org.graalvm.collections.UnmodifiableEconomicMap;
+import org.graalvm.polyglot.Context;
+import org.pkl.core.ast.member.ObjectMember;
 import org.pkl.core.module.ModuleKeys;
 import org.pkl.core.module.ResolvedModuleKey;
-import org.pkl.core.resource.ResourceReader;
-import org.pkl.core.resource.ResourceReaders;
 
+/** Access to standard-library state owned by the current Truffle language instance. */
 public abstract class StdLibModule {
   @TruffleBoundary
-  protected static void loadModule(URI uri, VmTyped instance) {
-    doLoad(uri, instance);
+  protected static VmTyped getModule(URI uri) {
+    return inContext(() -> VmLanguage.get(null).standardLibrary.getModule(uri));
   }
 
-  private static void doLoad(URI uri, VmTyped instance) {
-    VmUtils.createContext(
-            () -> {
-              var vmContext = VmContext.get(null);
-              var isPklBaseModule = uri.equals(pklBaseUri);
-              var resourceReaders =
-                  isPklBaseModule
-                      // needed when initializing `pkl:base` because of
-                      // `read("prop:pkl.outputFormat")`
-                      ? List.of(ResourceReaders.externalProperty())
-                      : List.<ResourceReader>of();
-              vmContext.initialize(
-                  new VmContext.Holder(
-                      StackFrameTransformers.defaultTransformer,
-                      SecurityManagers.defaultManager,
-                      HttpClient.dummyClient(),
-                      new ModuleResolver(List.of(ModuleKeyFactories.standardLibrary)),
-                      new ResourceManager(SecurityManagers.defaultManager, resourceReaders),
-                      Loggers.noop(),
-                      Map.of(),
-                      Map.of(),
-                      null,
-                      null,
-                      null,
-                      null,
-                      TraceMode.COMPACT,
-                      false));
-              var language = VmLanguage.get(null);
-              var moduleKey = ModuleKeys.standardLibrary(uri);
-              var source = VmUtils.loadSource((ResolvedModuleKey) moduleKey);
-              language.initializeModule(
-                  moduleKey,
-                  (ResolvedModuleKey) moduleKey,
-                  vmContext.getModuleResolver(),
-                  source,
-                  instance,
-                  null);
-              // evaluate eagerly to increase thread safety
-              // (stdlib module objects are statically shared singletons when running on JVM)
-              // and ensure compile-time evaluation in AOT mode
-              instance.force(false, true);
+  /**
+   * Runs internal factory work in the current context, or the legacy engine when none is entered.
+   */
+  @TruffleBoundary
+  public static <T> T inContext(Supplier<T> action) {
+    boolean entered;
+    try {
+      Context.getCurrent(); // Checks without the assertion used by Truffle language references.
+      VmLanguage.get(null);
+      entered = true;
+    } catch (IllegalStateException e) {
+      entered = false;
+    }
+    if (entered) return action.get();
+    try (var context = Context.newBuilder("pkl").engine(VmUtils.getEngine()).build()) {
+      context.initialize("pkl");
+      context.enter();
+      try {
+        return action.get();
+      } finally {
+        context.leave();
+      }
+    }
+  }
 
-              // seed base module's `output` members; `output` contains truffle nodes that
-              // need to be initialized statically (e.g. LetExprNode, TypeTestNode).
-              // additionally, its `cachedMembers` is not thread-safe and needs to be initialized
-              // statically.
-              if (isPklBaseModule) {
-                var output = VmUtils.readModuleOutput(instance);
-                output.force(false, true);
-              }
-            })
-        .close();
+  /** Factory ASTs, including roots with no language, must not be shared across engines. */
+  @TruffleBoundary
+  public static UnmodifiableEconomicMap<Object, ObjectMember> factoryMembers(
+      Object factory, Supplier<UnmodifiableEconomicMap<Object, ObjectMember>> builder) {
+    return inContext(() -> VmLanguage.get(null).standardLibrary.factoryMembers(factory, builder));
+  }
+
+  static final class Registry {
+    private final Map<Object, UnmodifiableEconomicMap<Object, ObjectMember>> factories =
+        new WeakHashMap<>();
+
+    synchronized UnmodifiableEconomicMap<Object, ObjectMember> factoryMembers(
+        Object factory, Supplier<UnmodifiableEconomicMap<Object, ObjectMember>> builder) {
+      return factories.computeIfAbsent(factory, ignored -> builder.get());
+    }
+
+    private final Map<URI, VmTyped> modules = new HashMap<>();
+    private final Map<URI, Throwable> failures = new HashMap<>();
+
+    @TruffleBoundary
+    synchronized VmTyped getModule(URI uri) {
+      var failure = failures.get(uri);
+      if (failure instanceof RuntimeException exception) throw exception;
+      if (failure instanceof Error error) throw error;
+      var existing = modules.get(uri);
+      if (existing != null) return existing;
+      var module = VmUtils.createEmptyModule();
+      // Recursive class/annotation initialization must see this same, partially built module.
+      // The registry lock prevents another thread from seeing it before initialization completes.
+      modules.put(uri, module);
+      try {
+        return VmContext.get(null)
+            .withStandardLibraryHolder(
+                () -> {
+                  var moduleKey = ModuleKeys.standardLibrary(uri);
+                  VmLanguage.get(null)
+                      .initializeModule(
+                          moduleKey,
+                          (ResolvedModuleKey) moduleKey,
+                          VmContext.get(null).getModuleResolver(),
+                          VmUtils.loadSource((ResolvedModuleKey) moduleKey),
+                          module,
+                          null);
+                  module.force(false, true);
+                  if (uri.toString().equals("pkl:base")) {
+                    VmUtils.readModuleOutput(module).force(false, true);
+                  }
+                  return module;
+                });
+      } catch (RuntimeException | Error e) {
+        failures.put(uri, e);
+        throw e;
+      }
+    }
   }
 }

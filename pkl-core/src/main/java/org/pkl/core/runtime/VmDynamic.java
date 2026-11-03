@@ -40,19 +40,14 @@ import org.pkl.core.util.EconomicMaps;
 public final class VmDynamic extends VmObject {
   private int cachedRegularMemberCount = -1;
 
-  private static final class EmptyHolder {
-    private static final VmDynamic EMPTY =
-        new VmDynamic(
-            VmUtils.createEmptyMaterializedFrame(),
-            BaseModule.getDynamicClass().getPrototype(),
-            EconomicMaps.create(),
-            0);
-  }
-
   private final int length;
 
   public static VmDynamic empty() {
-    return EmptyHolder.EMPTY;
+    return new VmDynamic(
+        VmUtils.createEmptyMaterializedFrame(),
+        BaseModule.getDynamicClass().getPrototype(),
+        EconomicMaps.create(),
+        0);
   }
 
   public VmDynamic(

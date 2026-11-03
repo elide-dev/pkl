@@ -19,24 +19,15 @@ import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 import java.net.URI;
 
 public final class NetModule extends StdLibModule {
-  private static final VmTyped instance = VmUtils.createEmptyModule();
-
-  static {
-    loadModule(URI.create("pkl:net"), instance);
-  }
 
   private NetModule() {}
 
   public static VmTyped getModule() {
-    return instance;
+    return getModule(URI.create("pkl:net"));
   }
 
   public static VmClass getUrlClass() {
-    return UrlClass.instance;
-  }
-
-  private static final class UrlClass {
-    static final VmClass instance = loadClass("Url");
+    return loadClass("Url");
   }
 
   @TruffleBoundary

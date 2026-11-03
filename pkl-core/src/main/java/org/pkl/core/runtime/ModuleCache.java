@@ -82,8 +82,7 @@ public final class ModuleCache {
     if (ModuleKeys.isStdLibModule(moduleKey)) {
       var moduleName = moduleKey.getUri().getSchemeSpecificPart();
 
-      // some standard library modules are cached as static singletons
-      // and hence aren't parsed/initialized anew for every evaluator
+      // Core standard-library modules are cached by the current language instance.
       switch (moduleName) {
         case "analyze":
           return AnalyzeModule.getModule();

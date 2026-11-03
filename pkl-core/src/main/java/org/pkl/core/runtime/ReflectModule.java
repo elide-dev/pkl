@@ -19,157 +19,79 @@ import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 import java.net.URI;
 
 public final class ReflectModule extends StdLibModule {
-  private static final VmTyped instance = VmUtils.createEmptyModule();
-
-  static {
-    // Forcing of `instance` inside `loadModule()` results in calls to methods such as
-    // `ReflectModule.getNullableTypeClass()` via `MirrorFactories`.
-    // By calling loadModule() in the outer class's static initializer (rather than having another
-    // nested class for this),
-    // initialization loops (e.g., during execution of native-image) are avoided.
-    loadModule(URI.create("pkl:reflect"), instance);
-  }
 
   private ReflectModule() {}
 
   public static VmTyped getModule() {
-    return instance;
+    return getModule(URI.create("pkl:reflect"));
   }
 
   public static VmClass getModuleClass() {
-    return ModuleClass.instance;
+    return loadClass("Module");
   }
 
   public static VmClass getClassClass() {
-    return ClassClass.instance;
+    return loadClass("Class");
   }
 
   public static VmClass getTypeAliasClass() {
-    return TypeAliasClass.instance;
+    return loadClass("TypeAlias");
   }
 
   public static VmClass getPropertyClass() {
-    return PropertyClass.instance;
+    return loadClass("Property");
   }
 
   public static VmClass getMethodClass() {
-    return MethodClass.instance;
+    return loadClass("Method");
   }
 
   public static VmClass getMethodParameterClass() {
-    return MethodParameterClass.instance;
+    return loadClass("MethodParameter");
   }
 
   public static VmClass getTypeParameterClass() {
-    return TypeParameterClass.instance;
+    return loadClass("TypeParameter");
   }
 
   public static VmClass getDeclaredTypeClass() {
-    return DeclaredTypeClass.instance;
+    return loadClass("DeclaredType");
   }
 
   public static VmClass getStringLiteralTypeClass() {
-    return StringLiteralTypeClass.instance;
+    return loadClass("StringLiteralType");
   }
 
   public static VmClass getUnionTypeClass() {
-    return UnionTypeClass.instance;
+    return loadClass("UnionType");
   }
 
   public static VmClass getNullableTypeClass() {
-    return NullableTypeClass.instance;
+    return loadClass("NullableType");
   }
 
   public static VmClass getModuleTypeClass() {
-    return ModuleTypeClass.instance;
+    return loadClass("ModuleType");
   }
 
   public static VmClass getThisTypeClass() {
-    return ThisTypeClass.instance;
+    return loadClass("ThisType");
   }
 
   public static VmClass getFunctionTypeClass() {
-    return FunctionTypeClass.instance;
+    return loadClass("FunctionType");
   }
 
   public static VmClass getUnknownTypeClass() {
-    return UnknownTypeClass.instance;
+    return loadClass("UnknownType");
   }
 
   public static VmClass getNothingTypeClass() {
-    return NothingTypeClass.instance;
+    return loadClass("NothingType");
   }
 
   public static VmClass getTypeVariableClass() {
-    return TypeVariableClass.instance;
-  }
-
-  private static final class ModuleClass {
-    static final VmClass instance = loadClass("Module");
-  }
-
-  private static final class ClassClass {
-    static final VmClass instance = loadClass("Class");
-  }
-
-  private static final class TypeAliasClass {
-    static final VmClass instance = loadClass("TypeAlias");
-  }
-
-  private static final class PropertyClass {
-    static final VmClass instance = loadClass("Property");
-  }
-
-  private static final class MethodClass {
-    static final VmClass instance = loadClass("Method");
-  }
-
-  private static final class MethodParameterClass {
-    static final VmClass instance = loadClass("MethodParameter");
-  }
-
-  private static final class TypeParameterClass {
-    static final VmClass instance = loadClass("TypeParameter");
-  }
-
-  private static final class DeclaredTypeClass {
-    static final VmClass instance = loadClass("DeclaredType");
-  }
-
-  private static final class StringLiteralTypeClass {
-    static final VmClass instance = loadClass("StringLiteralType");
-  }
-
-  private static final class UnionTypeClass {
-    static final VmClass instance = loadClass("UnionType");
-  }
-
-  private static final class NullableTypeClass {
-    static final VmClass instance = loadClass("NullableType");
-  }
-
-  private static final class ModuleTypeClass {
-    static final VmClass instance = loadClass("ModuleType");
-  }
-
-  private static final class ThisTypeClass {
-    static final VmClass instance = loadClass("ThisType");
-  }
-
-  private static final class FunctionTypeClass {
-    static final VmClass instance = loadClass("FunctionType");
-  }
-
-  private static final class UnknownTypeClass {
-    static final VmClass instance = loadClass("UnknownType");
-  }
-
-  private static final class NothingTypeClass {
-    static final VmClass instance = loadClass("NothingType");
-  }
-
-  private static final class TypeVariableClass {
-    static final VmClass instance = loadClass("TypeVariable");
+    return loadClass("TypeVariable");
   }
 
   @TruffleBoundary

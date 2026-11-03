@@ -22,101 +22,96 @@ import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 import com.oracle.truffle.api.dsl.Idempotent;
 
 public final class BaseModule extends StdLibModule {
-  static final VmTyped instance = VmUtils.createEmptyModule();
-
-  static {
-    loadModule(pklBaseUri, instance);
-  }
 
   public static VmTyped getModule() {
-    return instance;
+    return getModule(pklBaseUri);
   }
 
   public static VmClass getAnyClass() {
-    return AnyClass.instance;
+    return loadClass("Any");
   }
 
   public static VmClass getObjectClass() {
-    return ObjectClass.instance;
+    return loadClass("Object");
   }
 
   public static VmClass getTypedClass() {
-    return TypedClass.instance;
+    return loadClass("Typed");
   }
 
   public static VmClass getNullClass() {
-    return NullClass.instance;
+    return loadClass("Null");
   }
 
   public static VmClass getNumberClass() {
-    return NumberClass.instance;
+    return loadClass("Number");
   }
 
   public static VmClass getIntClass() {
-    return IntClass.instance;
+    return loadClass("Int");
   }
 
   public static VmClass getFloatClass() {
-    return FloatClass.instance;
+    return loadClass("Float");
   }
 
   public static VmClass getStringClass() {
-    return StringClass.instance;
+    return loadClass("String");
   }
 
   public static VmClass getBooleanClass() {
-    return BooleanClass.instance;
+    return loadClass("Boolean");
   }
 
   public static VmClass getDurationClass() {
-    return DurationClass.instance;
+    return loadClass("Duration");
   }
 
   public static VmClass getDataSizeClass() {
-    return DataSizeClass.instance;
+    return loadClass("DataSize");
   }
 
   public static VmClass getBytesClass() {
-    return BytesClass.instance;
+    return loadClass("Bytes");
   }
 
   public static VmClass getIntSeqClass() {
-    return IntSeqClass.instance;
+    return loadClass("IntSeq");
   }
 
   public static VmClass getCollectionClass() {
-    return CollectionClass.instance;
+    return loadClass("Collection");
   }
 
   public static VmClass getListClass() {
-    return ListClass.instance;
+    return loadClass("List");
   }
 
   public static VmClass getSetClass() {
-    return SetClass.instance;
+    return loadClass("Set");
   }
 
   @Idempotent
   public static VmClass getListingClass() {
-    return ListingClass.instance;
+    return loadClass("Listing");
   }
 
   public static VmClass getMapClass() {
-    return MapClass.instance;
+    return loadClass("Map");
   }
 
   @Idempotent
   public static VmClass getMappingClass() {
-    return MappingClass.instance;
+    return loadClass("Mapping");
   }
 
   @Idempotent
   public static VmClass getDynamicClass() {
-    return DynamicClass.instance;
+    return loadClass("Dynamic");
   }
 
   public static VmClass getRenderDirectiveClass() {
-    return RenderDirectiveClass.instance;
+    return loadClass("RenderDirective");
   }
 
   /**
@@ -124,28 +119,28 @@ public final class BaseModule extends StdLibModule {
    * getModule().getVmClass()}.
    */
   public static VmClass getModuleClass() {
-    return ModuleClass.instance;
+    return loadClass("Module");
   }
 
   public static VmClass getClassClass() {
-    return ClassClass.instance;
+    return loadClass("Class");
   }
 
   public static VmClass getTypeAliasClass() {
-    return TypeAliasClass.instance;
+    return loadClass("TypeAlias");
   }
 
   public static VmClass getRegexClass() {
-    return RegexClass.instance;
+    return loadClass("Regex");
   }
 
   public static VmClass getRegexMatchClass() {
-    return RegexMatchClass.instance;
+    return loadClass("RegexMatch");
   }
 
   @Idempotent
   public static VmClass getFunctionClass() {
-    return FunctionClass.instance;
+    return loadClass("Function");
   }
 
   public static VmClass getFunctionNClass(int paramCount) {
@@ -165,295 +160,95 @@ public final class BaseModule extends StdLibModule {
   }
 
   public static VmClass getFunction0Class() {
-    return Function0Class.instance;
+    return loadClass("Function0");
   }
 
   public static VmClass getFunction1Class() {
-    return Function1Class.instance;
+    return loadClass("Function1");
   }
 
   public static VmClass getFunction2Class() {
-    return Function2Class.instance;
+    return loadClass("Function2");
   }
 
   public static VmClass getFunction3Class() {
-    return Function3Class.instance;
+    return loadClass("Function3");
   }
 
   public static VmClass getFunction4Class() {
-    return Function4Class.instance;
+    return loadClass("Function4");
   }
 
   public static VmClass getFunction5Class() {
-    return Function5Class.instance;
+    return loadClass("Function5");
   }
 
   public static VmClass getPairClass() {
-    return PairClass.instance;
+    return loadClass("Pair");
   }
 
   public static VmClass getVarArgsClass() {
-    return VarArgsClass.instance;
+    return loadClass("VarArgs");
   }
 
   public static VmClass getModuleInfoClass() {
-    return ModuleInfoClass.instance;
+    return loadClass("ModuleInfo");
   }
 
   public static VmClass getAnnotationClass() {
-    return AnnotationClass.instance;
+    return loadClass("Annotation");
   }
 
   public static VmClass getConvertPropertyClass() {
-    return ConvertPropertyClass.instance;
+    return loadClass("ConvertProperty");
   }
 
   public static VmClass getDeprecatedClass() {
-    return DeprecatedClass.instance;
+    return loadClass("Deprecated");
   }
 
   public static VmClass getResourceClass() {
-    return ResourceClass.instance;
+    return loadClass("Resource");
   }
 
   public static VmTypeAlias getNonNullTypeAlias() {
-    return NonNullTypeAlias.instance;
+    return loadTypeAlias("NonNull");
   }
 
   public static VmTypeAlias getInt8TypeAlias() {
-    return Int8TypeAlias.instance;
+    return loadTypeAlias("Int8");
   }
 
   public static VmTypeAlias getInt16TypeAlias() {
-    return Int16TypeAlias.instance;
+    return loadTypeAlias("Int16");
   }
 
   public static VmTypeAlias getInt32TypeAlias() {
-    return Int32TypeAlias.instance;
+    return loadTypeAlias("Int32");
   }
 
   public static VmTypeAlias getMixinTypeAlias() {
-    return MixinTypeAlias.instance;
+    return loadTypeAlias("Mixin");
   }
 
   public static VmTypeAlias getUIntTypeAlias() {
-    return UIntTypeAlias.instance;
+    return loadTypeAlias("UInt");
   }
 
   public static VmTypeAlias getUInt8TypeAlias() {
-    return UInt8TypeAlias.instance;
+    return loadTypeAlias("UInt8");
   }
 
   public static VmTypeAlias getUInt16TypeAlias() {
-    return UInt16TypeAlias.instance;
+    return loadTypeAlias("UInt16");
   }
 
   public static VmTypeAlias getUInt32TypeAlias() {
-    return UInt32TypeAlias.instance;
+    return loadTypeAlias("UInt32");
   }
 
   public static VmTypeAlias getCharTypeAlias() {
-    return CharTypeAlias.instance;
-  }
-
-  private static final class AnyClass {
-    static final VmClass instance = loadClass("Any");
-  }
-
-  private static final class ObjectClass {
-    static final VmClass instance = loadClass("Object");
-  }
-
-  private static final class TypedClass {
-    static final VmClass instance = loadClass("Typed");
-  }
-
-  private static final class NullClass {
-    static final VmClass instance = loadClass("Null");
-  }
-
-  private static final class NumberClass {
-    static final VmClass instance = loadClass("Number");
-  }
-
-  private static final class IntClass {
-    static final VmClass instance = loadClass("Int");
-  }
-
-  private static final class FloatClass {
-    static final VmClass instance = loadClass("Float");
-  }
-
-  private static final class StringClass {
-    static final VmClass instance = loadClass("String");
-  }
-
-  private static final class BooleanClass {
-    static final VmClass instance = loadClass("Boolean");
-  }
-
-  private static final class DurationClass {
-    static final VmClass instance = loadClass("Duration");
-  }
-
-  private static final class DataSizeClass {
-    static final VmClass instance = loadClass("DataSize");
-  }
-
-  private static final class BytesClass {
-    static final VmClass instance = loadClass("Bytes");
-  }
-
-  private static final class IntSeqClass {
-    static final VmClass instance = loadClass("IntSeq");
-  }
-
-  private static final class CollectionClass {
-    static final VmClass instance = loadClass("Collection");
-  }
-
-  private static final class ListClass {
-    static final VmClass instance = loadClass("List");
-  }
-
-  private static final class SetClass {
-    static final VmClass instance = loadClass("Set");
-  }
-
-  private static final class ListingClass {
-    static final VmClass instance = loadClass("Listing");
-  }
-
-  private static final class MapClass {
-    static final VmClass instance = loadClass("Map");
-  }
-
-  private static final class MappingClass {
-    static final VmClass instance = loadClass("Mapping");
-  }
-
-  private static final class DynamicClass {
-    static final VmClass instance = loadClass("Dynamic");
-  }
-
-  private static final class ModuleClass {
-    static final VmClass instance = loadClass("Module");
-  }
-
-  private static final class ClassClass {
-    static final VmClass instance = loadClass("Class");
-  }
-
-  private static final class TypeAliasClass {
-    static final VmClass instance = loadClass("TypeAlias");
-  }
-
-  private static final class RegexClass {
-    static final VmClass instance = loadClass("Regex");
-  }
-
-  private static final class RegexMatchClass {
-    static final VmClass instance = loadClass("RegexMatch");
-  }
-
-  private static final class RenderDirectiveClass {
-    static final VmClass instance = loadClass("RenderDirective");
-  }
-
-  private static final class PairClass {
-    static final VmClass instance = loadClass("Pair");
-  }
-
-  private static final class VarArgsClass {
-    static final VmClass instance = loadClass("VarArgs");
-  }
-
-  private static final class ModuleInfoClass {
-    static final VmClass instance = loadClass("ModuleInfo");
-  }
-
-  private static final class AnnotationClass {
-    static final VmClass instance = loadClass("Annotation");
-  }
-
-  private static final class ConvertPropertyClass {
-    static final VmClass instance = loadClass("ConvertProperty");
-  }
-
-  private static final class DeprecatedClass {
-    static final VmClass instance = loadClass("Deprecated");
-  }
-
-  private static final class ResourceClass {
-    static final VmClass instance = loadClass("Resource");
-  }
-
-  private static final class FunctionClass {
-    static final VmClass instance = loadClass("Function");
-  }
-
-  private static final class Function0Class {
-    static final VmClass instance = loadClass("Function0");
-  }
-
-  private static final class Function1Class {
-    static final VmClass instance = loadClass("Function1");
-  }
-
-  private static final class Function2Class {
-    static final VmClass instance = loadClass("Function2");
-  }
-
-  private static final class Function3Class {
-    static final VmClass instance = loadClass("Function3");
-  }
-
-  private static final class Function4Class {
-    static final VmClass instance = loadClass("Function4");
-  }
-
-  private static final class Function5Class {
-    static final VmClass instance = loadClass("Function5");
-  }
-
-  private static final class NonNullTypeAlias {
-    static final VmTypeAlias instance = loadTypeAlias("NonNull");
-  }
-
-  private static final class Int8TypeAlias {
-    static final VmTypeAlias instance = loadTypeAlias("Int8");
-  }
-
-  private static final class Int16TypeAlias {
-    static final VmTypeAlias instance = loadTypeAlias("Int16");
-  }
-
-  private static final class Int32TypeAlias {
-    static final VmTypeAlias instance = loadTypeAlias("Int32");
-  }
-
-  private static final class UIntTypeAlias {
-    static final VmTypeAlias instance = loadTypeAlias("UInt");
-  }
-
-  private static final class UInt8TypeAlias {
-    static final VmTypeAlias instance = loadTypeAlias("UInt8");
-  }
-
-  private static final class UInt16TypeAlias {
-    static final VmTypeAlias instance = loadTypeAlias("UInt16");
-  }
-
-  private static final class UInt32TypeAlias {
-    static final VmTypeAlias instance = loadTypeAlias("UInt32");
-  }
-
-  private static final class CharTypeAlias {
-    static final VmTypeAlias instance = loadTypeAlias("Char");
-  }
-
-  private static final class MixinTypeAlias {
-    static final VmTypeAlias instance = loadTypeAlias("Mixin");
+    return loadTypeAlias("Char");
   }
 
   @TruffleBoundary

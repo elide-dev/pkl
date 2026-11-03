@@ -19,38 +19,21 @@ import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 import java.net.URI;
 
 public final class SyntaxModule extends StdLibModule {
-  private static final VmTyped instance = VmUtils.createEmptyModule();
-
-  static {
-    loadModule(URI.create("pkl:syntax"), instance);
-  }
 
   public static VmTyped getModule() {
-    return instance;
+    return getModule(URI.create("pkl:syntax"));
   }
 
   public static VmClass getNodeClass() {
-    return NodeClass.instance;
+    return loadClass("Node");
   }
 
   public static VmClass getSpanClass() {
-    return SpanClass.instance;
+    return loadClass("Span");
   }
 
   public static VmClass getSourceLocationClass() {
-    return SourceLocationClass.instance;
-  }
-
-  private static final class NodeClass {
-    static final VmClass instance = loadClass("Node");
-  }
-
-  private static final class SpanClass {
-    static final VmClass instance = loadClass("Span");
-  }
-
-  private static final class SourceLocationClass {
-    static final VmClass instance = loadClass("SourceLocation");
+    return loadClass("SourceLocation");
   }
 
   @TruffleBoundary

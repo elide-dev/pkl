@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2026 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,24 +20,15 @@ import static org.pkl.core.PClassInfo.pklSemverUri;
 import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 
 public final class SemVerModule extends StdLibModule {
-  private static final VmTyped instance = VmUtils.createEmptyModule();
-
-  static {
-    loadModule(pklSemverUri, instance);
-  }
 
   private SemVerModule() {}
 
   public static VmTyped getModule() {
-    return instance;
+    return getModule(pklSemverUri);
   }
 
   public static VmClass getVersionClass() {
-    return VersionClass.instance;
-  }
-
-  private static final class VersionClass {
-    static final VmClass instance = loadClass("Version");
+    return loadClass("Version");
   }
 
   @TruffleBoundary

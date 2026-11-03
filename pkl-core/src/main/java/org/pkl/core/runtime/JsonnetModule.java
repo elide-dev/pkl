@@ -1,5 +1,5 @@
 /*
- * Copyright © 2024 Apple Inc. and the Pkl project authors. All rights reserved.
+ * Copyright © 2024-2026 Apple Inc. and the Pkl project authors. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,30 +19,17 @@ import com.oracle.truffle.api.CompilerDirectives.TruffleBoundary;
 import java.net.URI;
 
 public final class JsonnetModule extends StdLibModule {
-  private static final VmTyped instance = VmUtils.createEmptyModule();
-
-  static {
-    loadModule(URI.create("pkl:jsonnet"), instance);
-  }
 
   public static VmTyped getModule() {
-    return instance;
+    return getModule(URI.create("pkl:jsonnet"));
   }
 
   public static VmClass getImportStrClass() {
-    return ImportStrClass.instance;
+    return loadClass("ImportStr");
   }
 
   public static VmClass getExtVarClass() {
-    return ExtVarClass.instance;
-  }
-
-  private static final class ImportStrClass {
-    static final VmClass instance = loadClass("ImportStr");
-  }
-
-  private static final class ExtVarClass {
-    static final VmClass instance = loadClass("ExtVar");
+    return loadClass("ExtVar");
   }
 
   @TruffleBoundary

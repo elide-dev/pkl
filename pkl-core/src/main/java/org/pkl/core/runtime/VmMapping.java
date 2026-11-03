@@ -38,14 +38,6 @@ public final class VmMapping extends VmListingOrMapping {
   private static final EnumSet<CursorOption> isEmptyComputationCursor =
       EnumSet.of(CursorOption.ANY_ORDER, CursorOption.LAZY_REQUIRED);
 
-  private static final class EmptyHolder {
-    private static final VmMapping EMPTY =
-        new VmMapping(
-            VmUtils.createEmptyMaterializedFrame(),
-            BaseModule.getMappingClass().getPrototype(),
-            EconomicMaps.create());
-  }
-
   @CompilationFinal private long cachedLength = -1;
   @CompilationFinal private boolean isEmptyComputed;
   @CompilationFinal private boolean isEmpty;
@@ -54,7 +46,10 @@ public final class VmMapping extends VmListingOrMapping {
   private @Nullable VmSet __allKeys;
 
   public static VmMapping empty() {
-    return EmptyHolder.EMPTY;
+    return new VmMapping(
+        VmUtils.createEmptyMaterializedFrame(),
+        BaseModule.getMappingClass().getPrototype(),
+        EconomicMaps.create());
   }
 
   public VmMapping(
