@@ -11,7 +11,7 @@ errorPronePlugin = "5.1.0"
 geantyref = "2.0.1"
 #noinspection UnusedVersionCatalogEntry
 googleJavaFormat = "1.35.0"
-graalVm = "25.5.5-elide.21"
+graalVm = "25.5.5-elide.28"
 graalVmJdkVersion = "25.0.4"
 #noinspection UnusedVersionCatalogEntry
 graalVmInnovation = "2"

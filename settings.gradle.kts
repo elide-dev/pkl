@@ -73,7 +73,7 @@ plugins { id("org.gradle.toolchains.foojay-resolver-convention") version ("1.0.0
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
   repositories {
-    maven("https://maven.elide.dev/gvm-elide/25.5.5-elide.21") {
+    maven("https://maven.elide.dev/gvm-elide/25.5.5-elide.28") {
       content { includeGroupByRegex("org\\.graalvm.*") }
     }
     mavenCentral()
